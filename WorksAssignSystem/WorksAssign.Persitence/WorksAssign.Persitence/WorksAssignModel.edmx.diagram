@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c412b6993bc74a0b8d45edd1ac8cdd1e" Name="Diagram1">
+        <EntityTypeShape EntityType="WorksAssignModel.DayOff" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorksAssignModel.Employee" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorksAssignModel.ExWorkdays" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorksAssignModel.Role" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkBonus" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkContent" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkInvolve" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkType" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="WorksAssignModel.FK_DayOff_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="WorksAssignModel.FK_Role_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkContent_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_2_0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
