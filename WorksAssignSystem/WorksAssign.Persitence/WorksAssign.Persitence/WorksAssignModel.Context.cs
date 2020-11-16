@@ -33,5 +33,8 @@ namespace WorksAssign.Persistence
         public virtual DbSet<WorkContent> WorkContent { get; set; }
         public virtual DbSet<WorkInvolve> WorkInvolve { get; set; }
         public virtual DbSet<WorkType> WorkType { get; set; }
+        public virtual DbSet<MaintenceRecord> MaintenceRecord { get; set; }
+        public virtual DbSet<Substations> Substations { get; set; }
+        public virtual DbSet<V_AllPoints> V_AllPoints { get; set; }
     }
 }

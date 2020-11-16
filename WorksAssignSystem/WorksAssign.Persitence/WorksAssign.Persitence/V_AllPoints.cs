@@ -12,12 +12,15 @@ namespace WorksAssign.Persistence
     using System;
     using System.Collections.Generic;
     
-    public partial class ExWorkdays
+    public partial class V_AllPoints
     {
-        public long ID { get; set; }
-        public DateTime Date { get; set; }
-        public bool IsHoliday { get; set; }
-        public bool IsWorkday { get; set; }
-        public string Comments { get; set; }
+        public DateTime WorkDate { get; set; }
+        public string WorkType { get; set; }
+        public string WorkContent { get; set; }
+        public long EmpId { get; set; }
+        public string Name { get; set; }
+        public string RoleName { get; set; }
+        public double RoleWgt { get; set; }
+        public double TypeWgt { get; set; }
     }
 }

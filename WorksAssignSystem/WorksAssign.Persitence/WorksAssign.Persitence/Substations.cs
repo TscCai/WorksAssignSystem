@@ -12,23 +12,20 @@ namespace WorksAssign.Persistence
     using System;
     using System.Collections.Generic;
     
-    public partial class WorkContent
+    public partial class Substations
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public WorkContent()
+        public Substations()
         {
-            this.WorkInvolve = new HashSet<WorkInvolve>();
+            this.WorkContent = new HashSet<WorkContent>();
         }
     
-        public long ID { get; set; }
-        public Nullable<long> TID { get; set; }
-        public Nullable<System.DateTime> WorkDate { get; set; }
-        public string Content { get; set; }
-        public Nullable<long> SID { get; set; }
+        public long Id { get; set; }
+        public long Voltage { get; set; }
+        public string SubstationName { get; set; }
+        public string Location { get; set; }
     
-        public virtual WorkType WorkType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkInvolve> WorkInvolve { get; set; }
-        public virtual Substations Substations { get; set; }
+        public virtual ICollection<WorkContent> WorkContent { get; set; }
     }
 }

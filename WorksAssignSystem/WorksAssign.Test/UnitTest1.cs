@@ -10,10 +10,11 @@ namespace WorksAssign.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
-			var e = DbService.GetAllEmpolyees();
-			foreach (var i in e)
+			DbService db = new DbService();
+			var e = db.GetEmployee("朱林");
+			if (e != null)
 			{
-				Console.WriteLine(i.Name);
+				Console.WriteLine(e.IsCCP);
 			}
 		}
 	}

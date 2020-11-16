@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorksAssign.Persistence", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorksAssign.Test", "WorksAssign.Test\WorksAssign.Test.csproj", "{4AAF98F8-DD33-4C1A-BAB6-527920A75192}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorksAssign.Util", "WorksAssign.Util\WorksAssign.Util.csproj", "{837EE222-9CD7-4980-8176-3CC4C0F0411E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4AAF98F8-DD33-4C1A-BAB6-527920A75192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AAF98F8-DD33-4C1A-BAB6-527920A75192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AAF98F8-DD33-4C1A-BAB6-527920A75192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{837EE222-9CD7-4980-8176-3CC4C0F0411E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{837EE222-9CD7-4980-8176-3CC4C0F0411E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{837EE222-9CD7-4980-8176-3CC4C0F0411E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{837EE222-9CD7-4980-8176-3CC4C0F0411E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

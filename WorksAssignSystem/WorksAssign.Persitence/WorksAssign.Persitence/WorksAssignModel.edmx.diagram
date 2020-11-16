@@ -19,6 +19,10 @@
         <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="WorksAssignModel.FK_WorkContent_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_2_0" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WorksAssignModel.MaintenceRecord" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="WorksAssignModel.Substations" Width="1.5" PointX="9.375" PointY="6.75" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkContent_0_01" />
+        <EntityTypeShape EntityType="WorksAssignModel.V_AllPoints" Width="1.5" PointX="7.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

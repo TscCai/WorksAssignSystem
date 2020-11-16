@@ -78,8 +78,17 @@
     <Compile Include="ExWorkdays.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MaintenceRecord.cs">
+      <DependentUpon>WorksAssignModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs">
+      <DependentUpon>WorksAssignModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Substations.cs">
+      <DependentUpon>WorksAssignModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_AllPoints.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WorkBonus.cs">
