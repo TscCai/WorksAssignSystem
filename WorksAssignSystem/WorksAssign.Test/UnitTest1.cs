@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WorksAssign.Persistence;
 
@@ -11,11 +12,10 @@ namespace WorksAssign.Test
 		public void TestMethod1()
 		{
 			DbService db = new DbService();
-			var e = db.GetEmployee("朱林");
-			if (e != null)
-			{
-				Console.WriteLine(e.IsCCP);
-			}
+            var e = db.GetSubstation().ToList();
+            foreach (var i in e) {
+                Console.WriteLine(i.SubstationName);
+            }
 		}
 	}
 }

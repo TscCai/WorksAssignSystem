@@ -92,7 +92,7 @@ namespace WorksAssign.Util {
             int currentMonth = startDate.Month;
 
             // 逐个计算个人绩效
-            foreach (Employee emp in Db.GetEmpolyee()) {
+            foreach (Employee emp in Db.GetEmployee()) {
 
                 // Id=1 为外部人员，不参与绩效计算
                 if (emp.Id == 1) {

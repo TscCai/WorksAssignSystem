@@ -24,7 +24,7 @@ namespace WorksAssign.Persistence {
 
         #region Table Employee
 
-        public IQueryable<Employee> GetEmpolyee()
+        public IQueryable<Employee> GetEmployee()
         {
             return db.Employee;
         }
