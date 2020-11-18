@@ -85,6 +85,12 @@
     <Compile Include="Pages\NewWorks.Designer.cs">
       <DependentUpon>NewWorks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ViewWorks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\ViewWorks.Designer.cs">
+      <DependentUpon>ViewWorks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Outline.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\NewWorks.resx">
       <DependentUpon>NewWorks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ViewWorks.resx">
+      <DependentUpon>ViewWorks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Outline.resx">
       <DependentUpon>Outline.cs</DependentUpon>
@@ -113,6 +122,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
+    <None Include="App_Data\WorksAssign.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -124,9 +136,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\WorksAssign.Persitence\WorksAssign.Persitence\WorksAssign.Persistence.csproj">
       <Project>{300b92f4-ffdd-4d54-b537-b1e4bb2008cb}</Project>

@@ -23,7 +23,7 @@ namespace WorksAssign.Persistence
     
         public long ID { get; set; }
         public string Content { get; set; }
-        public Nullable<double> TypeWgt { get; set; }
+        public double TypeWgt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Role { get; set; }

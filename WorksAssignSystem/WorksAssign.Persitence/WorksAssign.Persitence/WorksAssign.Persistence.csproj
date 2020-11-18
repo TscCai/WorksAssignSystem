@@ -85,6 +85,7 @@
     <Compile Include="Role.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RoleNameType.cs" />
     <Compile Include="Substations.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>

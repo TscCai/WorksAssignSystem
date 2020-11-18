@@ -19,19 +19,19 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="Sex" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="IsCCP" Type="bit" />
-          <Property Name="JoinDate" Type="datetime" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="IsCCP" Type="bit" Nullable="false" />
+          <Property Name="JoinDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ExWorkdays">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="datetime" />
-          <Property Name="IsHoliday" Type="bit" />
-          <Property Name="IsWorkday" Type="bit" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="IsHoliday" Type="bit" Nullable="false" />
+          <Property Name="IsWorkday" Type="bit" Nullable="false" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="MaintenceRecord">
@@ -39,10 +39,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StationID" Type="integer" />
-          <Property Name="EquipID" Type="integer" />
-          <Property Name="TypeID" Type="integer" />
-          <Property Name="Content" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="StationID" Type="integer" Nullable="false" />
+          <Property Name="EquipID" Type="integer" Nullable="false" />
+          <Property Name="TypeID" Type="integer" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Measure" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="Role">
@@ -50,9 +50,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TID" Type="integer" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="RoleWgt" Type="real" />
+          <Property Name="TID" Type="integer" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="RoleWgt" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="Substations">
           <Key>
@@ -68,28 +68,29 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Score" Type="real" />
-          <Property Name="Reason" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="WIID" Type="integer" />
+          <Property Name="WIID" Type="integer" Nullable="false" />
+          <Property Name="Score" Type="real" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkContent">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TID" Type="integer" />
-          <Property Name="SID" Type="integer" />
-          <Property Name="WorkDate" Type="datetime" />
-          <Property Name="Content" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="TID" Type="integer" Nullable="false" />
+          <Property Name="SID" Type="integer" Nullable="false" />
+          <Property Name="WorkDate" Type="datetime" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="WorkInvolve">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="WID" Type="integer" />
-          <Property Name="EID" Type="integer" />
-          <Property Name="RID" Type="integer" />
+          <Property Name="WID" Type="integer" Nullable="false" />
+          <Property Name="EID" Type="integer" Nullable="false" />
+          <Property Name="RID" Type="integer" Nullable="false" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="WorkType">
@@ -98,22 +99,27 @@
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Content" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="TypeWgt" Type="real" />
+          <Property Name="TypeWgt" Type="real" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6005: 目标实体框架版本目前不支持数据类型“”；已排除表“main.V_AllPoints”中的列“WorkDate”。
 警告 6002: 表/视图“main.V_AllPoints”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="V_AllPoints">
           <Key>
+            <PropertyRef Name="WorkContent" />
             <PropertyRef Name="EmpId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="RoleName" />
+            <PropertyRef Name="RoleWgt" />
+            <PropertyRef Name="TypeWgt" />
           </Key>
-          <Property Name="WorkDate" Type="datetime" />
           <Property Name="WorkType" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="WorkContent" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="WorkContent" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="EmpId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="RoleWgt" Type="real" />
-          <Property Name="TypeWgt" Type="real" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="RoleWgt" Type="real" Nullable="false" />
+          <Property Name="TypeWgt" Type="real" Nullable="false" />
         </EntityType>
         <Association Name="FK_DayOff_0_0">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -128,7 +134,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Role_0_0">
-          <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
+          <End Role="WorkType" Type="Self.WorkType" Multiplicity="1" />
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkType">
@@ -143,7 +149,7 @@
 警告 6035: 关系“FK_WorkBonus_0_0”在关系主端上有一些列不属于表的键的一部分。已排除了此关系。
         <Association Name="FK_WorkBonus_0_0" />-->
         <Association Name="FK_WorkContent_0_0">
-          <End Role="Substations" Type="Self.Substations" Multiplicity="0..1" />
+          <End Role="Substations" Type="Self.Substations" Multiplicity="1" />
           <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Substations">
@@ -155,7 +161,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkContent_1_0">
-          <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
+          <End Role="WorkType" Type="Self.WorkType" Multiplicity="1" />
           <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkType">
@@ -167,7 +173,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkInvolve_0_0">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="WorkInvolve" Type="Self.WorkInvolve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
@@ -179,7 +185,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkInvolve_1_0">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="WorkInvolve" Type="Self.WorkInvolve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -191,7 +197,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkInvolve_2_0">
-          <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="0..1" />
+          <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="1" />
           <End Role="WorkInvolve" Type="Self.WorkInvolve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkContent">
@@ -215,7 +221,6 @@
           <EntitySet Name="WorkType" EntityType="Self.WorkType" store:Type="Tables" />
           <EntitySet Name="V_AllPoints" EntityType="Self.V_AllPoints" store:Type="Views">
             <DefiningQuery>SELECT 
-[V_AllPoints].[WorkDate] AS [WorkDate], 
 [V_AllPoints].[WorkType] AS [WorkType], 
 [V_AllPoints].[WorkContent] AS [WorkContent], 
 [V_AllPoints].[EmpId] AS [EmpId], 
@@ -258,6 +263,47 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WorksAssignModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WorksAssignEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DayOff" EntityType="WorksAssignModel.DayOff" />
+          <EntitySet Name="Employee" EntityType="WorksAssignModel.Employee" />
+          <EntitySet Name="ExWorkdays" EntityType="WorksAssignModel.ExWorkdays" />
+          <EntitySet Name="MaintenceRecord" EntityType="WorksAssignModel.MaintenceRecord" />
+          <EntitySet Name="Role" EntityType="WorksAssignModel.Role" />
+          <EntitySet Name="Substations" EntityType="WorksAssignModel.Substations" />
+          <EntitySet Name="WorkBonus" EntityType="WorksAssignModel.WorkBonus" />
+          <EntitySet Name="WorkContent" EntityType="WorksAssignModel.WorkContent" />
+          <EntitySet Name="WorkInvolve" EntityType="WorksAssignModel.WorkInvolve" />
+          <EntitySet Name="WorkType" EntityType="WorksAssignModel.WorkType" />
+          <EntitySet Name="V_AllPoints" EntityType="WorksAssignModel.V_AllPoints" />
+          <AssociationSet Name="FK_DayOff_0_0" Association="WorksAssignModel.FK_DayOff_0_0">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="DayOff" EntitySet="DayOff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkInvolve_1_0" Association="WorksAssignModel.FK_WorkInvolve_1_0">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="WorkInvolve" EntitySet="WorkInvolve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_0_0" Association="WorksAssignModel.FK_Role_0_0">
+            <End Role="WorkType" EntitySet="WorkType" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkInvolve_0_0" Association="WorksAssignModel.FK_WorkInvolve_0_0">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="WorkInvolve" EntitySet="WorkInvolve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkContent_0_0" Association="WorksAssignModel.FK_WorkContent_0_0">
+            <End Role="Substations" EntitySet="Substations" />
+            <End Role="WorkContent" EntitySet="WorkContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkContent_1_0" Association="WorksAssignModel.FK_WorkContent_1_0">
+            <End Role="WorkType" EntitySet="WorkType" />
+            <End Role="WorkContent" EntitySet="WorkContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkInvolve_2_0" Association="WorksAssignModel.FK_WorkInvolve_2_0">
+            <End Role="WorkContent" EntitySet="WorkContent" />
+            <End Role="WorkInvolve" EntitySet="WorkInvolve" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="DayOff">
           <Key>
             <PropertyRef Name="ID" />
@@ -266,75 +312,97 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           <Property Name="EID" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" />
           <Property Name="Type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_DayOff_0_0" FromRole="DayOff" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="WorksAssignModel.FK_DayOff_0_0" FromRole="DayOff" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Sex" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="IsCCP" Type="Boolean" />
-          <Property Name="JoinDate" Type="DateTime" />
-          <NavigationProperty Name="DayOff" Relationship="Self.FK_DayOff_0_0" FromRole="Employee" ToRole="DayOff" />
-          <NavigationProperty Name="WorkInvolve" Relationship="Self.FK_WorkInvolve_1_0" FromRole="Employee" ToRole="WorkInvolve" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="IsCCP" Type="Boolean" Nullable="false" />
+          <Property Name="JoinDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="DayOff" Relationship="WorksAssignModel.FK_DayOff_0_0" FromRole="Employee" ToRole="DayOff" />
+          <NavigationProperty Name="WorkInvolve" Relationship="WorksAssignModel.FK_WorkInvolve_1_0" FromRole="Employee" ToRole="WorkInvolve" />
         </EntityType>
         <EntityType Name="ExWorkdays">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" />
-          <Property Name="IsHoliday" Type="Boolean" />
-          <Property Name="IsWorkday" Type="Boolean" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="IsHoliday" Type="Boolean" Nullable="false" />
+          <Property Name="IsWorkday" Type="Boolean" Nullable="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MaintenceRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationID" Type="Int64" Nullable="false" />
+          <Property Name="EquipID" Type="Int64" Nullable="false" />
+          <Property Name="TypeID" Type="Int64" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Measure" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TID" Type="Int64" />
-          <Property Name="RoleName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="RoleWgt" Type="Double" />
-          <NavigationProperty Name="WorkType" Relationship="Self.FK_Role_0_0" FromRole="Role" ToRole="WorkType" />
-          <NavigationProperty Name="WorkInvolve" Relationship="Self.FK_WorkInvolve_0_0" FromRole="Role" ToRole="WorkInvolve" />
+          <Property Name="TID" Type="Int64" Nullable="false" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RoleWgt" Type="Double" Nullable="false" />
+          <NavigationProperty Name="WorkType" Relationship="WorksAssignModel.FK_Role_0_0" FromRole="Role" ToRole="WorkType" />
+          <NavigationProperty Name="WorkInvolve" Relationship="WorksAssignModel.FK_WorkInvolve_0_0" FromRole="Role" ToRole="WorkInvolve" />
+        </EntityType>
+        <EntityType Name="Substations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Voltage" Type="Int64" Nullable="false" />
+          <Property Name="SubstationName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WorkContent" Relationship="WorksAssignModel.FK_WorkContent_0_0" FromRole="Substations" ToRole="WorkContent" />
         </EntityType>
         <EntityType Name="WorkBonus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Score" Type="Double" />
-          <Property Name="Reason" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="WIID" Type="Int64" />
+          <Property Name="WIID" Type="Int64" Nullable="false" />
+          <Property Name="Score" Type="Double" Nullable="false" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WorkContent">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TID" Type="Int64" />
-          <Property Name="WorkDate" Type="DateTime" />
-          <Property Name="Content" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="WorkType" Relationship="Self.FK_WorkContent_0_0" FromRole="WorkContent" ToRole="WorkType" />
-          <NavigationProperty Name="WorkInvolve" Relationship="Self.FK_WorkInvolve_2_0" FromRole="WorkContent" ToRole="WorkInvolve" />
-          <Property Name="SID" Type="Int64" />
-          <NavigationProperty Name="Substations" Relationship="WorksAssignModel.FK_WorkContent_0_01" FromRole="WorkContent" ToRole="Substations" />
+          <Property Name="TID" Type="Int64" Nullable="false" />
+          <Property Name="SID" Type="Int64" Nullable="false" />
+          <Property Name="WorkDate" Type="DateTime" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Substations" Relationship="WorksAssignModel.FK_WorkContent_0_0" FromRole="WorkContent" ToRole="Substations" />
+          <NavigationProperty Name="WorkType" Relationship="WorksAssignModel.FK_WorkContent_1_0" FromRole="WorkContent" ToRole="WorkType" />
+          <NavigationProperty Name="WorkInvolve" Relationship="WorksAssignModel.FK_WorkInvolve_2_0" FromRole="WorkContent" ToRole="WorkInvolve" />
         </EntityType>
         <EntityType Name="WorkInvolve">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WID" Type="Int64" />
-          <Property Name="EID" Type="Int64" />
-          <Property Name="RID" Type="Int64" />
+          <Property Name="WID" Type="Int64" Nullable="false" />
+          <Property Name="EID" Type="Int64" Nullable="false" />
+          <Property Name="RID" Type="Int64" Nullable="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_WorkInvolve_1_0" FromRole="WorkInvolve" ToRole="Employee" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_WorkInvolve_0_0" FromRole="WorkInvolve" ToRole="Role" />
-          <NavigationProperty Name="WorkContent" Relationship="Self.FK_WorkInvolve_2_0" FromRole="WorkInvolve" ToRole="WorkContent" />
+          <NavigationProperty Name="Employee" Relationship="WorksAssignModel.FK_WorkInvolve_1_0" FromRole="WorkInvolve" ToRole="Employee" />
+          <NavigationProperty Name="Role" Relationship="WorksAssignModel.FK_WorkInvolve_0_0" FromRole="WorkInvolve" ToRole="Role" />
+          <NavigationProperty Name="WorkContent" Relationship="WorksAssignModel.FK_WorkInvolve_2_0" FromRole="WorkInvolve" ToRole="WorkContent" />
         </EntityType>
         <EntityType Name="WorkType">
           <Key>
@@ -342,13 +410,30 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Content" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="TypeWgt" Type="Double" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_Role_0_0" FromRole="WorkType" ToRole="Role" />
-          <NavigationProperty Name="WorkContent" Relationship="Self.FK_WorkContent_0_0" FromRole="WorkType" ToRole="WorkContent" />
+          <Property Name="TypeWgt" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="WorksAssignModel.FK_Role_0_0" FromRole="WorkType" ToRole="Role" />
+          <NavigationProperty Name="WorkContent" Relationship="WorksAssignModel.FK_WorkContent_1_0" FromRole="WorkType" ToRole="WorkContent" />
+        </EntityType>
+        <EntityType Name="V_AllPoints">
+          <Key>
+            <PropertyRef Name="WorkContent" />
+            <PropertyRef Name="EmpId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="RoleName" />
+            <PropertyRef Name="RoleWgt" />
+            <PropertyRef Name="TypeWgt" />
+          </Key>
+          <Property Name="WorkType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="WorkContent" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EmpId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RoleWgt" Type="Double" Nullable="false" />
+          <Property Name="TypeWgt" Type="Double" Nullable="false" />
         </EntityType>
         <Association Name="FK_DayOff_0_0">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="DayOff" Type="Self.DayOff" Multiplicity="*" />
+          <End Type="WorksAssignModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="WorksAssignModel.DayOff" Role="DayOff" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="Id" />
@@ -359,8 +444,8 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkInvolve_1_0">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="WorkInvolve" Type="Self.WorkInvolve" Multiplicity="*" />
+          <End Type="WorksAssignModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="WorksAssignModel.WorkInvolve" Role="WorkInvolve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="Id" />
@@ -371,8 +456,8 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Role_0_0">
-          <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
-          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <End Type="WorksAssignModel.WorkType" Role="WorkType" Multiplicity="1" />
+          <End Type="WorksAssignModel.Role" Role="Role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkType">
               <PropertyRef Name="ID" />
@@ -383,8 +468,8 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkInvolve_0_0">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
-          <End Role="WorkInvolve" Type="Self.WorkInvolve" Multiplicity="*" />
+          <End Type="WorksAssignModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="WorksAssignModel.WorkInvolve" Role="WorkInvolve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="ID" />
@@ -395,93 +480,7 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkContent_0_0">
-          <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
-          <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WorkType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="WorkContent">
-              <PropertyRef Name="TID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkInvolve_2_0">
-          <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="0..1" />
-          <End Role="WorkInvolve" Type="Self.WorkInvolve" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WorkContent">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="WorkInvolve">
-              <PropertyRef Name="WID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="WorksAssignEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DayOff" EntityType="Self.DayOff" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="ExWorkdays" EntityType="Self.ExWorkdays" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="WorkBonus" EntityType="Self.WorkBonus" />
-          <EntitySet Name="WorkContent" EntityType="Self.WorkContent" />
-          <EntitySet Name="WorkInvolve" EntityType="Self.WorkInvolve" />
-          <EntitySet Name="WorkType" EntityType="Self.WorkType" />
-          <AssociationSet Name="FK_DayOff_0_0" Association="Self.FK_DayOff_0_0">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="DayOff" EntitySet="DayOff" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkInvolve_1_0" Association="Self.FK_WorkInvolve_1_0">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="WorkInvolve" EntitySet="WorkInvolve" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Role_0_0" Association="Self.FK_Role_0_0">
-            <End Role="WorkType" EntitySet="WorkType" />
-            <End Role="Role" EntitySet="Role" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkInvolve_0_0" Association="Self.FK_WorkInvolve_0_0">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="WorkInvolve" EntitySet="WorkInvolve" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkContent_0_0" Association="Self.FK_WorkContent_0_0">
-            <End Role="WorkType" EntitySet="WorkType" />
-            <End Role="WorkContent" EntitySet="WorkContent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkInvolve_2_0" Association="Self.FK_WorkInvolve_2_0">
-            <End Role="WorkContent" EntitySet="WorkContent" />
-            <End Role="WorkInvolve" EntitySet="WorkInvolve" />
-          </AssociationSet>
-          <EntitySet Name="MaintenceRecord" EntityType="WorksAssignModel.MaintenceRecord" />
-          <EntitySet Name="Substations" EntityType="WorksAssignModel.Substations" />
-          <AssociationSet Name="FK_WorkContent_0_01" Association="WorksAssignModel.FK_WorkContent_0_01">
-            <End Role="Substations" EntitySet="Substations" />
-            <End Role="WorkContent" EntitySet="WorkContent" />
-          </AssociationSet>
-          <EntitySet Name="V_AllPoints" EntityType="WorksAssignModel.V_AllPoints" />
-        </EntityContainer>
-        <EntityType Name="MaintenceRecord">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StationID" Type="Int64" />
-          <Property Name="EquipID" Type="Int64" />
-          <Property Name="TypeID" Type="Int64" />
-          <Property Name="Content" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Measure" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Substations">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Voltage" Type="Int64" Nullable="false" />
-          <Property Name="SubstationName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Location" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="WorkContent" Relationship="WorksAssignModel.FK_WorkContent_0_01" FromRole="Substations" ToRole="WorkContent" />
-        </EntityType>
-        <Association Name="FK_WorkContent_0_01">
-          <End Type="WorksAssignModel.Substations" Role="Substations" Multiplicity="0..1" />
+          <End Type="WorksAssignModel.Substations" Role="Substations" Multiplicity="1" />
           <End Type="WorksAssignModel.WorkContent" Role="WorkContent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Substations">
@@ -492,105 +491,65 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="V_AllPoints">
-          <Key>
-            <PropertyRef Name="EmpId" />
-          </Key>
-          <Property Name="WorkDate" Type="DateTime" />
-          <Property Name="WorkType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="WorkContent" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="EmpId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="RoleName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="RoleWgt" Type="Double" />
-          <Property Name="TypeWgt" Type="Double" />
-        </EntityType>
-      </Schema>
+        <Association Name="FK_WorkContent_1_0">
+          <End Type="WorksAssignModel.WorkType" Role="WorkType" Multiplicity="1" />
+          <End Type="WorksAssignModel.WorkContent" Role="WorkContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WorkContent">
+              <PropertyRef Name="TID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkInvolve_2_0">
+          <End Type="WorksAssignModel.WorkContent" Role="WorkContent" Multiplicity="1" />
+          <End Type="WorksAssignModel.WorkInvolve" Role="WorkInvolve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkContent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WorkInvolve">
+              <PropertyRef Name="WID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WorksAssignModelStoreContainer" CdmEntityContainer="WorksAssignEntities1">
+        <EntityContainerMapping StorageEntityContainer="WorksAssignModelStoreContainer" CdmEntityContainer="WorksAssignEntities">
           <EntitySetMapping Name="DayOff">
             <EntityTypeMapping TypeName="WorksAssignModel.DayOff">
               <MappingFragment StoreEntitySet="DayOff">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="EID" ColumnName="EID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EID" ColumnName="EID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="WorksAssignModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="IsCCP" ColumnName="IsCCP" />
                 <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="IsCCP" ColumnName="IsCCP" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExWorkdays">
             <EntityTypeMapping TypeName="WorksAssignModel.ExWorkdays">
               <MappingFragment StoreEntitySet="ExWorkdays">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="IsHoliday" ColumnName="IsHoliday" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="IsWorkday" ColumnName="IsWorkday" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="WorksAssignModel.Role">
-              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IsHoliday" ColumnName="IsHoliday" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TID" ColumnName="TID" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="RoleWgt" ColumnName="RoleWgt" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkBonus">
-            <EntityTypeMapping TypeName="WorksAssignModel.WorkBonus">
-              <MappingFragment StoreEntitySet="WorkBonus">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Score" ColumnName="Score" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="WIID" ColumnName="WIID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkContent">
-            <EntityTypeMapping TypeName="WorksAssignModel.WorkContent">
-              <MappingFragment StoreEntitySet="WorkContent">
-                <ScalarProperty Name="SID" ColumnName="SID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TID" ColumnName="TID" />
-                <ScalarProperty Name="WorkDate" ColumnName="WorkDate" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkInvolve">
-            <EntityTypeMapping TypeName="WorksAssignModel.WorkInvolve">
-              <MappingFragment StoreEntitySet="WorkInvolve">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="WID" ColumnName="WID" />
-                <ScalarProperty Name="EID" ColumnName="EID" />
-                <ScalarProperty Name="RID" ColumnName="RID" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkType">
-            <EntityTypeMapping TypeName="WorksAssignModel.WorkType">
-              <MappingFragment StoreEntitySet="WorkType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="TypeWgt" ColumnName="TypeWgt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -606,6 +565,16 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="WorksAssignModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleWgt" ColumnName="RoleWgt" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="TID" ColumnName="TID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Substations">
             <EntityTypeMapping TypeName="WorksAssignModel.Substations">
               <MappingFragment StoreEntitySet="Substations">
@@ -613,6 +582,48 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
                 <ScalarProperty Name="SubstationName" ColumnName="SubstationName" />
                 <ScalarProperty Name="Voltage" ColumnName="Voltage" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkBonus">
+            <EntityTypeMapping TypeName="WorksAssignModel.WorkBonus">
+              <MappingFragment StoreEntitySet="WorkBonus">
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="WIID" ColumnName="WIID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkContent">
+            <EntityTypeMapping TypeName="WorksAssignModel.WorkContent">
+              <MappingFragment StoreEntitySet="WorkContent">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="WorkDate" ColumnName="WorkDate" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="TID" ColumnName="TID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkInvolve">
+            <EntityTypeMapping TypeName="WorksAssignModel.WorkInvolve">
+              <MappingFragment StoreEntitySet="WorkInvolve">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="RID" ColumnName="RID" />
+                <ScalarProperty Name="EID" ColumnName="EID" />
+                <ScalarProperty Name="WID" ColumnName="WID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkType">
+            <EntityTypeMapping TypeName="WorksAssignModel.WorkType">
+              <MappingFragment StoreEntitySet="WorkType">
+                <ScalarProperty Name="TypeWgt" ColumnName="TypeWgt" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -626,7 +637,6 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
                 <ScalarProperty Name="EmpId" ColumnName="EmpId" />
                 <ScalarProperty Name="WorkContent" ColumnName="WorkContent" />
                 <ScalarProperty Name="WorkType" ColumnName="WorkType" />
-                <ScalarProperty Name="WorkDate" ColumnName="WorkDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

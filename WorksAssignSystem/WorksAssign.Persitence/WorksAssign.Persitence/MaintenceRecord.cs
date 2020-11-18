@@ -15,9 +15,9 @@ namespace WorksAssign.Persistence
     public partial class MaintenceRecord
     {
         public long ID { get; set; }
-        public Nullable<long> StationID { get; set; }
-        public Nullable<long> EquipID { get; set; }
-        public Nullable<long> TypeID { get; set; }
+        public long StationID { get; set; }
+        public long EquipID { get; set; }
+        public long TypeID { get; set; }
         public string Content { get; set; }
         public string Measure { get; set; }
     }

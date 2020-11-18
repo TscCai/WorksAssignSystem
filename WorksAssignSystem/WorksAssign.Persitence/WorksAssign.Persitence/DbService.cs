@@ -5,21 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorksAssign.Persistence {
-    public class DbService {
+    public class DbService :IDisposable{
         WorksAssignEntities db;
         public DateTime StartDate;
         public V_AllPoints DefaultWorkScore;
         public IQueryable<ExWorkdays> HolidaysWorkdays;
+        public const long OUTSIDER = 1;
+        public const long NO_MANAGER = 0;
+        public const long NOT_SUBSTATION = 0;
+
         public DbService():this(new WorksAssignEntities())
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="db"></param>
         public DbService(WorksAssignEntities db)
         {
             this.db = db;
             HolidaysWorkdays = db.ExWorkdays;
 
             // TODO: StartDate、DefaultWorkScore还未初始化
+        }
+
+        public void Dispose() {
+            db.Dispose();
         }
 
         #region Table Employee
@@ -34,6 +46,9 @@ namespace WorksAssign.Persistence {
             return db.Employee.FirstOrDefault(e => e.Name == name);
         }
 
+        public Employee GetEmployee(long id) {
+            return db.Employee.SingleOrDefault(e => e.Id == id);
+        }
         #endregion
 
         #region Table Substation
@@ -55,12 +70,15 @@ namespace WorksAssign.Persistence {
         #endregion
 
         #region Table WorkContent
-        public long AddWorkContent(DateTime workDate, string content, long TId)
+       
+        public long AddWorkContent(DateTime workDate, string content,long SId, long TId,string comment=null)
         {
             WorkContent wc = new WorkContent();
             wc.Content = content;
             wc.WorkDate = workDate;
+            wc.SID = SId;
             wc.TID = TId;
+            wc.Comment = comment;
             db.WorkContent.Add(wc);
             db.SaveChanges();
             return wc.ID;
@@ -116,7 +134,7 @@ namespace WorksAssign.Persistence {
             return db.WorkInvolve.Where(w => w.WID == wid);
         }
 
-        public WorkInvolve GetWorkInvole(long wid, long eid)
+        public WorkInvolve GetWorkInvolve(long wid, long eid)
         {
             return db.WorkInvolve.SingleOrDefault(w => w.WID == wid && w.EID == eid);
         }
@@ -132,6 +150,12 @@ namespace WorksAssign.Persistence {
             return wi.ID;
         }
 
+        public long AddWorkInvolve(WorkInvolve wi) {
+            db.WorkInvolve.Add(wi);
+            db.SaveChanges();
+            return wi.ID;
+        }
+
         /// <summary>
         /// throw exception if the ids are not exist
         /// </summary>
@@ -139,7 +163,7 @@ namespace WorksAssign.Persistence {
         /// <param name="eid"></param>
         public void DelWorkInvolve(long wid, long eid)
         {
-            var i = GetWorkInvole(wid, eid);
+            var i = GetWorkInvolve(wid, eid);
             db.WorkInvolve.Remove(i);
             db.SaveChanges();
         }
@@ -174,10 +198,38 @@ namespace WorksAssign.Persistence {
         
         #endregion
 
+        #region Table Role
+
+        public IQueryable<Role> GetRole() {
+            return db.Role;
+        }
+
+        public Role GetRole(long id) {
+            return db.Role.SingleOrDefault(r => r.ID == id);
+        }
+
+        public Role GetRole(long workTypeId, string roleName) {
+           return db.Role.SingleOrDefault(r => r.TID == workTypeId && r.RoleName == roleName);
+        }
+        #endregion
+
         #region View V_AllPoints
         public IQueryable<V_AllPoints> GetWorkScoreById(long id)
         {
             return db.V_AllPoints.Where(p => p.EmpId == id);
+        }
+        #endregion
+
+        #region Transactions
+        public void AddWork(long substationId, long typeId, string workContent, DateTime workDate,List<WorkInvolve> involves,string workComment=null) {
+            using (var transcation = db.Database.BeginTransaction()) {
+                long wid = AddWorkContent(workDate, workContent, substationId, typeId, workComment);
+                foreach (var i in involves) {
+                    i.WID = wid;
+                    AddWorkInvolve(i);
+                }
+                transcation.Commit();
+            }
         }
         #endregion
 

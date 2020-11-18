@@ -21,9 +21,9 @@ namespace WorksAssign.Persistence
         }
     
         public long ID { get; set; }
-        public Nullable<long> TID { get; set; }
+        public long TID { get; set; }
         public string RoleName { get; set; }
-        public Nullable<double> RoleWgt { get; set; }
+        public double RoleWgt { get; set; }
     
         public virtual WorkType WorkType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

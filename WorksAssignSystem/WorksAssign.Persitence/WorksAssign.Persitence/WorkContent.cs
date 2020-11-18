@@ -21,14 +21,15 @@ namespace WorksAssign.Persistence
         }
     
         public long ID { get; set; }
-        public Nullable<long> TID { get; set; }
-        public Nullable<System.DateTime> WorkDate { get; set; }
+        public long TID { get; set; }
+        public long SID { get; set; }
+        public System.DateTime WorkDate { get; set; }
         public string Content { get; set; }
-        public Nullable<long> SID { get; set; }
+        public string Comment { get; set; }
     
+        public virtual Substations Substations { get; set; }
         public virtual WorkType WorkType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkInvolve> WorkInvolve { get; set; }
-        public virtual Substations Substations { get; set; }
     }
 }

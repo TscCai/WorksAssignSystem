@@ -24,8 +24,8 @@ namespace WorksAssign.Persistence
         public long Id { get; set; }
         public string Name { get; set; }
         public string Sex { get; set; }
-        public Nullable<bool> IsCCP { get; set; }
-        public Nullable<System.DateTime> JoinDate { get; set; }
+        public bool IsCCP { get; set; }
+        public System.DateTime JoinDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DayOff> DayOff { get; set; }

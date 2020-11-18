@@ -15,9 +15,9 @@ namespace WorksAssign.Persistence
     public partial class WorkInvolve
     {
         public long ID { get; set; }
-        public Nullable<long> WID { get; set; }
-        public Nullable<long> EID { get; set; }
-        public Nullable<long> RID { get; set; }
+        public long WID { get; set; }
+        public long EID { get; set; }
+        public long RID { get; set; }
         public string Comments { get; set; }
     
         public virtual Employee Employee { get; set; }

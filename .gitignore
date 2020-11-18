@@ -240,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/WorksAssignSystem/WorksAssign/App_Data/*.db
