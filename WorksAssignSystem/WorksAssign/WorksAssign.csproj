@@ -138,7 +138,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\WorksAssign.Persitence\WorksAssign.Persitence\WorksAssign.Persistence.csproj">
+    <ProjectReference Include="..\WorksAssign.Persistence\WorksAssign.Persistence.csproj">
       <Project>{300b92f4-ffdd-4d54-b537-b1e4bb2008cb}</Project>
       <Name>WorksAssign.Persistence</Name>
     </ProjectReference>

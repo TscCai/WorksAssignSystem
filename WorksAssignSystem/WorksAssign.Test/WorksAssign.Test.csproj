@@ -76,12 +76,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WorksAssign.Persitence\WorksAssign.Persitence\WorksAssign.Persistence.csproj">
-      <Project>{300b92f4-ffdd-4d54-b537-b1e4bb2008cb}</Project>
-      <Name>WorksAssign.Persistence</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App - 复制.config">
       <SubType>Designer</SubType>
     </None>
@@ -89,6 +83,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WorksAssign.Persistence\WorksAssign.Persistence.csproj">
+      <Project>{300b92f4-ffdd-4d54-b537-b1e4bb2008cb}</Project>
+      <Name>WorksAssign.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
