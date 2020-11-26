@@ -37,7 +37,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(837, 620);
+            this.ClientSize = new System.Drawing.Size(1020, 620);
             this.Name = "Main";
             this.Text = "工作安排";
             this.ResumeLayout(false);

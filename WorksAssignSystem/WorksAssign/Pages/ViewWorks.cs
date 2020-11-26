@@ -22,7 +22,12 @@ namespace WorksAssign.Pages {
             
             using (var db = new DbService()) {
                 var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
+                foreach (var i in works) {
+                    DateTime date = i.WorkDate;
+                    string content = i.Content;
 
+                    string leader = i.WorkInvolve.SingleOrDefault(wi => wi.Role.RoleName == "负责人").Employee.Name;
+                }
             }
 
         }

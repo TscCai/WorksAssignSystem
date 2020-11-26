@@ -25,16 +25,22 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dg_worksAssign = new Sunny.UI.UIDataGridView();
             this.dpk_Start = new Sunny.UI.UIDatePicker();
             this.dpk_End = new Sunny.UI.UIDatePicker();
             this.btn_Search = new Sunny.UI.UISymbolButton();
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiLabel2 = new Sunny.UI.UILabel();
+            this.col_chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_WorkContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Leader = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Member = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_exMember = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dg_worksAssign)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,38 +48,46 @@
             // 
             this.dg_worksAssign.AllowUserToAddRows = false;
             this.dg_worksAssign.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.dg_worksAssign.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.dg_worksAssign.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dg_worksAssign.BackgroundColor = System.Drawing.Color.White;
             this.dg_worksAssign.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("微软雅黑", 12F);
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_worksAssign.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
-            this.dg_worksAssign.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("微软雅黑", 12F);
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_worksAssign.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 12F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_worksAssign.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dg_worksAssign.ColumnHeadersHeight = 32;
+            this.dg_worksAssign.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dg_worksAssign.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_chk,
+            this.col_Date,
+            this.col_WorkContent,
+            this.col_Leader,
+            this.col_Member,
+            this.col_exMember});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 12F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_worksAssign.DefaultCellStyle = dataGridViewCellStyle3;
             this.dg_worksAssign.EnableHeadersVisualStyles = false;
             this.dg_worksAssign.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.dg_worksAssign.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.dg_worksAssign.Location = new System.Drawing.Point(39, 72);
             this.dg_worksAssign.Name = "dg_worksAssign";
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            this.dg_worksAssign.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dg_worksAssign.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dg_worksAssign.RowTemplate.Height = 29;
             this.dg_worksAssign.SelectedIndex = -1;
             this.dg_worksAssign.ShowGridLine = true;
-            this.dg_worksAssign.Size = new System.Drawing.Size(587, 452);
+            this.dg_worksAssign.Size = new System.Drawing.Size(664, 452);
             this.dg_worksAssign.TabIndex = 0;
             // 
             // dpk_Start
@@ -90,7 +104,7 @@
             this.dpk_Start.SymbolDropDown = 61555;
             this.dpk_Start.SymbolNormal = 61555;
             this.dpk_Start.TabIndex = 1;
-            this.dpk_Start.Text = "uiDatePicker1";
+            this.dpk_Start.Text = "2020-11-18";
             this.dpk_Start.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.dpk_Start.Value = new System.DateTime(2020, 11, 18, 19, 29, 14, 800);
             // 
@@ -143,11 +157,42 @@
             this.uiLabel2.Text = "至";
             this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // col_chk
+            // 
+            this.col_chk.HeaderText = "选择";
+            this.col_chk.Name = "col_chk";
+            this.col_chk.Width = 60;
+            // 
+            // col_Date
+            // 
+            this.col_Date.HeaderText = "时间";
+            this.col_Date.Name = "col_Date";
+            // 
+            // col_WorkContent
+            // 
+            this.col_WorkContent.HeaderText = "工作内容";
+            this.col_WorkContent.Name = "col_WorkContent";
+            // 
+            // col_Leader
+            // 
+            this.col_Leader.HeaderText = "负责人";
+            this.col_Leader.Name = "col_Leader";
+            // 
+            // col_Member
+            // 
+            this.col_Member.HeaderText = "工作班成员";
+            this.col_Member.Name = "col_Member";
+            // 
+            // col_exMember
+            // 
+            this.col_exMember.HeaderText = "外协人员";
+            this.col_exMember.Name = "col_exMember";
+            // 
             // ViewWorks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 592);
+            this.ClientSize = new System.Drawing.Size(736, 592);
             this.Controls.Add(this.uiLabel2);
             this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.btn_Search);
@@ -169,6 +214,12 @@
         private Sunny.UI.UISymbolButton btn_Search;
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UILabel uiLabel2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn col_chk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_WorkContent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Leader;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Member;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_exMember;
 
     }
 }
