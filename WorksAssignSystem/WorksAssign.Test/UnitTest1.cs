@@ -11,7 +11,7 @@ namespace WorksAssign.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
-			DbService db = new DbService();
+			DbAgent db = new DbAgent();
             var e = db.GetSubstation().ToList();
             foreach (var i in e) {
                 Console.WriteLine(i.SubstationName);

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorksAssign.Persistence {
-    public class DbService :IDisposable{
+    public class DbAgent :IDisposable{
         WorksAssignEntities db;
         public DateTime StartDate;
         public V_AllPoints DefaultWorkScore;
@@ -14,7 +14,7 @@ namespace WorksAssign.Persistence {
         public const long NO_MANAGER = 0;
         public const long NOT_SUBSTATION = 0;
 
-        public DbService():this(new WorksAssignEntities())
+        public DbAgent():this(new WorksAssignEntities())
         {
         }
 
@@ -22,7 +22,7 @@ namespace WorksAssign.Persistence {
         /// 
         /// </summary>
         /// <param name="db"></param>
-        public DbService(WorksAssignEntities db)
+        public DbAgent(WorksAssignEntities db)
         {
             this.db = db;
             HolidaysWorkdays = db.ExWorkdays;

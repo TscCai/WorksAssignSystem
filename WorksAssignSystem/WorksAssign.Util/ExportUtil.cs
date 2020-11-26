@@ -11,7 +11,7 @@ using WorksAssign.Persistence;
 namespace WorksAssign.Util {
     public class ExportUtil {
 
-        DbService Db;
+        DbAgent Db;
         /// <summary>
         /// 内置Workbook对象
         /// </summary>
@@ -39,7 +39,7 @@ namespace WorksAssign.Util {
         public ExportUtil()
         {
             wb = new XSSFWorkbook();
-            Db = new DbService();
+            Db = new DbAgent();
             CreateSheetSumHeader("当月绩效表");
             DefaultDateStyle = wb.CreateCellStyle();
             DefaultDateStyle.DataFormat = wb.CreateDataFormat().GetFormat("yyyy-mm-dd");

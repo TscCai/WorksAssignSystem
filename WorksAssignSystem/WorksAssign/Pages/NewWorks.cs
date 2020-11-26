@@ -14,7 +14,7 @@ using WorksAssign.Persistence;
 
 namespace WorksAssign.Pages {
     public partial class NewWorks : UIPage {
-        DbService db;
+        DbAgent db;
         Dictionary<string, long> substations;
         Dictionary<string, long> employees;
         Dictionary<string, long> workType;
@@ -28,7 +28,7 @@ namespace WorksAssign.Pages {
         }
 
         private void InitializeData() {
-            using (db = new DbService()) {
+            using (db = new DbAgent()) {
                 substations = db.GetSubstation().ToDictionary(k => k.SubstationName, v => v.Id);
                 employees = db.GetEmployee().ToDictionary(k => k.Name, v => v.Id);
                 workType = db.GetWorkType().ToDictionary(k => k.Content, v => v.ID);
@@ -63,12 +63,12 @@ namespace WorksAssign.Pages {
             List<long> memberId = new List<long>();
             List<string> exMemberName = new List<string>();  // 外部人员名单
             DateTime workDate = dpk_WorkDate.Value;
-            long substationId = cb_Substation.SelectedValue == null ? DbService.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
+            long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
             long workTypeId = (long)cb_WorkType.SelectedValue;
             string workContent = txt_WorkContent.Text;
 
-            long leaderId = cb_Leader.SelectedValue == null ? DbService.OUTSIDER : (long)cb_Leader.SelectedValue;
-            long managerId = cb_Manager.SelectedValue == null ? DbService.OUTSIDER : (long)cb_Manager.SelectedValue;
+            long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
+            long managerId = cb_Manager.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
 
             string[] memberName = txt_Member.Text.Split("、");
             foreach (var i in memberName) {
@@ -81,13 +81,13 @@ namespace WorksAssign.Pages {
             }
             #endregion
             
-            using (db = new DbService()) {
+            using (db = new DbAgent()) {
                 #region 访问数据库中的数据
                 List<WorkInvolve> list = new List<WorkInvolve>();
                 string wcComment = null;
                 string hintMsg = "";
                 // add leader
-                if (dictErr[cb_Leader.Name] && cb_Leader.Text != "" && leaderId == DbService.OUTSIDER) {
+                if (dictErr[cb_Leader.Name] && cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
                     // 非表中人员，且有姓名，应存入WorkContent的备注
                     wcComment += "负责人：" + cb_Leader.Text + "|";
                     hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";

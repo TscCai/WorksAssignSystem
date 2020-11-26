@@ -33,5 +33,14 @@ namespace WorksAssign {
             Aside.SelectFirst();
 
         }
+
+		private void MainNav_OnMenuItemClick(TreeNode node, NavMenuItem item, int pageIndex) {
+			if (pageIndex == 3) {
+				//this.Size = new Size()
+			}
+			else if (pageIndex == 2 || pageIndex ==1) {
+
+			}
+		}
     }
 }
