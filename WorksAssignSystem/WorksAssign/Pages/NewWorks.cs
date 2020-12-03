@@ -62,7 +62,7 @@ namespace WorksAssign.Pages {
             #region 准备界面中的数据
             List<long> memberId = new List<long>();
             List<string> exMemberName = new List<string>();  // 外部人员名单
-            DateTime workDate = dpk_WorkDate.Value;
+            DateTime workDate = dpk_WorkDate.Value.Date;
             long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
             long workTypeId = (long)cb_WorkType.SelectedValue;
             string workContent = txt_WorkContent.Text;

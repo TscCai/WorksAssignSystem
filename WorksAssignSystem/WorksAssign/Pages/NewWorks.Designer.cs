@@ -192,9 +192,9 @@
             this.dpk_WorkDate.SymbolDropDown = 61555;
             this.dpk_WorkDate.SymbolNormal = 61555;
             this.dpk_WorkDate.TabIndex = 2;
-            this.dpk_WorkDate.Text = "2020-11-17";
+            //this.dpk_WorkDate.Text = "2020-11-17";
             this.dpk_WorkDate.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dpk_WorkDate.Value = new System.DateTime(2020, 11, 17, 13, 16, 44, 290);
+            this.dpk_WorkDate.Value = System.DateTime.Now;
             // 
             // uiLine1
             // 

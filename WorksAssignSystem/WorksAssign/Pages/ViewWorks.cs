@@ -14,14 +14,14 @@ namespace WorksAssign.Pages {
 	public partial class ViewWorks : UIPage {
 		public ViewWorks() {
 			InitializeComponent();
-			
+
 		}
 
 		/// <summary>
 		/// Need to be refactor
 		/// </summary>
 		void InitializeData() {
-		
+
 			using (var db = new DbAgent()) {
 				var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
 				List<VWDataItem> list = new List<VWDataItem>();
@@ -33,15 +33,15 @@ namespace WorksAssign.Pages {
 					string exMember = null;
 					string member = "";
 
-					var mem_inv = i.WorkInvolve.Where(wi => wi.Role.RoleName != "负责人" && wi.Role.RoleName !="管理人员");
+					var mem_inv = i.WorkInvolve.Where(wi => wi.Role.RoleName != "负责人" && wi.Role.RoleName != "管理人员");
 					foreach (var j in mem_inv) {
-						member += j.Employee.Name+"、";
+						member += j.Employee.Name + "、";
 					}
 					if (member != "") {
 						member = member.Substring(0, member.Length - 1);
 					}
 
-					Dictionary<string,string> outsiders = ViewDataAdapter.GetOutsider(i);
+					Dictionary<string, string> outsiders = ViewDataAdapter.GetOutsider(i);
 					if (leaderName == null && outsiders != null && outsiders.Keys.Contains("leader")) {
 						leaderName = outsiders["leader"];
 					}
@@ -53,6 +53,7 @@ namespace WorksAssign.Pages {
 					}
 
 					VWDataItem di = new VWDataItem();
+					di.Id = i.ID;
 					di.Date = date;
 					di.Content = content;
 					di.Leader = leaderName;
@@ -63,19 +64,40 @@ namespace WorksAssign.Pages {
 					list.Add(di);
 
 				}
-
+				dg_worksAssign.AutoGenerateColumns = false;
 				dg_worksAssign.DataSource = list;
-				
-				
+
+
 			}
 
 		}
 
 		private void btn_Search_Click(object sender, EventArgs e) {
 			InitializeData();
+
+		}
+
+		private void btn_Edit_Click(object sender, EventArgs e) {
+			// Tips: Row count start at 0
+			DataGridViewRowCollection dt = dg_worksAssign.Rows;
+			List<long> chosenWorkId = new List<long>();
+			foreach (DataGridViewRow i in dt) {
+				if (i.Cells[0].Value != null && (bool)i.Cells[0].Value) {
+					chosenWorkId.Add(((VWDataItem)i.DataBoundItem).Id);
+				}
+			}
+
+
+			string msg = "chosen workId: ";
+			foreach (var i in chosenWorkId) {
+				msg += i+", ";
+			}
+			UIMessageBox.ShowInfo(msg);
+
 		}
 	}
 	class VWDataItem {
+		public long Id { get; set; }
 		public DateTime Date { get; set; }
 		public string Content { get; set; }
 		public string Leader { get; set; }

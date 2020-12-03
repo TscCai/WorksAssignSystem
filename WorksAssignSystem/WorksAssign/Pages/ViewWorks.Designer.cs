@@ -35,6 +35,7 @@
 			this.btn_Search = new Sunny.UI.UISymbolButton();
 			this.uiLabel1 = new Sunny.UI.UILabel();
 			this.uiLabel2 = new Sunny.UI.UILabel();
+			this.btn_Edit = new Sunny.UI.UISymbolButton();
 			this.col_chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.col_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.col_WorkContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,14 +83,14 @@
 			this.dg_worksAssign.EnableHeadersVisualStyles = false;
 			this.dg_worksAssign.Font = new System.Drawing.Font("微软雅黑", 12F);
 			this.dg_worksAssign.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-			this.dg_worksAssign.Location = new System.Drawing.Point(39, 72);
+			this.dg_worksAssign.Location = new System.Drawing.Point(42, 63);
 			this.dg_worksAssign.Name = "dg_worksAssign";
 			dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
 			this.dg_worksAssign.RowsDefaultCellStyle = dataGridViewCellStyle4;
 			this.dg_worksAssign.RowTemplate.Height = 29;
 			this.dg_worksAssign.SelectedIndex = -1;
 			this.dg_worksAssign.ShowGridLine = true;
-			this.dg_worksAssign.Size = new System.Drawing.Size(724, 452);
+			this.dg_worksAssign.Size = new System.Drawing.Size(756, 452);
 			this.dg_worksAssign.TabIndex = 0;
 			// 
 			// dpk_Start
@@ -106,9 +107,9 @@
 			this.dpk_Start.SymbolDropDown = 61555;
 			this.dpk_Start.SymbolNormal = 61555;
 			this.dpk_Start.TabIndex = 1;
-			this.dpk_Start.Text = "2020-11-18";
+			this.dpk_Start.Text = "2020-12-03";
 			this.dpk_Start.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-			this.dpk_Start.Value = new System.DateTime(2020, 11, 18, 19, 29, 14, 800);
+			this.dpk_Start.Value = new System.DateTime(2020, 12, 3, 0, 0, 0, 0);
 			// 
 			// dpk_End
 			// 
@@ -124,9 +125,9 @@
 			this.dpk_End.SymbolDropDown = 61555;
 			this.dpk_End.SymbolNormal = 61555;
 			this.dpk_End.TabIndex = 1;
-			this.dpk_End.Text = "2020-11-18";
+			this.dpk_End.Text = "2020-12-04";
 			this.dpk_End.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-			this.dpk_End.Value = new System.DateTime(2020, 11, 18, 19, 29, 14, 800);
+			this.dpk_End.Value = new System.DateTime(2020, 12, 4, 0, 0, 0, 0);
 			// 
 			// btn_Search
 			// 
@@ -159,6 +160,19 @@
 			this.uiLabel2.TabIndex = 3;
 			this.uiLabel2.Text = "至";
 			this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// btn_Edit
+			// 
+			this.btn_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btn_Edit.Font = new System.Drawing.Font("微软雅黑", 12F);
+			this.btn_Edit.Location = new System.Drawing.Point(70, 535);
+			this.btn_Edit.MinimumSize = new System.Drawing.Size(1, 1);
+			this.btn_Edit.Name = "btn_Edit";
+			this.btn_Edit.Size = new System.Drawing.Size(100, 35);
+			this.btn_Edit.Symbol = 61508;
+			this.btn_Edit.TabIndex = 4;
+			this.btn_Edit.Text = "编辑";
+			this.btn_Edit.Click += new System.EventHandler(this.btn_Edit_Click);
 			// 
 			// col_chk
 			// 
@@ -206,7 +220,8 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(793, 592);
+			this.ClientSize = new System.Drawing.Size(864, 592);
+			this.Controls.Add(this.btn_Edit);
 			this.Controls.Add(this.uiLabel2);
 			this.Controls.Add(this.uiLabel1);
 			this.Controls.Add(this.btn_Search);
@@ -228,6 +243,7 @@
         private Sunny.UI.UISymbolButton btn_Search;
         private Sunny.UI.UILabel uiLabel1;
 		private Sunny.UI.UILabel uiLabel2;
+		private Sunny.UI.UISymbolButton btn_Edit;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn col_chk;
 		private System.Windows.Forms.DataGridViewTextBoxColumn col_Date;
 		private System.Windows.Forms.DataGridViewTextBoxColumn col_WorkContent;
