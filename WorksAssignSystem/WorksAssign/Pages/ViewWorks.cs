@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
@@ -14,6 +10,16 @@ namespace WorksAssign.Pages {
 	public partial class ViewWorks : UIPage {
 		public ViewWorks() {
 			InitializeComponent();
+		}
+
+		public override void Init() {
+			base.Init();
+			
+			dpk_Start.Value = DateTime.Now.Date;
+			dpk_Start.Text = dpk_Start.Value.ToString("yyyy-MM-dd");
+
+			dpk_End.Value = dpk_Start.Value.AddDays(1);
+			dpk_End.Text = dpk_End.Value.ToString("yyyy-MM-dd");
 
 		}
 
@@ -65,7 +71,10 @@ namespace WorksAssign.Pages {
 
 				}
 				dg_worksAssign.AutoGenerateColumns = false;
-				dg_worksAssign.DataSource = list;
+				
+				pgr_workContent.DataSource = list;
+				pgr_workContent.ActivePage = 1;
+				pgr_workContent.TotalCount = list.Count;
 
 
 			}
@@ -77,8 +86,35 @@ namespace WorksAssign.Pages {
 
 		}
 
+		private void btn_Del_Click(object sender, EventArgs e) {
+			List<long> chosenWorkId = GetChosenWorkId();
+
+
+			string msg = "will be deleted workId: ";
+			foreach (var i in chosenWorkId) {
+				msg += i + ", ";
+			}
+			UIMessageBox.ShowInfo(msg);
+		}
+
 		private void btn_Edit_Click(object sender, EventArgs e) {
 			// Tips: Row count start at 0
+			List<long> chosenWorkId = GetChosenWorkId();
+			
+
+			string msg = "chosen workId: ";
+			foreach (var i in chosenWorkId) {
+				msg += i + ", ";
+			}
+			UIMessageBox.ShowInfo(msg);
+
+		}
+
+		private void pgr_workContent_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
+			dg_worksAssign.DataSource = pagingSource;
+		}
+
+		private List<long> GetChosenWorkId() {
 			DataGridViewRowCollection dt = dg_worksAssign.Rows;
 			List<long> chosenWorkId = new List<long>();
 			foreach (DataGridViewRow i in dt) {
@@ -86,14 +122,7 @@ namespace WorksAssign.Pages {
 					chosenWorkId.Add(((VWDataItem)i.DataBoundItem).Id);
 				}
 			}
-
-
-			string msg = "chosen workId: ";
-			foreach (var i in chosenWorkId) {
-				msg += i+", ";
-			}
-			UIMessageBox.ShowInfo(msg);
-
+			return chosenWorkId;
 		}
 	}
 	class VWDataItem {
