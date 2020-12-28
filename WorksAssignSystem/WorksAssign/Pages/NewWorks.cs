@@ -23,6 +23,9 @@ namespace WorksAssign.Pages {
 
         public NewWorks() {
             InitializeComponent();
+            // additional component init.
+            dpk_WorkDate.Value = DateTime.Now.Date;
+
             InitializeData();
 
         }

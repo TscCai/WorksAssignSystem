@@ -95,18 +95,19 @@ namespace WorksAssign.Pages {
 				msg += i + ", ";
 			}
 			UIMessageBox.ShowInfo(msg);
+            throw new NotImplementedException("功能尚未实现");
 		}
 
 		private void btn_Edit_Click(object sender, EventArgs e) {
 			// Tips: Row count start at 0
 			List<long> chosenWorkId = GetChosenWorkId();
-			
+			if(chosenWorkId.Count > 1) {
+                UIMessageBox.ShowInfo("选中多个工作，编辑模式下只能对第一个进行操作。");
+                EditWorks frm_EditWorks = new EditWorks(chosenWorkId.First());
+                frm_EditWorks.Show();
+            }
 
-			string msg = "chosen workId: ";
-			foreach (var i in chosenWorkId) {
-				msg += i + ", ";
-			}
-			UIMessageBox.ShowInfo(msg);
+			
 
 		}
 
