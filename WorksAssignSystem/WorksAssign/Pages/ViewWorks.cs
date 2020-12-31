@@ -30,7 +30,7 @@ namespace WorksAssign.Pages {
 
 			using (var db = new DbAgent()) {
 				var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
-				List<WorkAbstractItem> list = new List<WorkAbstractItem>();
+				List<WorkAbstractDataRow> list = new List<WorkAbstractDataRow>();
 				foreach (var i in works) {
 					DateTime date = i.WorkDate;
 					string content = i.Content;
@@ -58,7 +58,7 @@ namespace WorksAssign.Pages {
 						exMember = outsiders["exMember"];
 					}
 
-					WorkAbstractItem di = new WorkAbstractItem();
+					WorkAbstractDataRow di = new WorkAbstractDataRow();
 					di.Id = i.ID;
 					di.Date = date;
 					di.Substation = i.Substations.SubstationName;
@@ -92,7 +92,7 @@ namespace WorksAssign.Pages {
 		private void btn_Del_Click(object sender, EventArgs e) {
 			bool canDelete = UIMessageDialog.ShowAskDialog(this, "确认要删除工作吗？");
 			if (canDelete) {
-				List<WorkAbstractItem> chosenWorkId = GetChosenWork();
+				List<WorkAbstractDataRow> chosenWorkId = GetChosenWork();
 				int cnt = 0;
 				string err = "";
 				using (var db = new DbAgent()) {
@@ -116,7 +116,7 @@ namespace WorksAssign.Pages {
 
 		private void btn_Edit_Click(object sender, EventArgs e) {
 			// Tips: Row count start at 0
-			List<WorkAbstractItem> chosenWork = GetChosenWork();
+			List<WorkAbstractDataRow> chosenWork = GetChosenWork();
 			if (chosenWork.Count < 1) {
 				return;
 			}
@@ -125,7 +125,7 @@ namespace WorksAssign.Pages {
 			}
 			EditWorks frm_EditWorks = new EditWorks(chosenWork.First());
 
-			frm_EditWorks.ShowDialog();
+			frm_EditWorks.Show();
 
 
 
@@ -140,18 +140,18 @@ namespace WorksAssign.Pages {
 		/// 根据选中情况返回数据，未显式在DataGridView中显式的列也可获取。
 		/// </summary>
 		/// <returns></returns>
-		private List<WorkAbstractItem> GetChosenWork() {
+		private List<WorkAbstractDataRow> GetChosenWork() {
 			DataGridViewRowCollection dt = dg_worksAssign.Rows;
-			List<WorkAbstractItem> chosenWork = new List<WorkAbstractItem>();
+			List<WorkAbstractDataRow> chosenWork = new List<WorkAbstractDataRow>();
 			foreach (DataGridViewRow i in dt) {
 				if (i.Cells[0].Value != null && (bool)i.Cells[0].Value) {
-					chosenWork.Add(((WorkAbstractItem)i.DataBoundItem));
+					chosenWork.Add(((WorkAbstractDataRow)i.DataBoundItem));
 				}
 			}
 			return chosenWork;
 		}
 	}
-	public class WorkAbstractItem {
+	public class WorkAbstractDataRow {
 		public long Id { get; set; }
 		public DateTime Date { get; set; }
 		public string Substation { get; set; }

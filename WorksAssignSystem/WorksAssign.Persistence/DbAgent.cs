@@ -225,7 +225,8 @@ namespace WorksAssign.Persistence {
         #endregion
 
         #region Transactions
-        public void AddWork(long substationId, long typeId, string workContent, DateTime workDate,List<WorkInvolve> involves,string workComment=null) {
+        public void AddWork(long substationId, long typeId, string workContent, DateTime workDate,
+            List<WorkInvolve> involves,string workComment=null) {
             using (var transcation = db.Database.BeginTransaction()) {
                 long wid = AddWorkContent(workDate, workContent, substationId, typeId, workComment);
                 foreach (var i in involves) {

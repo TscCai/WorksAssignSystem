@@ -87,12 +87,12 @@ namespace WorksAssign.Pages {
             using (db = new DbAgent()) {
                 #region 访问数据库中的数据
                 List<WorkInvolve> list = new List<WorkInvolve>();
-                string wcComment = null;
+                string wcExMember = null;
                 string hintMsg = "";
                 // add leader
                 if (dictErr[cb_Leader.Name] && cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
-                    // 非表中人员，且有姓名，应存入WorkContent的备注
-                    wcComment += "负责人：" + cb_Leader.Text + "|";
+                    // 非表中人员，且有姓名，应存入WorkContent的ExMember
+                    wcExMember += "负责人：" + cb_Leader.Text + "|";
                     hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";
                 }
                 else if (cb_Leader.Text == "") {
@@ -113,8 +113,8 @@ namespace WorksAssign.Pages {
                 }
                 else if (dictErr[cb_Manager.Name] && cb_Manager.Text != "") {
                     // outsider manager
-                    // 非表中人员，且有姓名，应存入WorkContent的备注
-                    wcComment += "管理人员：" + cb_Manager.Text + "|";
+                    // 非表中人员，且有姓名，应存入WorkContent的ExMember
+                    wcExMember += "管理人员：" + cb_Manager.Text + "|";
                     hintMsg += "存在非本班组的管理人员：" + cb_Manager.Text + "\n";
                 }
                 else {
@@ -150,7 +150,7 @@ namespace WorksAssign.Pages {
                         ex += i + "、";
                     }
                     ex = ex.Substring(0, ex.Length - 1);
-                    wcComment += ex;
+                    wcExMember += ex;
                     hintMsg += "存在" + ex;
                 }
                 bool isContinue = true;
@@ -162,7 +162,7 @@ namespace WorksAssign.Pages {
                 #endregion             
                 
                 if (isContinue) {
-                    db.AddWork(substationId, workTypeId, workContent, workDate, list, wcComment);
+                    db.AddWork(substationId, workTypeId, workContent, workDate, list, wcExMember);
                     UIMessageBox.ShowSuccess("新增工作成功！");
                     ResetInput();
                 }
@@ -217,7 +217,7 @@ namespace WorksAssign.Pages {
             cb_Manager.Text = "";
 
             cb_WorkType.SelectedIndex = 0;
-            dpk_WorkDate.Value = DateTime.Now;
+            dpk_WorkDate.Value = DateTime.Now.AddDays(1).Date;
             txt_WorkContent.Text = "";
             txt_Member.Text = "";
         }

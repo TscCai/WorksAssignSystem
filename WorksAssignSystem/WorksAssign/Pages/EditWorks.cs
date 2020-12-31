@@ -15,18 +15,23 @@ namespace WorksAssign.Pages {
 	public partial class EditWorks : AbstractForm {
 		long workId;
 		List<string> exMembers;
-		protected Dictionary<string, long> roles;
-		WorkAbstractItem chosenData;
+        IEnumerable<WorkInvolve> members;
+
+        protected Dictionary<string, long> roles;
+		WorkAbstractDataRow chosenData;
 
 
 		public EditWorks() {
 			InitializeComponent();
-			
-		}
+            
+
+        }
 		
 		protected override void InitializeData() {
 			base.InitializeData();
-			cb_Substation.DataSource = new BindingSource(substations, null);
+
+            #region 绑定ComboBox数据
+            cb_Substation.DataSource = new BindingSource(substations, null);
 			cb_Substation.ValueMember = "Value";
 			cb_Substation.DisplayMember = "Key";
 			dictErr.Add(cb_Substation.Name, false);
@@ -46,29 +51,30 @@ namespace WorksAssign.Pages {
 			cb_Manager.ValueMember = "Value";
 			cb_Manager.DisplayMember = "Key";
 			dictErr.Add(cb_Manager.Name, false);
+            #endregion
 
 			ComboBox_EditorLostFocus(cb_Substation, substations);
 			ComboBox_EditorLostFocus(cb_WorkType, workType);
 			ComboBox_EditorLostFocus(cb_Leader, employees);
 			ComboBox_EditorLostFocus(cb_Manager, employees);
+           
 
-
-			using (db = new DbAgent()) {
+            using (db = new DbAgent()) {
 				
 				WorkContent wc = db.GetWorkContent(workId);
 				roles = db.GetRole(wc.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
 				roles.Remove("负责人");
 				roles.Remove("管理人员");
-				col_Role.DataSource = new BindingSource(roles, null);
-				col_Role.ValueMember = "Value";
-				col_Role.DisplayMember = "Key";
-				
-				IEnumerable<WorkInvolve> members = wc.WorkInvolve.Where(
+
+                col_Role.Items.AddRange(roles.Keys.ToArray());
+                
+
+                members = wc.WorkInvolve.Where(
 					wi => wi.Role.RoleName != "负责人" && wi.Role.RoleName != "管理人员"
 					);
-				List<MemberItem> data = new List<MemberItem>();
+				List<MemberDataRow> data = new List<MemberDataRow>();
 				foreach (var i in members) {
-					var tmp = new MemberItem();
+					var tmp = new MemberDataRow();
 					tmp.EmployeeName = i.Employee.Name;
 					tmp.EmployeeId = i.EID;
 					tmp.RoleId = i.RID;
@@ -76,15 +82,19 @@ namespace WorksAssign.Pages {
 					data.Add(tmp);
 				}
 				dg_Member.AutoGenerateColumns = false;
-				dg_Member.DataSource = data;
-				
+                BindingSource bs = new BindingSource();
+                bs.DataSource = data;
+				dg_Member.DataSource = bs;
+                
+                
+                
 				
 			}
 
 
 		}
 
-		public EditWorks(WorkAbstractItem data)
+		public EditWorks(WorkAbstractDataRow data)
 			: this() {
 			this.chosenData = data;
 			dpk_WorkDate.Value = this.chosenData.Date;
@@ -94,12 +104,7 @@ namespace WorksAssign.Pages {
 			cb_WorkType.Text = this.chosenData.WorkType;
 			txt_WorkContent.Text = this.chosenData.Content;
 			workId = this.chosenData.Id;
-			/* 存入字典可方便比对修改前后
-			exMembers = new List<string>();
-			if (!chosenData.ExMember.IsNullOrEmpty()) {
-				exMembers = this.chosenData.ExMember.Split('、').ToList();
-			}
-			 */
+			// 外协人员不计入绩效，直接覆盖，存入WorkContent.Comments即可
 			txt_exMember.Text = chosenData.ExMember;
 
 			InitializeData();
@@ -123,8 +128,14 @@ namespace WorksAssign.Pages {
 			ComboBox_EditorLostFocus(cb_Manager, employees);
 		}
 
-	}
-	public class MemberItem {
+        private void btn_OK_Click(object sender, EventArgs e) {
+
+        }
+    }
+
+    
+
+    class MemberDataRow {
 		public long EmployeeId { get; set; }
 		public string EmployeeName { get; set; }
 		public long RoleId { get; set; }

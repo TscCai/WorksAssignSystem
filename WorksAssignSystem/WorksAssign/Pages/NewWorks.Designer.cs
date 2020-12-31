@@ -117,7 +117,7 @@
             this.txt_WorkContent.Multiline = true;
             this.txt_WorkContent.Name = "txt_WorkContent";
             this.txt_WorkContent.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_WorkContent.Size = new System.Drawing.Size(504, 169);
+            this.txt_WorkContent.Size = new System.Drawing.Size(622, 169);
             this.txt_WorkContent.TabIndex = 3;
             // 
             // txt_Member
@@ -133,7 +133,7 @@
             this.txt_Member.Multiline = true;
             this.txt_Member.Name = "txt_Member";
             this.txt_Member.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_Member.Size = new System.Drawing.Size(502, 114);
+            this.txt_Member.Size = new System.Drawing.Size(620, 114);
             this.txt_Member.TabIndex = 6;
             // 
             // cb_Substation
@@ -202,7 +202,7 @@
             this.uiLine1.Location = new System.Drawing.Point(0, 497);
             this.uiLine1.MinimumSize = new System.Drawing.Size(2, 2);
             this.uiLine1.Name = "uiLine1";
-            this.uiLine1.Size = new System.Drawing.Size(659, 29);
+            this.uiLine1.Size = new System.Drawing.Size(753, 29);
             this.uiLine1.TabIndex = 7;
             this.uiLine1.TabStop = false;
             // 
@@ -222,7 +222,7 @@
             // 
             this.btn_Reset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Reset.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btn_Reset.Location = new System.Drawing.Point(458, 532);
+            this.btn_Reset.Location = new System.Drawing.Point(558, 532);
             this.btn_Reset.MinimumSize = new System.Drawing.Size(1, 1);
             this.btn_Reset.Name = "btn_Reset";
             this.btn_Reset.Size = new System.Drawing.Size(100, 35);
@@ -251,7 +251,7 @@
             this.cb_WorkType.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_WorkType.Name = "cb_WorkType";
             this.cb_WorkType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_WorkType.Size = new System.Drawing.Size(502, 34);
+            this.cb_WorkType.Size = new System.Drawing.Size(620, 34);
             this.cb_WorkType.TabIndex = 1;
             this.cb_WorkType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -260,7 +260,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(659, 592);
+            this.ClientSize = new System.Drawing.Size(752, 592);
             this.Controls.Add(this.btn_Reset);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.uiLine1);

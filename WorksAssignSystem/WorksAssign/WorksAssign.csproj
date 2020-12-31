@@ -111,6 +111,9 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\AbstractForm.resx">
+      <DependentUpon>AbstractForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\EditWorks.resx">
       <DependentUpon>EditWorks.cs</DependentUpon>
     </EmbeddedResource>

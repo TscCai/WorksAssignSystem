@@ -17,6 +17,7 @@ namespace WorksAssign.Pages {
 		protected DbAgent db;
 
 		protected virtual void InitializeData() {
+            
 			using (db = new DbAgent()) {
 				substations = db.GetSubstation().ToDictionary(k => k.SubstationName, v => v.Id);
 				employees = db.GetEmployee().ToDictionary(k => k.Name, v => v.Id);
@@ -40,5 +41,16 @@ namespace WorksAssign.Pages {
 				dictErr[cb.Name] = true;
 			}
 		}
-	}
+
+        private void InitializeComponent() {
+            this.SuspendLayout();
+            // 
+            // AbstractForm
+            // 
+            this.ClientSize = new System.Drawing.Size(862, 784);
+            this.Name = "AbstractForm";
+            this.ResumeLayout(false);
+
+        }
+    }
 }
