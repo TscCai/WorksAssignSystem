@@ -105,7 +105,7 @@ namespace WorksAssign.Persistence {
         }
 
         /// <summary>
-        /// throw exception if id not exist
+        /// 将级联删除与之关联的全部Work Involve，且无需显式事务。id不存在时抛出异常
         /// </summary>
         /// <param name="id"></param>
         public void DelWorkContent(long id)
@@ -204,9 +204,13 @@ namespace WorksAssign.Persistence {
             return db.Role;
         }
 
-        public Role GetRole(long id) {
-            return db.Role.SingleOrDefault(r => r.ID == id);
-        }
+		public IQueryable<Role> GetRole(long workTypeId) {
+			return db.Role.Where(r => r.WorkType.ID == workTypeId);
+		}
+
+		//public Role GetRole(long id) {
+		//	return db.Role.SingleOrDefault(r => r.ID == id);
+		//}
 
         public Role GetRole(long workTypeId, string roleName) {
            return db.Role.SingleOrDefault(r => r.TID == workTypeId && r.RoleName == roleName);

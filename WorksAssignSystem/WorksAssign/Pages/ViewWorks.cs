@@ -14,7 +14,7 @@ namespace WorksAssign.Pages {
 
 		public override void Init() {
 			base.Init();
-			
+
 			dpk_Start.Value = DateTime.Now.Date;
 			dpk_Start.Text = dpk_Start.Value.ToString("yyyy-MM-dd");
 
@@ -30,7 +30,7 @@ namespace WorksAssign.Pages {
 
 			using (var db = new DbAgent()) {
 				var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
-				List<VWDataItem> list = new List<VWDataItem>();
+				List<WorkAbstractItem> list = new List<WorkAbstractItem>();
 				foreach (var i in works) {
 					DateTime date = i.WorkDate;
 					string content = i.Content;
@@ -58,9 +58,12 @@ namespace WorksAssign.Pages {
 						exMember = outsiders["exMember"];
 					}
 
-					VWDataItem di = new VWDataItem();
+					WorkAbstractItem di = new WorkAbstractItem();
 					di.Id = i.ID;
 					di.Date = date;
+					di.Substation = i.Substations.SubstationName;
+					di.Location = i.Substations.Location;
+					di.WorkType = i.WorkType.Content;
 					di.Content = content;
 					di.Leader = leaderName;
 					di.Manager = manager;
@@ -71,7 +74,7 @@ namespace WorksAssign.Pages {
 
 				}
 				dg_worksAssign.AutoGenerateColumns = false;
-				
+
 				pgr_workContent.DataSource = list;
 				pgr_workContent.ActivePage = 1;
 				pgr_workContent.TotalCount = list.Count;
@@ -87,27 +90,45 @@ namespace WorksAssign.Pages {
 		}
 
 		private void btn_Del_Click(object sender, EventArgs e) {
-			List<long> chosenWorkId = GetChosenWorkId();
-
-
-			string msg = "will be deleted workId: ";
-			foreach (var i in chosenWorkId) {
-				msg += i + ", ";
+			bool canDelete = UIMessageDialog.ShowAskDialog(this, "确认要删除工作吗？");
+			if (canDelete) {
+				List<WorkAbstractItem> chosenWorkId = GetChosenWork();
+				int cnt = 0;
+				string err = "";
+				using (var db = new DbAgent()) {
+					foreach (var i in chosenWorkId) {
+						try {
+							db.DelWorkContent(i.Id);
+							cnt++;
+						}
+						catch (InvalidOperationException ex) {
+							err += "工作Id: " + i + "删除失败，";
+							continue;
+						}
+					}
+				}
+				string msg = cnt + "项工作删除成功。" + err;
+				UIMessageBox.ShowInfo(msg);
 			}
-			UIMessageBox.ShowInfo(msg);
-            throw new NotImplementedException("功能尚未实现");
+
+			InitializeData();
 		}
 
 		private void btn_Edit_Click(object sender, EventArgs e) {
 			// Tips: Row count start at 0
-			List<long> chosenWorkId = GetChosenWorkId();
-			if(chosenWorkId.Count > 1) {
-                UIMessageBox.ShowInfo("选中多个工作，编辑模式下只能对第一个进行操作。");
-                EditWorks frm_EditWorks = new EditWorks(chosenWorkId.First());
-                frm_EditWorks.Show();
-            }
+			List<WorkAbstractItem> chosenWork = GetChosenWork();
+			if (chosenWork.Count < 1) {
+				return;
+			}
+			if (chosenWork.Count > 1) {
+				UIMessageBox.ShowInfo("选中多个工作，编辑模式下只能对第一个进行操作。");
+			}
+			EditWorks frm_EditWorks = new EditWorks(chosenWork.First());
 
-			
+			frm_EditWorks.ShowDialog();
+
+
+
 
 		}
 
@@ -115,20 +136,27 @@ namespace WorksAssign.Pages {
 			dg_worksAssign.DataSource = pagingSource;
 		}
 
-		private List<long> GetChosenWorkId() {
+		/// <summary>
+		/// 根据选中情况返回数据，未显式在DataGridView中显式的列也可获取。
+		/// </summary>
+		/// <returns></returns>
+		private List<WorkAbstractItem> GetChosenWork() {
 			DataGridViewRowCollection dt = dg_worksAssign.Rows;
-			List<long> chosenWorkId = new List<long>();
+			List<WorkAbstractItem> chosenWork = new List<WorkAbstractItem>();
 			foreach (DataGridViewRow i in dt) {
 				if (i.Cells[0].Value != null && (bool)i.Cells[0].Value) {
-					chosenWorkId.Add(((VWDataItem)i.DataBoundItem).Id);
+					chosenWork.Add(((WorkAbstractItem)i.DataBoundItem));
 				}
 			}
-			return chosenWorkId;
+			return chosenWork;
 		}
 	}
-	class VWDataItem {
+	public class WorkAbstractItem {
 		public long Id { get; set; }
 		public DateTime Date { get; set; }
+		public string Substation { get; set; }
+		public string Location { get; set; }
+		public string WorkType { get; set; }
 		public string Content { get; set; }
 		public string Leader { get; set; }
 		public string Member { get; set; }

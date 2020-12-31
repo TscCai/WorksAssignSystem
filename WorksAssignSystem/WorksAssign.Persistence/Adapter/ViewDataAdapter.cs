@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace WorksAssign.Persistence.Adapter {
 	public class ViewDataAdapter {
-		public static string GetName(WorkContent wc,string key) {
-			WorkInvolve w = wc.WorkInvolve.SingleOrDefault(wi => wi.Role.RoleName == key);
+		/// <summary>
+		/// 通过角色名(RoleName)获取成员姓名
+		/// </summary>
+		/// <param name="wc"></param>
+		/// <param name="roleName"></param>
+		/// <returns></returns>
+		public static string GetName(WorkContent wc,string roleName) {
+			WorkInvolve w = wc.WorkInvolve.SingleOrDefault(wi => wi.Role.RoleName == roleName);
 			if (w != null) {
 				return w.Employee.Name;
 			}
@@ -16,6 +22,15 @@ namespace WorksAssign.Persistence.Adapter {
 			}
 		}
 
+		/// <summary>
+		/// 获取外部人员（非本班组的负责人、管理人员、外协民工及厂家）
+		/// </summary>
+		/// <param name="wc"></param>
+		/// <returns>
+		///		result["leader"]: 负责人
+		///		result["manager"]: 管理人员
+		///		result["exMember"]: 外协人员
+		/// </returns>
 		public static Dictionary<string, string> GetOutsider(WorkContent wc) {
 			Dictionary<string, string> result=null;
 			if (!String.IsNullOrEmpty(wc.Comment)) {
@@ -38,5 +53,7 @@ namespace WorksAssign.Persistence.Adapter {
 			}
 			return result;
 		}
+
+
 	}
 }
