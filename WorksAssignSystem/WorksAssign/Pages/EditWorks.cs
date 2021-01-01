@@ -39,6 +39,7 @@ namespace WorksAssign.Pages
         protected override void InitializeData() {
             base.InitializeData();
 
+            db = new DbAgent();
             #region 绑定ComboBox数据
             cb_Substation.DataSource = new BindingSource(substations, null);
             cb_Substation.ValueMember = "Value";
@@ -68,7 +69,7 @@ namespace WorksAssign.Pages
             ComboBox_EditorLostFocus(cb_Manager, employees);
 
 
-            db = new DbAgent();
+            
 
             originData = db.GetWorkContent(workId);
             roles = db.GetRole(originData.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
@@ -247,7 +248,7 @@ namespace WorksAssign.Pages
 
                 if (isContinue) {
                     // db.AddWork(substationId, workTypeId, workContent, workDate, list, wcExMember);
-                    UIMessageBox.ShowSuccess("新增工作成功！");
+                    UIMessageBox.ShowSuccess("编辑工作成功！");
                     this.Close();
                 }
 
