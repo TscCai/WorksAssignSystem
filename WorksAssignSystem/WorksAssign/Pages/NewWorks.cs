@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
-using WorksAssign.Util;
 using WorksAssign.Persistence;
 
 
-namespace WorksAssign.Pages {
+namespace WorksAssign.Pages
+{
     public partial class NewWorks : UIPage {
         DbAgent db;
         Dictionary<string, long> substations;
