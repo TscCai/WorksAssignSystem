@@ -33,9 +33,9 @@ namespace WorksAssign.Persistence.Adapter {
 		/// </returns>
 		public static Dictionary<string, string> GetOutsider(WorkContent wc) {
 			Dictionary<string, string> result=null;
-			if (!String.IsNullOrEmpty(wc.Comment)) {
+			if (!String.IsNullOrEmpty(wc.ExMember)) {
 				result = new Dictionary<string, string>();
-				string[] tmp = wc.Comment.Split('|');
+				string[] tmp = wc.ExMember.Split('|');
 				foreach (var i in tmp) {
 					if (i.StartsWith("负责人：")) {
 						string value = i.Substring(4);

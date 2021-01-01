@@ -16,12 +16,19 @@ namespace WorksAssign.Pages
     public partial class EditWorks : AbstractForm
     {
         long workId;
-        List<string> exMembers;
-        IEnumerable<WorkInvolve> members;
-
         protected Dictionary<string, long> roles;
-        WorkAbstractDataRow chosenData;
+        List<string> exMembers;
+        /// <summary>
+        /// 原工作班成员列表
+        /// </summary>
+        IEnumerable<WorkInvolve> originalMembers;
 
+
+        WorkAbstractDataRow chosenData;
+        /// <summary>
+        /// 原工作内容
+        /// </summary>
+        WorkContent originData;
 
         public EditWorks() {
             InitializeComponent();
@@ -61,37 +68,33 @@ namespace WorksAssign.Pages
             ComboBox_EditorLostFocus(cb_Manager, employees);
 
 
-            using (db = new DbAgent()) {
+            db = new DbAgent();
 
-                WorkContent wc = db.GetWorkContent(workId);
-                roles = db.GetRole(wc.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
-                roles.Remove("负责人");
-                roles.Remove("管理人员");
+            originData = db.GetWorkContent(workId);
+            roles = db.GetRole(originData.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
+            roles.Remove("负责人");
+            roles.Remove("管理人员");
 
-                col_Role.Items.AddRange(roles.Keys.ToArray());
-
-
-                members = wc.WorkInvolve.Where(
-                    wi => wi.Role.RoleName != "负责人" && wi.Role.RoleName != "管理人员"
-                    );
-                List<MemberDataRow> data = new List<MemberDataRow>();
-                foreach (var i in members) {
-                    var tmp = new MemberDataRow();
-                    tmp.EmployeeName = i.Employee.Name;
-                    tmp.EmployeeId = i.EID;
-                    tmp.RoleId = i.RID;
-                    tmp.RoleName = i.Role.RoleName;
-                    data.Add(tmp);
-                }
-                dg_Member.AutoGenerateColumns = false;
-                BindingSource bs = new BindingSource();
-                bs.DataSource = data;
-                dg_Member.DataSource = bs;
+            col_Role.Items.AddRange(roles.Keys.ToArray());
 
 
-
-
+            originalMembers = originData.WorkInvolve.Where(
+                wi => wi.Role.RoleName != "负责人" && wi.Role.RoleName != "管理人员"
+                );
+            List<MemberDataRow> data = new List<MemberDataRow>();
+            foreach (var i in originalMembers) {
+                var tmp = new MemberDataRow();
+                tmp.EmployeeName = i.Employee.Name;
+                tmp.EmployeeId = i.EID;
+                tmp.RoleId = i.RID;
+                tmp.RoleName = i.Role.RoleName;
+                data.Add(tmp);
             }
+            dg_Member.AutoGenerateColumns = false;
+            BindingSource bs = new BindingSource();
+            bs.DataSource = data;
+            dg_Member.DataSource = bs;
+
 
 
         }
@@ -134,28 +137,38 @@ namespace WorksAssign.Pages
             #region 准备界面中的数据
             List<long> memberId = new List<long>();
             List<string> exMemberName = new List<string>();  // 外部人员名单
+
+
+
+
+
             DateTime workDate = dpk_WorkDate.Value.Date;
             long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
             long workTypeId = (long)cb_WorkType.SelectedValue;
             string workContent = txt_WorkContent.Text;
 
+            this.originData.WorkDate = workDate;
+            this.originData.SID = substationId;
+            this.originData.TID = workTypeId;
+            this.originData.Content = workContent;
+
+
             long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
             long managerId = cb_Manager.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
-
-
-
-            string[] memberName = new string[] { };
-            foreach (var i in memberName) {
-                try {
-                    memberId.Add(employees[i]);
+            try {
+                ExtractMemberFromDataGrid();
+                string[] memberName = new string[] { };
+                foreach (var i in memberName) {
+                    try {
+                        memberId.Add(employees[i]);
+                    }
+                    catch (KeyNotFoundException ex) {
+                        exMemberName.Add(i);
+                    }
                 }
-                catch (KeyNotFoundException ex) {
-                    exMemberName.Add(i);
-                }
-            }
-            #endregion
+                #endregion
 
-            using (db = new DbAgent()) {
+
                 #region 访问数据库中的数据
                 List<WorkInvolve> list = new List<WorkInvolve>();
                 string wcExMember = null;
@@ -233,14 +246,36 @@ namespace WorksAssign.Pages
                 #endregion
 
                 if (isContinue) {
-                    db.AddWork(substationId, workTypeId, workContent, workDate, list, wcExMember);
+                    // db.AddWork(substationId, workTypeId, workContent, workDate, list, wcExMember);
                     UIMessageBox.ShowSuccess("新增工作成功！");
                     this.Close();
                 }
 
-
-
             }
+
+            catch (KeyNotFoundException ex) {
+                UIMessageBox.ShowError("非本班组成员请在外协人员栏中填写。");
+                return;
+            }
+
+
+        }
+
+        private List<MemberDataRow> ExtractMemberFromDataGrid() {
+            List<MemberDataRow> result = new List<MemberDataRow>();
+            foreach (DataGridViewRow row in dg_Member.Rows) {
+                string employeeName = ((DataGridViewTextBoxCell)row.Cells[0]).Value.ToString();
+                string roleName = ((DataGridViewComboBoxCell)row.Cells[1]).Value.ToString();
+                MemberDataRow item = new MemberDataRow();
+                item.EmployeeName = employeeName;
+                item.RoleName = roleName;
+
+                item.EmployeeId = employees[employeeName];
+
+                item.RoleId = roles[roleName];
+            }
+
+            return result;
         }
 
 
@@ -251,6 +286,11 @@ namespace WorksAssign.Pages
             public string EmployeeName { get; set; }
             public long RoleId { get; set; }
             public string RoleName { get; set; }
+        }
+
+        private void cb_WorkType_SelectedIndexChanged(object sender, EventArgs e) {
+            long typeId = (long)cb_WorkType.SelectedValue;
+            roles = db.GetRole(typeId).ToDictionary(k => k.RoleName, v => v.ID);
         }
     }
 }

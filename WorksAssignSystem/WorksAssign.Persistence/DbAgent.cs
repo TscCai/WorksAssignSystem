@@ -71,13 +71,14 @@ namespace WorksAssign.Persistence {
 
         #region Table WorkContent
        
-        public long AddWorkContent(DateTime workDate, string content,long SId, long TId,string comment=null)
+        public long AddWorkContent(DateTime workDate, string content,long SId, long TId,string exMember=null, string comment=null)
         {
             WorkContent wc = new WorkContent();
             wc.Content = content;
             wc.WorkDate = workDate;
             wc.SID = SId;
             wc.TID = TId;
+            wc.ExMember = exMember;
             wc.Comment = comment;
             db.WorkContent.Add(wc);
             db.SaveChanges();
@@ -226,9 +227,9 @@ namespace WorksAssign.Persistence {
 
         #region Transactions
         public void AddWork(long substationId, long typeId, string workContent, DateTime workDate,
-            List<WorkInvolve> involves,string workComment=null) {
+            List<WorkInvolve> involves,string exMember= null, string workComment=null) {
             using (var transcation = db.Database.BeginTransaction()) {
-                long wid = AddWorkContent(workDate, workContent, substationId, typeId, workComment);
+                long wid = AddWorkContent(workDate, workContent, substationId, typeId, exMember,workComment);
                 foreach (var i in involves) {
                     i.WID = wid;
                     AddWorkInvolve(i);

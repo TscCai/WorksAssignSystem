@@ -135,6 +135,7 @@
             this.cb_WorkType.Size = new System.Drawing.Size(610, 34);
             this.cb_WorkType.TabIndex = 16;
             this.cb_WorkType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cb_WorkType.SelectedIndexChanged += new System.EventHandler(this.cb_WorkType_SelectedIndexChanged);
             // 
             // cb_Substation
             // 
