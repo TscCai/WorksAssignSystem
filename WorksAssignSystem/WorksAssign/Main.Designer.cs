@@ -25,23 +25,25 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-			this.SuspendLayout();
-			// 
-			// Aside
-			// 
-			this.Aside.LineColor = System.Drawing.Color.Black;
-			this.Aside.Size = new System.Drawing.Size(180, 585);
-			this.Aside.MenuItemClick += new Sunny.UI.UINavMenu.OnMenuItemClick(this.MainNav_OnMenuItemClick);
-			// 
-			// Main
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.AutoSize = true;
-			this.ClientSize = new System.Drawing.Size(1020, 620);
-			this.Name = "Main";
-			this.Text = "工作安排";
-			this.ResumeLayout(false);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            this.SuspendLayout();
+            // 
+            // Aside
+            // 
+            this.Aside.LineColor = System.Drawing.Color.Black;
+            this.Aside.Size = new System.Drawing.Size(180, 585);
+            this.Aside.MenuItemClick += new Sunny.UI.UINavMenu.OnMenuItemClick(this.MainNav_OnMenuItemClick);
+            // 
+            // Main
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1020, 620);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Main";
+            this.Text = "工作安排";
+            this.ResumeLayout(false);
 
         }
 

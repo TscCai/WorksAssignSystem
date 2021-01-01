@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorksAssign.Persistence {
-    public class DbAgent :IDisposable{
+namespace WorksAssign.Persistence
+{
+    public class DbAgent : IDisposable
+    {
         WorksAssignEntities db;
         public DateTime StartDate;
         public V_AllPoints DefaultWorkScore;
@@ -14,16 +16,14 @@ namespace WorksAssign.Persistence {
         public const long NO_MANAGER = 0;
         public const long NOT_SUBSTATION = 0;
 
-        public DbAgent():this(new WorksAssignEntities())
-        {
+        public DbAgent() : this(new WorksAssignEntities()) {
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="db"></param>
-        public DbAgent(WorksAssignEntities db)
-        {
+        public DbAgent(WorksAssignEntities db) {
             this.db = db;
             HolidaysWorkdays = db.ExWorkdays;
 
@@ -36,13 +36,11 @@ namespace WorksAssign.Persistence {
 
         #region Table Employee
 
-        public IQueryable<Employee> GetEmployee()
-        {
+        public IQueryable<Employee> GetEmployee() {
             return db.Employee;
         }
 
-        public Employee GetEmployee(string name)
-        {
+        public Employee GetEmployee(string name) {
             return db.Employee.FirstOrDefault(e => e.Name == name);
         }
 
@@ -52,27 +50,23 @@ namespace WorksAssign.Persistence {
         #endregion
 
         #region Table Substation
-        public IQueryable<Substations> GetSubstation()
-        {
+        public IQueryable<Substations> GetSubstation() {
             return db.Substations;
         }
 
-        public IQueryable<Substations> GetSubstation(string location)
-        {
+        public IQueryable<Substations> GetSubstation(string location) {
             return db.Substations.Where(s => s.Location == location);
         }
 
-        public Substations GetSubstation(long id)
-        {
+        public Substations GetSubstation(long id) {
             return db.Substations.SingleOrDefault(s => s.Id == id);
         }
 
         #endregion
 
         #region Table WorkContent
-       
-        public long AddWorkContent(DateTime workDate, string content,long SId, long TId,string exMember=null, string comment=null)
-        {
+
+        public long AddWorkContent(DateTime workDate, string content, long SId, long TId, string exMember = null, string comment = null) {
             WorkContent wc = new WorkContent();
             wc.Content = content;
             wc.WorkDate = workDate;
@@ -84,23 +78,19 @@ namespace WorksAssign.Persistence {
             db.SaveChanges();
             return wc.ID;
         }
-        public WorkContent GetWorkContent(long id)
-        {
+        public WorkContent GetWorkContent(long id) {
             return db.WorkContent.SingleOrDefault(w => w.ID == id);
         }
 
-        public IQueryable<WorkContent> GetWorkContent(DateTime date)
-        {
+        public IQueryable<WorkContent> GetWorkContent(DateTime date) {
             return db.WorkContent.Where(w => w.WorkDate == date);
         }
 
-        public IQueryable<WorkContent> GetWorkContent(DateTime start, DateTime end)
-        {
+        public IQueryable<WorkContent> GetWorkContent(DateTime start, DateTime end) {
             return db.WorkContent.Where(w => w.WorkDate >= start && w.WorkDate <= end);
         }
 
-        public void UpdateWorkContent(WorkContent wc)
-        {
+        public void UpdateWorkContent(WorkContent wc) {
             db.WorkContent.Add(wc);
             db.SaveChanges();
         }
@@ -109,8 +99,7 @@ namespace WorksAssign.Persistence {
         /// 将级联删除与之关联的全部Work Involve，且无需显式事务。id不存在时抛出异常
         /// </summary>
         /// <param name="id"></param>
-        public void DelWorkContent(long id)
-        {
+        public void DelWorkContent(long id) {
             var i = GetWorkContent(id);
             db.WorkInvolve.RemoveRange(i.WorkInvolve);  // remove their involves cascadly
             db.WorkContent.Remove(i);
@@ -120,28 +109,23 @@ namespace WorksAssign.Persistence {
 
         #region TableWorkInvolve
 
-        public IQueryable<WorkInvolve> GetWorkInvolve()
-        {
+        public IQueryable<WorkInvolve> GetWorkInvolve() {
             return db.WorkInvolve;
         }
 
-        public WorkInvolve GetWorkInvolve(long id)
-        {
+        public WorkInvolve GetWorkInvolve(long id) {
             return db.WorkInvolve.SingleOrDefault(w => w.ID == id);
         }
 
-        public IQueryable<WorkInvolve> GetWorkInvolveByWorkId(long wid)
-        {
+        public IQueryable<WorkInvolve> GetWorkInvolveByWorkId(long wid) {
             return db.WorkInvolve.Where(w => w.WID == wid);
         }
 
-        public WorkInvolve GetWorkInvolve(long wid, long eid)
-        {
+        public WorkInvolve GetWorkInvolve(long wid, long eid) {
             return db.WorkInvolve.SingleOrDefault(w => w.WID == wid && w.EID == eid);
         }
 
-        public long AddWorkInvolve(long wid, long eid, long rid)
-        {
+        public long AddWorkInvolve(long wid, long eid, long rid) {
             WorkInvolve wi = new WorkInvolve();
             wi.EID = eid;
             wi.RID = rid;
@@ -162,28 +146,34 @@ namespace WorksAssign.Persistence {
         /// </summary>
         /// <param name="wid"></param>
         /// <param name="eid"></param>
-        public void DelWorkInvolve(long wid, long eid)
-        {
+        public void DelWorkInvolve(long wid, long eid) {
             var i = GetWorkInvolve(wid, eid);
             db.WorkInvolve.Remove(i);
+            db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Delelte workInvolves by workId
+        /// </summary>
+        /// <param name="wid">WorkContent Id</param>
+        public void DelWorkInvolve(long wid) {
+            var i = GetWorkInvolveByWorkId(wid);
+            db.WorkInvolve.RemoveRange(i);
             db.SaveChanges();
         }
 
         #endregion
 
         #region Table WorkTypes
-        public IQueryable<WorkType> GetWorkType()
-        {
+        public IQueryable<WorkType> GetWorkType() {
             return db.WorkType;
         }
 
-        public WorkType GetWorkType(long id)
-        {
+        public WorkType GetWorkType(long id) {
             return db.WorkType.SingleOrDefault(t => t.ID == id);
         }
 
-        public long AddWorkType(string content,double wgt)
-        {
+        public long AddWorkType(string content, double wgt) {
             WorkType i = new WorkType();
             i.Content = content;
             i.TypeWgt = wgt;
@@ -192,11 +182,10 @@ namespace WorksAssign.Persistence {
             return i.ID;
         }
 
-        public void UpdateWorkType(WorkType wt)
-        {
+        public void UpdateWorkType(WorkType wt) {
             db.SaveChanges();
         }
-        
+
         #endregion
 
         #region Table Role
@@ -205,31 +194,30 @@ namespace WorksAssign.Persistence {
             return db.Role;
         }
 
-		public IQueryable<Role> GetRole(long workTypeId) {
-			return db.Role.Where(r => r.WorkType.ID == workTypeId);
-		}
+        public IQueryable<Role> GetRole(long workTypeId) {
+            return db.Role.Where(r => r.WorkType.ID == workTypeId);
+        }
 
-		//public Role GetRole(long id) {
-		//	return db.Role.SingleOrDefault(r => r.ID == id);
-		//}
+        //public Role GetRole(long id) {
+        //	return db.Role.SingleOrDefault(r => r.ID == id);
+        //}
 
         public Role GetRole(long workTypeId, string roleName) {
-           return db.Role.SingleOrDefault(r => r.TID == workTypeId && r.RoleName == roleName);
+            return db.Role.SingleOrDefault(r => r.TID == workTypeId && r.RoleName == roleName);
         }
         #endregion
 
         #region View V_AllPoints
-        public IQueryable<V_AllPoints> GetWorkScoreById(long id)
-        {
+        public IQueryable<V_AllPoints> GetWorkScoreById(long id) {
             return db.V_AllPoints.Where(p => p.EmpId == id);
         }
         #endregion
 
         #region Transactions
         public void AddWork(long substationId, long typeId, string workContent, DateTime workDate,
-            List<WorkInvolve> involves,string exMember= null, string workComment=null) {
+            List<WorkInvolve> involves, string exMember = null, string workComment = null) {
             using (var transcation = db.Database.BeginTransaction()) {
-                long wid = AddWorkContent(workDate, workContent, substationId, typeId, exMember,workComment);
+                long wid = AddWorkContent(workDate, workContent, substationId, typeId, exMember, workComment);
                 foreach (var i in involves) {
                     i.WID = wid;
                     AddWorkInvolve(i);
@@ -237,6 +225,20 @@ namespace WorksAssign.Persistence {
                 transcation.Commit();
             }
         }
+
+
+        public void UpdateWork(WorkContent wc, List<WorkInvolve> list) {
+            using (var transcation = db.Database.BeginTransaction()) {
+
+                DelWorkInvolve(wc.ID);
+                foreach(var item in list) {
+                    item.WID = wc.ID;
+                    AddWorkInvolve(item);
+                }
+                transcation.Commit();
+            }
+        }
+
         #endregion
 
     }

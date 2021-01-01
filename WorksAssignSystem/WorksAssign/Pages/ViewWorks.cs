@@ -73,14 +73,17 @@ namespace WorksAssign.Pages {
 					list.Add(di);
 
 				}
-				dg_worksAssign.AutoGenerateColumns = false;
+
+                #region Data binding
+                dg_worksAssign.AutoGenerateColumns = false;
 
 				pgr_workContent.DataSource = list;
 				pgr_workContent.ActivePage = 1;
 				pgr_workContent.TotalCount = list.Count;
 
+                #endregion
 
-			}
+            }
 
 		}
 
@@ -124,15 +127,18 @@ namespace WorksAssign.Pages {
 				UIMessageBox.ShowInfo("选中多个工作，编辑模式下只能对第一个进行操作。");
 			}
 			EditWorks frm_EditWorks = new EditWorks(chosenWork.First());
+            frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
 
-			frm_EditWorks.Show();
+            frm_EditWorks.ShowDialog();
+        }
 
+        private void Frm_EditWorks_FormClosed(object sender, FormClosedEventArgs e) {
+            InitializeData();
+            pgr_workContent.ActivePage = 0;
+            pgr_workContent.ActivePage = 1;
+        }
 
-
-
-		}
-
-		private void pgr_workContent_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
+        private void pgr_workContent_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
 			dg_worksAssign.DataSource = pagingSource;
 		}
 
