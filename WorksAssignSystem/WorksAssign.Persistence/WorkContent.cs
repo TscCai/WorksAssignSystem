@@ -25,6 +25,7 @@ namespace WorksAssign.Persistence
         public long SID { get; set; }
         public System.DateTime WorkDate { get; set; }
         public string Content { get; set; }
+        public string ExMember { get; set; }
         public string Comment { get; set; }
     
         public virtual Substations Substations { get; set; }

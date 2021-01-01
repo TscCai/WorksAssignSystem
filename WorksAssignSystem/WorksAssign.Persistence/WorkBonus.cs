@@ -18,5 +18,7 @@ namespace WorksAssign.Persistence
         public long WIID { get; set; }
         public double Score { get; set; }
         public string Reason { get; set; }
+    
+        public virtual WorkInvolve WorkInvolve { get; set; }
     }
 }

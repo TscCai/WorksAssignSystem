@@ -14,7 +14,6 @@ namespace WorksAssign.Persistence
     
     public partial class V_AllPoints
     {
-        public DateTime WorkDate { get; set; }
         public string WorkType { get; set; }
         public string WorkContent { get; set; }
         public long EmpId { get; set; }
@@ -22,5 +21,6 @@ namespace WorksAssign.Persistence
         public string RoleName { get; set; }
         public double RoleWgt { get; set; }
         public double TypeWgt { get; set; }
+        public DateTime WorkDate { get; set; }
     }
 }
