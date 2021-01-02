@@ -78,12 +78,14 @@ namespace WorksAssign.Pages
                 roles = db.GetRole(chosenWorkContent.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
                 //roles.Remove("负责人");
                 //roles.Remove("管理人员");
+                string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
+                string managerAlias = RoleNameType.Manager.GetEnumStringValue();
 
-                col_Role.Items.AddRange(roles.Keys.Where(k => k != "负责人" && k != "管理人员").ToArray());
+                col_Role.Items.AddRange(roles.Keys.Where(k => k != leaderAlias && k != managerAlias).ToArray());
 
 
                 originalMembers = chosenWorkContent.WorkInvolve.Where(
-                    wi => wi.Role.RoleName != "负责人" && wi.Role.RoleName != "管理人员"
+                    wi => wi.Role.RoleName != leaderAlias && wi.Role.RoleName != managerAlias
                     );
                 List<MemberDataRow> data = new List<MemberDataRow>();
                 foreach (var i in originalMembers) {
@@ -141,88 +143,17 @@ namespace WorksAssign.Pages
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_OK_Click(object sender, EventArgs e) {
-            #region 准备界面中的数据
-            List<long> memberId = new List<long>();
-            List<string> exMemberName = new List<string>();  // 外部人员名单
-
-            DateTime workDate = dpk_WorkDate.Value.Date;
-            long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
-            long workTypeId = (long)cb_WorkType.SelectedValue;
-            string workContent = txt_WorkContent.Text;
-
-            long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
-            long managerId = cb_Manager.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
-
-            #endregion
-
-
-            #region 准备数据
-            List<WorkInvolve> involveList = new List<WorkInvolve>();
-            string wcOutsider = null;
-            string hintMsg = "";
-            // add leader
-            if (cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
-                // 非表中人员，且有姓名，应存入WorkContent的ExMember
-                wcOutsider += "负责人：" + cb_Leader.Text + "|";
-                hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";
-            }
-            else if (cb_Leader.Text == "") {
-                UIMessageBox.ShowError("工作无负责人。");
+            EditWorkModel model = CreateViewDataModel();
+            if (model.Error) {
+                this.ShowErrorDialog(model.ErrorMessage);
                 return;
             }
             else {
-                WorkInvolve wi = new WorkInvolve();
-                wi.EID = leaderId;
-                wi.RID = roles["负责人"];
-                involveList.Add(wi);
-            }
-            // add manager
-            if (cb_Manager.Text == "") {
-                // NO manager
-                hintMsg += "不存在管理人员\n";
-            }
-            else if (cb_Manager.Text != "" && managerId == DbAgent.OUTSIDER) {
-                // outsider manager
-                // 非表中人员，且有姓名，应存入WorkContent的ExMember
-                wcOutsider += "管理人员：" + cb_Manager.Text + "|";
-                hintMsg += "存在非本班组的管理人员：" + cb_Manager.Text + "\n";
-            }
-            else {
-                WorkInvolve wi = new WorkInvolve();
-                wi.EID = managerId;
-                wi.RID = roles["管理人员"];
-                involveList.Add(wi);
-            }
-            try {
-                // add member
-                List<MemberDataRow> currentMembers = ExtractMemberFromDataGrid();
-
-                foreach (var i in currentMembers) {
-
-                    WorkInvolve wi = new WorkInvolve();
-                    wi.EID = i.EmployeeId;
-                    wi.RID = i.RoleId;
-                    involveList.Add(wi);
-                }
-                #endregion
-
-                #region 写入数据库前的准备，提示信息等
-
-                // add ex-member 
-
-                if (!txt_exMember.Text.IsNullOrEmpty()) {
-                    string ex = "外协人员：" + txt_exMember.Text;
-                    wcOutsider += ex;
-                    hintMsg += "存在" + ex;
-                }
-
                 bool isContinue = true;
-                if (hintMsg != "") {
-                    hintMsg = "提示：\n" + hintMsg + "\n确认添加吗？";
+                if (model.HintMessage != "") {
+                    string hintMsg = "提示：\n" + model.HintMessage + "\n确认添加吗？";
                     isContinue = UIMessageDialog.ShowAskDialog(this, hintMsg);
                 }
-
-                #endregion
 
                 if (isContinue) {
 
@@ -230,32 +161,21 @@ namespace WorksAssign.Pages
 
                     using (db = new DbAgent()) {
                         WorkContent originalData = db.GetWorkContent(workId);
-                        originalData.ExMember = wcOutsider;
-                        originalData.WorkDate = workDate;
-                        originalData.SID = substationId;
-                        originalData.TID = workTypeId;
-                        originalData.Content = workContent;
-                        db.UpdateWork(originalData, involveList);
+                        originalData.ExMember = model.Outsider;
+                        originalData.WorkDate = model.WorkDate;
+                        originalData.SID = model.SubstationId;
+                        originalData.TID = model.WorkTypeId;
+                        originalData.Content = model.WorkContent;
+                        db.UpdateWork(originalData, model.InvolveList);
                     }
-
-
                     // 更新成功后，必须先关闭本模态窗口，再弹对话框
                     this.ShowSuccessDialog("编辑工作成功！");
                     this.Close();
-
-
                 }
-            }
-            catch (InvalidOperationException ex) {
-                this.ShowErrorDialog(ex.Message);
-                return;
-            }
-            catch (KeyNotFoundException ex) {
-                this.ShowErrorDialog("非本班组成员请在外协人员栏中填写。");
-                return;
+
             }
         }
-        
+
         private List<MemberDataRow> ExtractMemberFromDataGrid() {
             List<MemberDataRow> result = new List<MemberDataRow>();
             foreach (DataGridViewRow row in dg_Member.Rows) {
@@ -280,13 +200,7 @@ namespace WorksAssign.Pages
             return result;
         }
 
-        class MemberDataRow
-        {
-            public long EmployeeId { get; set; }
-            public string EmployeeName { get; set; }
-            public long RoleId { get; set; }
-            public string RoleName { get; set; }
-        }
+
 
         private void cb_WorkType_SelectedIndexChanged(object sender, EventArgs e) {
             long typeId = (long)cb_WorkType.SelectedValue;
@@ -294,5 +208,114 @@ namespace WorksAssign.Pages
                 roles = db.GetRole(typeId).ToDictionary(k => k.RoleName, v => v.ID);
             }
         }
+
+        private EditWorkModel CreateViewDataModel() {
+            EditWorkModel result = new EditWorkModel();
+            List<WorkInvolve> involveList = new List<WorkInvolve>();
+
+
+            List<long> memberId = new List<long>();
+            List<string> exMemberName = new List<string>();  // 外部人员名单
+
+            DateTime workDate = dpk_WorkDate.Value.Date;
+            long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
+            long workTypeId = (long)cb_WorkType.SelectedValue;
+            string workContent = txt_WorkContent.Text;
+
+            long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
+            long managerId = cb_Manager.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
+
+
+            string outsider = null;
+            string hintMsg = "";
+            // add leader
+            if (cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
+                // 非表中人员，且有姓名，应存入WorkContent的ExMember
+                outsider += RoleNameType.Leader.GetEnumStringValue() + "：" + cb_Leader.Text + "|";
+                hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";
+            }
+            else if (cb_Leader.Text == "") {
+                result.ErrorMessage += "工作无负责人。";
+                result.Error = true;
+            }
+            else {
+                WorkInvolve wi = new WorkInvolve();
+                wi.EID = leaderId;
+                wi.RID = roles[RoleNameType.Leader.GetEnumStringValue()];
+                involveList.Add(wi);
+            }
+            // add manager
+            if (cb_Manager.Text == "") {
+                // NO manager
+                hintMsg += "不存在管理人员\n";
+            }
+            else if (cb_Manager.Text != "" && managerId == DbAgent.OUTSIDER) {
+                // outsider manager
+                // 非表中人员，且有姓名，应存入WorkContent的ExMember
+                outsider += RoleNameType.Manager.GetEnumStringValue() + "：" + cb_Manager.Text + "|";
+                hintMsg += "存在非本班组的管理人员：" + cb_Manager.Text + "\n";
+            }
+            else {
+                WorkInvolve wi = new WorkInvolve();
+                wi.EID = managerId;
+                wi.RID = roles[RoleNameType.Manager.GetEnumStringValue()];
+                involveList.Add(wi);
+            }
+
+            // add member
+            try {
+                List<MemberDataRow> currentMembers = ExtractMemberFromDataGrid();
+
+                foreach (var i in currentMembers) {
+
+                    WorkInvolve wi = new WorkInvolve();
+                    wi.EID = i.EmployeeId;
+                    wi.RID = i.RoleId;
+                    involveList.Add(wi);
+                }
+
+
+                // add ex-member 
+
+                if (!txt_exMember.Text.IsNullOrEmpty()) {
+                    string ex = "外协人员：" + txt_exMember.Text;
+                    outsider += ex;
+                    hintMsg += "存在" + ex;
+                }
+
+                result.SubstationId = substationId;
+                result.WorkTypeId = workTypeId;
+                result.WorkContent = workContent;
+                result.WorkDate = workDate;
+                result.Outsider = outsider;
+                result.HintMessage = hintMsg;
+                // 暂无备注，下一行代码注释掉
+                //result.Comment = null;
+                result.InvolveList = involveList;
+
+            }
+            catch (InvalidOperationException ex) {
+                result.ErrorMessage = ex.Message;
+                result.Error = true;
+
+            }
+            catch (KeyNotFoundException ex) {
+                result.ErrorMessage = "存在未知的班组成员";
+                result.Error = true;
+
+            }
+
+            return result;
+
+        }
     }
+
+    class MemberDataRow
+    {
+        public long EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+        public long RoleId { get; set; }
+        public string RoleName { get; set; }
+    }
+    public class EditWorkModel : NewWorkModel { }
 }

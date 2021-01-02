@@ -262,7 +262,7 @@ namespace WorksAssign.Pages
 
     }
 
-    class NewWorkModel
+    public class NewWorkModel
     {
         public bool Error { get; set; }
         public string ErrorMessage { get; set; }
@@ -274,5 +274,7 @@ namespace WorksAssign.Pages
         public List<WorkInvolve> InvolveList { get; set; }
         public string Outsider { get; set; }
         public string Comment { get; set; }
+
+        public NewWorkModel() { Error = false; }
     }
 }
