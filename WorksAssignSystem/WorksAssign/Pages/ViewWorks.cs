@@ -20,6 +20,7 @@ namespace WorksAssign.Pages {
 
 			dpk_End.Value = dpk_Start.Value.AddDays(1);
 			dpk_End.Text = dpk_End.Value.ToString("yyyy-MM-dd");
+            col_Date.DefaultCellStyle.Format = "yyyy-MM-dd";
 
 		}
 
@@ -34,12 +35,15 @@ namespace WorksAssign.Pages {
 				foreach (var i in works) {
 					DateTime date = i.WorkDate;
 					string content = i.Content;
-					string leaderName = ViewDataAdapter.GetName(i, "负责人");
-					string manager = ViewDataAdapter.GetName(i, "管理人员");
+                    string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
+                    string managerAlias = RoleNameType.Manager.GetEnumStringValue();
+
+                    string leaderName = ViewDataAdapter.GetName(i, leaderAlias);
+                    string manager = ViewDataAdapter.GetName(i, managerAlias);
 					string exMember = null;
 					string member = "";
 
-					var mem_inv = i.WorkInvolve.Where(wi => wi.Role.RoleName != "负责人" && wi.Role.RoleName != "管理人员");
+					var mem_inv = i.WorkInvolve.Where(wi => wi.Role.RoleName != leaderAlias && wi.Role.RoleName != managerAlias);
 					foreach (var j in mem_inv) {
 						member += j.Employee.Name + "、";
 					}
@@ -48,14 +52,17 @@ namespace WorksAssign.Pages {
 					}
 
 					Dictionary<string, string> outsiders = ViewDataAdapter.GetOutsider(i);
-					if (leaderName == null && outsiders != null && outsiders.Keys.Contains("leader")) {
-						leaderName = outsiders["leader"];
+                    string key = RoleNameType.Leader.ToString();
+                    if (leaderName == null && outsiders != null && outsiders.Keys.Contains(key)) {
+						leaderName = outsiders[key];
 					}
-					if (manager == null && outsiders != null && outsiders.Keys.Contains("manager")) {
-						manager = outsiders["manager"];
+                    key = RoleNameType.Manager.ToString();
+                    if (manager == null && outsiders != null && outsiders.Keys.Contains(key)) {
+						manager = outsiders[key];
 					}
-					if (outsiders != null && outsiders.Keys.Contains("exMember")) {
-						exMember = outsiders["exMember"];
+                    key = RoleNameType.ExMember.ToString();
+                    if (outsiders != null && outsiders.Keys.Contains(key)) {
+						exMember = outsiders[key];
 					}
 
 					WorkAbstractDataRow di = new WorkAbstractDataRow();
@@ -74,14 +81,13 @@ namespace WorksAssign.Pages {
 
 				}
 
-                #region Data binding
+                // Controls data binding
                 dg_worksAssign.AutoGenerateColumns = false;
 
 				pgr_workContent.DataSource = list;
-				pgr_workContent.ActivePage = 1;
+				
 				pgr_workContent.TotalCount = list.Count;
 
-                #endregion
 
             }
 
@@ -89,15 +95,16 @@ namespace WorksAssign.Pages {
 
 		private void btn_Search_Click(object sender, EventArgs e) {
 			InitializeData();
+            pgr_workContent.ActivePage = 1;
 
-		}
+        }
 
 		private void btn_Del_Click(object sender, EventArgs e) {
 			bool canDelete = UIMessageDialog.ShowAskDialog(this, "确认要删除工作吗？");
 			if (canDelete) {
 				List<WorkAbstractDataRow> chosenWorkId = GetChosenWork();
 				int cnt = 0;
-				string err = "";
+				string errMsg = "";
 				using (var db = new DbAgent()) {
 					foreach (var i in chosenWorkId) {
 						try {
@@ -105,17 +112,18 @@ namespace WorksAssign.Pages {
 							cnt++;
 						}
 						catch (InvalidOperationException ex) {
-							err += "工作Id: " + i + "删除失败，";
+							errMsg += "工作Id: " + i + "删除失败，";
 							continue;
 						}
 					}
 				}
-				string msg = cnt + "项工作删除成功。" + err;
+				string msg = cnt + "项工作删除成功。" + errMsg;
 				UIMessageBox.ShowInfo(msg);
 			}
 
 			InitializeData();
-		}
+            pgr_workContent.ActivePage = 1;
+        }
 
 		private void btn_Edit_Click(object sender, EventArgs e) {
 			// Tips: Row count start at 0

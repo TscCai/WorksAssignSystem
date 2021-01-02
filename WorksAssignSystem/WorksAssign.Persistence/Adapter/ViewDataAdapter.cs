@@ -27,9 +27,9 @@ namespace WorksAssign.Persistence.Adapter {
 		/// </summary>
 		/// <param name="wc"></param>
 		/// <returns>
-		///		result["leader"]: 负责人
-		///		result["manager"]: 管理人员
-		///		result["exMember"]: 外协人员
+		///		result["Leader"]: 负责人
+		///		result["Manager"]: 管理人员
+		///		result["ExMember"]: 外协人员
 		/// </returns>
 		public static Dictionary<string, string> GetOutsider(WorkContent wc) {
 			Dictionary<string, string> result=null;
@@ -37,17 +37,17 @@ namespace WorksAssign.Persistence.Adapter {
 				result = new Dictionary<string, string>();
 				string[] tmp = wc.ExMember.Split('|');
 				foreach (var i in tmp) {
-					if (i.StartsWith("负责人：")) {
+					if (i.StartsWith(RoleNameType.Leader.GetEnumStringValue()+"：")) {
 						string value = i.Substring(4);
-						result.Add("leader", value);
+						result.Add(RoleNameType.Leader.ToString(), value);
 					}
-					else if (i.StartsWith("管理人员：")) {
+					else if (i.StartsWith(RoleNameType.Manager.GetEnumStringValue()+"：")) {
 						string value = i.Substring(5);
-						result.Add("manager", value);
+						result.Add(RoleNameType.Manager.ToString(), value);
 					}
-					else if (i.StartsWith("外协人员：")) {
+					else if (i.StartsWith(RoleNameType.ExMember.GetEnumStringValue() + "：")) {
 						string value = i.Substring(5);
-						result.Add("exMember", value);
+						result.Add(RoleNameType.ExMember.ToString(), value);
 					}
 				}			
 			}

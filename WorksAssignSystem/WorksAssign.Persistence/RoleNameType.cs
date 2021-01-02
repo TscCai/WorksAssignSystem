@@ -15,7 +15,9 @@ namespace WorksAssign.Persistence {
         [StringValue("青工")]
         YoungGuy,
         [StringValue("骨干")]
-        Senior
+        Senior,
+        [StringValue("外协人员")]
+        ExMember
     }
 
     public class StringValue : Attribute {

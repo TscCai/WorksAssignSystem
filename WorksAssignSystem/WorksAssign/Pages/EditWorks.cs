@@ -17,15 +17,12 @@ namespace WorksAssign.Pages
     {
         long workId;
         protected Dictionary<string, long> roles;
-     
-        
-
 
         WorkAbstractDataRow chosenData;
         /// <summary>
         /// 原工作内容
         /// </summary>
-        
+
 
         public EditWorks() {
             InitializeComponent();
@@ -122,8 +119,6 @@ namespace WorksAssign.Pages
             InitializeData();
         }
 
-
-
         private void btn_Cancel_Click(object sender, EventArgs e) {
             this.Close();
         }
@@ -155,53 +150,50 @@ namespace WorksAssign.Pages
             long workTypeId = (long)cb_WorkType.SelectedValue;
             string workContent = txt_WorkContent.Text;
 
-
-
-
             long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
             long managerId = cb_Manager.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
+
+            #endregion
+
+
+            #region 准备数据
+            List<WorkInvolve> involveList = new List<WorkInvolve>();
+            string wcOutsider = null;
+            string hintMsg = "";
+            // add leader
+            if (cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
+                // 非表中人员，且有姓名，应存入WorkContent的ExMember
+                wcOutsider += "负责人：" + cb_Leader.Text + "|";
+                hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";
+            }
+            else if (cb_Leader.Text == "") {
+                UIMessageBox.ShowError("工作无负责人。");
+                return;
+            }
+            else {
+                WorkInvolve wi = new WorkInvolve();
+                wi.EID = leaderId;
+                wi.RID = roles["负责人"];
+                involveList.Add(wi);
+            }
+            // add manager
+            if (cb_Manager.Text == "") {
+                // NO manager
+                hintMsg += "不存在管理人员\n";
+            }
+            else if (cb_Manager.Text != "" && managerId == DbAgent.OUTSIDER) {
+                // outsider manager
+                // 非表中人员，且有姓名，应存入WorkContent的ExMember
+                wcOutsider += "管理人员：" + cb_Manager.Text + "|";
+                hintMsg += "存在非本班组的管理人员：" + cb_Manager.Text + "\n";
+            }
+            else {
+                WorkInvolve wi = new WorkInvolve();
+                wi.EID = managerId;
+                wi.RID = roles["管理人员"];
+                involveList.Add(wi);
+            }
             try {
-
-                #endregion
-
-
-                #region 准备数据
-                List<WorkInvolve> involveList = new List<WorkInvolve>();
-                string wcOutsider = null;
-                string hintMsg = "";
-                // add leader
-                if (cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
-                    // 非表中人员，且有姓名，应存入WorkContent的ExMember
-                    wcOutsider += "负责人：" + cb_Leader.Text + "|";
-                    hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";
-                }
-                else if (cb_Leader.Text == "") {
-                    UIMessageBox.ShowError("工作无负责人。");
-                    return;
-                }
-                else {
-                    WorkInvolve wi = new WorkInvolve();
-                    wi.EID = leaderId;
-                    wi.RID = roles["负责人"];
-                    involveList.Add(wi);
-                }
-                // add manager
-                if (cb_Manager.Text == "") {
-                    // NO manager
-                    hintMsg += "不存在管理人员\n";
-                }
-                else if (cb_Manager.Text != "" && managerId == DbAgent.OUTSIDER) {
-                    // outsider manager
-                    // 非表中人员，且有姓名，应存入WorkContent的ExMember
-                    wcOutsider += "管理人员：" + cb_Manager.Text + "|";
-                    hintMsg += "存在非本班组的管理人员：" + cb_Manager.Text + "\n";
-                }
-                else {
-                    WorkInvolve wi = new WorkInvolve();
-                    wi.EID = managerId;
-                    wi.RID = roles["管理人员"];
-                    involveList.Add(wi);
-                }
                 // add member
                 List<MemberDataRow> currentMembers = ExtractMemberFromDataGrid();
 
@@ -224,15 +216,6 @@ namespace WorksAssign.Pages
                     hintMsg += "存在" + ex;
                 }
 
-                //if (exMemberName != null && exMemberName.Count > 0 && exMemberName.First() != "") {
-                //    string ex = "外协人员：";
-                //    foreach (var i in exMemberName) {
-                //        ex += i + "、";
-                //    }
-                //    ex = ex.Substring(0, ex.Length - 1);
-                //    wcOutsider += ex;
-                //    hintMsg += "存在" + ex;
-                //}
                 bool isContinue = true;
                 if (hintMsg != "") {
                     hintMsg = "提示：\n" + hintMsg + "\n确认添加吗？";
@@ -244,7 +227,7 @@ namespace WorksAssign.Pages
                 if (isContinue) {
 
                     // Remove orginal members involve, then add new ones.
-                    
+
                     using (db = new DbAgent()) {
                         WorkContent originalData = db.GetWorkContent(workId);
                         originalData.ExMember = wcOutsider;
@@ -262,17 +245,17 @@ namespace WorksAssign.Pages
 
 
                 }
-
             }
-
+            catch (InvalidOperationException ex) {
+                this.ShowErrorDialog(ex.Message);
+                return;
+            }
             catch (KeyNotFoundException ex) {
                 this.ShowErrorDialog("非本班组成员请在外协人员栏中填写。");
                 return;
             }
-
-
         }
-
+        
         private List<MemberDataRow> ExtractMemberFromDataGrid() {
             List<MemberDataRow> result = new List<MemberDataRow>();
             foreach (DataGridViewRow row in dg_Member.Rows) {
@@ -288,12 +271,14 @@ namespace WorksAssign.Pages
                     item.RoleId = roles[roleName];
                     result.Add(item);
                 }
+                else if ((row.Cells[0].Value == null && row.Cells[1].Value == null)) { continue; }
+                else {
+                    throw new InvalidOperationException("工作班成员信息不完整。");
+                }
             }
 
             return result;
         }
-
-
 
         class MemberDataRow
         {

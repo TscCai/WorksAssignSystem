@@ -16,6 +16,7 @@ namespace WorksAssign.Persistence
         public const long NO_MANAGER = 0;
         public const long NOT_SUBSTATION = 0;
 
+
         public DbAgent() : this(new WorksAssignEntities()) {
         }
 
