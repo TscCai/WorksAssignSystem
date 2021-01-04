@@ -54,10 +54,6 @@ namespace WorksAssign.Util {
             }
         }
 
-        public static double CalcWorkPoints(double typeWgt, double roleWgt)
-        {
-            return typeWgt * roleWgt;
-        }
     }
 
 

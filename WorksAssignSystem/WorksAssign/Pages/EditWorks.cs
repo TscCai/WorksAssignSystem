@@ -76,8 +76,7 @@ namespace WorksAssign.Pages
 
                 chosenWorkContent = db.GetWorkContent(workId);
                 roles = db.GetRole(chosenWorkContent.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
-                //roles.Remove("负责人");
-                //roles.Remove("管理人员");
+                
                 string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
                 string managerAlias = RoleNameType.Manager.GetEnumStringValue();
 

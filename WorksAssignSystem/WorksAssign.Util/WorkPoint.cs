@@ -9,13 +9,18 @@ using NPOI.XSSF.UserModel;
 using WorksAssign.Persistence;
 
 namespace WorksAssign.Util {
-    public class ExportUtil {
+    public class WorkPoint:IDisposable {
 
-        DbAgent Db;
+        DbAgent db;
         /// <summary>
         /// 内置Workbook对象
         /// </summary>
         IWorkbook wb;
+
+        /// <summary>
+        /// 在ExportExcel中初始化
+        /// </summary>
+        IQueryable<ExWorkdays> holidaysWorkdays;
 
         /// <summary>
         /// 内置日期指针
@@ -36,63 +41,31 @@ namespace WorksAssign.Util {
         /// 初始化资源，创建汇总表表头、默认日期格式
         /// </summary>
         /// <param name="db">外部DbAgent实例</param>
-        public ExportUtil()
+        public WorkPoint()
         {
             wb = new XSSFWorkbook();
-            Db = new DbAgent();
+            db = new DbAgent();
             CreateSheetSumHeader("当月绩效表");
             DefaultDateStyle = wb.CreateCellStyle();
-            DefaultDateStyle.DataFormat = wb.CreateDataFormat().GetFormat("yyyy-mm-dd");
+            DefaultDateStyle.DataFormat = wb.CreateDataFormat().GetFormat("yyyy-MM-dd");
+            
         }
 
-        /// <summary>
-        /// 创建汇总表表头
-        /// </summary>
-        /// <param name="name">汇总表名称</param>
-        /// <returns></returns>
-        void CreateSheetSumHeader(string name)
-        {
-            SummarySheet = wb.CreateSheet(name);
-            int row_sheet_sum = 0;
-            IRow hdr = SummarySheet.CreateRow(row_sheet_sum);
-            row_sheet_sum++;
-            hdr.CreateCell(0).SetCellValue("姓名");
-            hdr.CreateCell(1).SetCellValue("当月工分");
-            hdr.CreateCell(2).SetCellValue("当月绩效");
-
-            return;
-        }
-
-
-        ISheet CreatePersonalSheet(string name)
-        {
-            ISheet result = wb.CreateSheet(name);
-            result.SetColumnWidth(0, 12 * 256);
-            // 首行留白，从row1开始
-            IRow r = result.CreateRow(1);
-            r.CreateCell(0).SetCellValue("时间");
-            r.CreateCell(1).SetCellValue("工作内容");
-            r.CreateCell(2).SetCellValue("工作类别");
-            r.CreateCell(3).SetCellValue("类别系数");
-            r.CreateCell(4).SetCellValue("角色");
-            r.CreateCell(5).SetCellValue("角色系数");
-            return result;
-        }
         /// <summary>
         /// 导出绩效统计表Excel
         /// </summary>
         /// <param name="filename">文件名</param>
-        public void ExportExcel(string filename)
-        {
-            ExportExcel(filename, Db.StartDate);
+        public void ExportExcel(string filename) {
+            ExportExcel(filename, DateTime.Now);
         }
 
-        public void ExportExcel(string filename, DateTime startDate)
-        {
+        public void ExportExcel(string filename, DateTime startDate) {
+            
+            holidaysWorkdays = db.GetHolidaysWorkdays(startDate.Year);
             int currentMonth = startDate.Month;
 
             // 逐个计算个人绩效
-            foreach (Employee emp in Db.GetEmployee()) {
+            foreach (Employee emp in db.GetEmployee()) {
 
                 // Id=1 为外部人员，不参与绩效计算
                 if (emp.Id == 1) {
@@ -102,7 +75,7 @@ namespace WorksAssign.Util {
                 datePointer = startDate;
 
                 // 取出该人员的所有工作内容
-                IQueryable<V_AllPoints> personal_points = Db.GetWorkScoreById(emp.Id);
+                IQueryable<V_AllPoints> personal_points = db.GetWorkPointById(emp.Id);
 
                 ISheet personal_sheet = CreatePersonalSheet(emp.Name);
 
@@ -110,7 +83,7 @@ namespace WorksAssign.Util {
                     // search if this day have work
                     List<V_AllPoints> item = personal_points.Where(s => s.WorkDate == datePointer).ToList();
 
-                    total_points += CalcPoints(item, personal_sheet);
+                    total_points += GetDailyPoints(item, personal_sheet);
 
                     //TODO: append bonus items
 
@@ -131,40 +104,78 @@ namespace WorksAssign.Util {
         }
 
 
-        double CalcPoints(List<V_AllPoints> workOfOneDay, ISheet personalSheet)
+        /// <summary>
+        /// 创建汇总表表头
+        /// </summary>
+        /// <param name="name">汇总表名称</param>
+        /// <returns></returns>
+        void CreateSheetSumHeader(string name)
         {
-            double total_score = 0;
+            SummarySheet = wb.CreateSheet(name);
+            int row_sheet_sum = 0;
+            IRow hdr = SummarySheet.CreateRow(row_sheet_sum);
+            row_sheet_sum++;
+            hdr.CreateCell(0).SetCellValue("姓名");
+            hdr.CreateCell(1).SetCellValue("当月工分");
+            hdr.CreateCell(2).SetCellValue("当月绩效");
+
+            return;
+        }
+
+        ISheet CreatePersonalSheet(string name)
+        {
+            ISheet result = wb.CreateSheet(name);
+            result.SetColumnWidth(0, 12 * 256);
+            // 首行留白，从row1开始
+            IRow r = result.CreateRow(1);
+            r.CreateCell(0).SetCellValue("时间");
+            r.CreateCell(1).SetCellValue("工作内容");
+            r.CreateCell(2).SetCellValue("工作类别");
+            r.CreateCell(3).SetCellValue("类别系数");
+            r.CreateCell(4).SetCellValue("角色");
+            r.CreateCell(5).SetCellValue("角色系数");
+            return result;
+        }
+    
+        double GetDailyPoints(List<V_AllPoints> workOfOneDay, ISheet personalSheet)
+        {
+            double total_point = 0;
             if (workOfOneDay != null && workOfOneDay.Count > 0) {
                 foreach (var i in workOfOneDay) {
                     FillPersonalSheet(personalSheet, i);
                     // 绩效计算公式
-                    total_score += CommonUtil.CalcWorkPoints(i.TypeWgt, i.RoleWgt);
+                    total_point += CalcWorkPoints(i.TypeWgt, i.RoleWgt);
                 }
             }
             else {
-                if (CommonUtil.IsHoliday(datePointer, Db.HolidaysWorkdays)) {
+                if (CommonUtil.IsHoliday(datePointer, holidaysWorkdays)) {
                     FillPersonalSheet(personalSheet, datePointer, "休息", "休息", 0, "", 0);
                 }
-                else if (CommonUtil.IsWorkday(datePointer, Db.HolidaysWorkdays)) {
-                    var def_score = Db.DefaultWorkScore;
-                    def_score.WorkDate = datePointer;
-                    FillPersonalSheet(personalSheet, def_score);
+                else if (CommonUtil.IsWorkday(datePointer, holidaysWorkdays)) {
+                    var defaultWorkPoint = db.GetDefaultWorkPoint();
+                    defaultWorkPoint.WorkDate = datePointer;
+                    FillPersonalSheet(personalSheet, defaultWorkPoint);
 
                     // 绩效计算公式
-                    total_score += CommonUtil.CalcWorkPoints(def_score.TypeWgt, def_score.RoleWgt);
+                    total_point += CalcWorkPoints(defaultWorkPoint.TypeWgt, defaultWorkPoint.RoleWgt);
                 }
                 else if (CommonUtil.IsDayOff(datePointer, 0, null)) {
                     FillPersonalSheet(personalSheet, datePointer, "休息", "休息", 0, "", 0);
                 }
             }
-            return total_score;
+            return total_point;
         }
 
-        void FillPersonalSheet(ISheet sheet, V_AllPoints scoreTable)
-        {
-            FillPersonalSheet(sheet, scoreTable.WorkDate, scoreTable.WorkContent, scoreTable.WorkType,
-                scoreTable.TypeWgt, scoreTable.RoleName, scoreTable.RoleWgt);
+        double CalcWorkPoints(double typeWgt, double roleWgt) {
+            return typeWgt * roleWgt;
         }
+
+        void FillPersonalSheet(ISheet sheet, V_AllPoints pointTable)
+        {
+            FillPersonalSheet(sheet, pointTable.WorkDate, pointTable.WorkContent, pointTable.WorkType,
+                pointTable.TypeWgt, pointTable.RoleName, pointTable.RoleWgt);
+        }
+
         void FillPersonalSheet(ISheet sheet, DateTime date, string workContent, string workType, double typeWgt, string role, double roleWgt)
         {
             IRow r = sheet.CreateRow(sheet.LastRowNum + 1);
@@ -178,6 +189,9 @@ namespace WorksAssign.Util {
             r.CreateCell(5).SetCellValue(roleWgt);
         }
 
+        public void Dispose() {
+           db.Dispose();
+        }
     }
 
 }

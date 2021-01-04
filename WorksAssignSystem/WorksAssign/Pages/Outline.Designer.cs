@@ -25,32 +25,51 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.uiLabel1 = new Sunny.UI.UILabel();
+            this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
+            this.uiPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // uiLabel1
+            // uiPanel1
             // 
-            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiLabel1.Location = new System.Drawing.Point(317, 164);
-            this.uiLabel1.Name = "uiLabel1";
-            this.uiLabel1.Size = new System.Drawing.Size(100, 23);
-            this.uiLabel1.TabIndex = 1;
-            this.uiLabel1.Text = "欢迎使用";
-            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiPanel1.Controls.Add(this.uiSymbolLabel1);
+            this.uiPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.uiPanel1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiPanel1.Location = new System.Drawing.Point(0, 0);
+            this.uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel1.Name = "uiPanel1";
+            this.uiPanel1.Size = new System.Drawing.Size(802, 87);
+            this.uiPanel1.TabIndex = 0;
+            // 
+            // uiSymbolLabel1
+            // 
+            this.uiSymbolLabel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiSymbolLabel1.Location = new System.Drawing.Point(0, 0);
+            this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSymbolLabel1.Name = "uiSymbolLabel1";
+            this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
+            this.uiSymbolLabel1.Size = new System.Drawing.Size(170, 87);
+            this.uiSymbolLabel1.TabIndex = 0;
+            this.uiSymbolLabel1.Text = "uiSymbolLabel1";
             // 
             // Outline
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 523);
-            this.Controls.Add(this.uiLabel1);
+            this.Controls.Add(this.uiPanel1);
             this.Name = "Outline";
             this.Text = "工作概况";
+            this.uiPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private Sunny.UI.UILabel uiLabel1;
+
+        private Sunny.UI.UIPanel uiPanel1;
+        private Sunny.UI.UISymbolLabel uiSymbolLabel1;
     }
 }

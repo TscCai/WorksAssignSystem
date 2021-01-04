@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorksAssign.Persistence.Adapter;
 
 namespace WorksAssign.Persistence
 {
     public class DbAgent : IDisposable
     {
-        WorksAssignEntities db;
-        public DateTime StartDate;
-        public V_AllPoints DefaultWorkScore;
-        public IQueryable<ExWorkdays> HolidaysWorkdays;
+        WorksAssignEntities dbCtx;
+        //public DateTime StartDate;
+        //public V_AllPoints DefaultWorkPoint;
+        //public IQueryable<ExWorkdays> HolidaysWorkdays;
+
         public const long OUTSIDER = 1;
         public const long NO_MANAGER = 0;
         public const long NOT_SUBSTATION = 0;
@@ -23,44 +25,41 @@ namespace WorksAssign.Persistence
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="db"></param>
-        public DbAgent(WorksAssignEntities db) {
-            this.db = db;
-            HolidaysWorkdays = db.ExWorkdays;
-
-            // TODO: StartDate、DefaultWorkScore还未初始化
+        /// <param name="ctx"></param>
+        public DbAgent(WorksAssignEntities ctx) {
+            this.dbCtx = ctx;           
         }
 
         public void Dispose() {
-            db.Dispose();
+            dbCtx.Dispose();
         }
 
         #region Table Employee
 
         public IQueryable<Employee> GetEmployee() {
-            return db.Employee;
+            return dbCtx.Employee;
         }
 
         public Employee GetEmployee(string name) {
-            return db.Employee.FirstOrDefault(e => e.Name == name);
+            return dbCtx.Employee.FirstOrDefault(e => e.Name == name);
         }
 
         public Employee GetEmployee(long id) {
-            return db.Employee.SingleOrDefault(e => e.Id == id);
+            return dbCtx.Employee.SingleOrDefault(e => e.Id == id);
         }
         #endregion
 
         #region Table Substation
         public IQueryable<Substations> GetSubstation() {
-            return db.Substations;
+            return dbCtx.Substations;
         }
 
         public IQueryable<Substations> GetSubstation(string location) {
-            return db.Substations.Where(s => s.Location == location);
+            return dbCtx.Substations.Where(s => s.Location == location);
         }
 
         public Substations GetSubstation(long id) {
-            return db.Substations.SingleOrDefault(s => s.Id == id);
+            return dbCtx.Substations.SingleOrDefault(s => s.Id == id);
         }
 
         #endregion
@@ -75,25 +74,25 @@ namespace WorksAssign.Persistence
             wc.TID = TId;
             wc.ExMember = exMember;
             wc.Comment = comment;
-            db.WorkContent.Add(wc);
-            db.SaveChanges();
+            dbCtx.WorkContent.Add(wc);
+            dbCtx.SaveChanges();
             return wc.ID;
         }
         public WorkContent GetWorkContent(long id) {
-            return db.WorkContent.SingleOrDefault(w => w.ID == id);
+            return dbCtx.WorkContent.SingleOrDefault(w => w.ID == id);
         }
 
         public IQueryable<WorkContent> GetWorkContent(DateTime date) {
-            return db.WorkContent.Where(w => w.WorkDate == date);
+            return dbCtx.WorkContent.Where(w => w.WorkDate == date);
         }
 
         public IQueryable<WorkContent> GetWorkContent(DateTime start, DateTime end) {
-            return db.WorkContent.Where(w => w.WorkDate >= start && w.WorkDate <= end);
+            return dbCtx.WorkContent.Where(w => w.WorkDate >= start && w.WorkDate <= end);
         }
 
         public void UpdateWorkContent(WorkContent wc) {
-            db.WorkContent.Add(wc);
-            db.SaveChanges();
+            dbCtx.WorkContent.Add(wc);
+            dbCtx.SaveChanges();
         }
 
         /// <summary>
@@ -102,28 +101,28 @@ namespace WorksAssign.Persistence
         /// <param name="id"></param>
         public void DelWorkContent(long id) {
             var i = GetWorkContent(id);
-            db.WorkInvolve.RemoveRange(i.WorkInvolve);  // remove their involves cascadly
-            db.WorkContent.Remove(i);
-            db.SaveChanges();
+            dbCtx.WorkInvolve.RemoveRange(i.WorkInvolve);  // remove their involves cascadly
+            dbCtx.WorkContent.Remove(i);
+            dbCtx.SaveChanges();
         }
         #endregion
 
         #region TableWorkInvolve
 
         public IQueryable<WorkInvolve> GetWorkInvolve() {
-            return db.WorkInvolve;
+            return dbCtx.WorkInvolve;
         }
 
         public WorkInvolve GetWorkInvolve(long id) {
-            return db.WorkInvolve.SingleOrDefault(w => w.ID == id);
+            return dbCtx.WorkInvolve.SingleOrDefault(w => w.ID == id);
         }
 
         public IQueryable<WorkInvolve> GetWorkInvolveByWorkId(long wid) {
-            return db.WorkInvolve.Where(w => w.WID == wid);
+            return dbCtx.WorkInvolve.Where(w => w.WID == wid);
         }
 
         public WorkInvolve GetWorkInvolve(long wid, long eid) {
-            return db.WorkInvolve.SingleOrDefault(w => w.WID == wid && w.EID == eid);
+            return dbCtx.WorkInvolve.SingleOrDefault(w => w.WID == wid && w.EID == eid);
         }
 
         public long AddWorkInvolve(long wid, long eid, long rid) {
@@ -131,14 +130,14 @@ namespace WorksAssign.Persistence
             wi.EID = eid;
             wi.RID = rid;
             wi.WID = wid;
-            db.WorkInvolve.Add(wi);
-            db.SaveChanges();
+            dbCtx.WorkInvolve.Add(wi);
+            dbCtx.SaveChanges();
             return wi.ID;
         }
 
         public long AddWorkInvolve(WorkInvolve wi) {
-            db.WorkInvolve.Add(wi);
-            db.SaveChanges();
+            dbCtx.WorkInvolve.Add(wi);
+            dbCtx.SaveChanges();
             return wi.ID;
         }
 
@@ -149,8 +148,8 @@ namespace WorksAssign.Persistence
         /// <param name="eid"></param>
         public void DelWorkInvolve(long wid, long eid) {
             var i = GetWorkInvolve(wid, eid);
-            db.WorkInvolve.Remove(i);
-            db.SaveChanges();
+            dbCtx.WorkInvolve.Remove(i);
+            dbCtx.SaveChanges();
         }
 
         /// <summary>
@@ -159,32 +158,36 @@ namespace WorksAssign.Persistence
         /// <param name="wid">WorkContent Id</param>
         public void DelWorkInvolve(long wid) {
             var i = GetWorkInvolveByWorkId(wid);
-            db.WorkInvolve.RemoveRange(i);
-            db.SaveChanges();
+            dbCtx.WorkInvolve.RemoveRange(i);
+            dbCtx.SaveChanges();
         }
 
         #endregion
 
         #region Table WorkTypes
         public IQueryable<WorkType> GetWorkType() {
-            return db.WorkType;
+            return dbCtx.WorkType;
+        }
+
+        public WorkType GetWorkType(string typeName) {
+            return dbCtx.WorkType.SingleOrDefault(t=>t.Content == typeName);
         }
 
         public WorkType GetWorkType(long id) {
-            return db.WorkType.SingleOrDefault(t => t.ID == id);
+            return dbCtx.WorkType.SingleOrDefault(t => t.ID == id);
         }
 
         public long AddWorkType(string content, double wgt) {
             WorkType i = new WorkType();
             i.Content = content;
             i.TypeWgt = wgt;
-            db.WorkType.Add(i);
-            db.SaveChanges();
+            dbCtx.WorkType.Add(i);
+            dbCtx.SaveChanges();
             return i.ID;
         }
 
         public void UpdateWorkType(WorkType wt) {
-            db.SaveChanges();
+            dbCtx.SaveChanges();
         }
 
         #endregion
@@ -192,11 +195,11 @@ namespace WorksAssign.Persistence
         #region Table Role
 
         public IQueryable<Role> GetRole() {
-            return db.Role;
+            return dbCtx.Role;
         }
 
         public IQueryable<Role> GetRole(long workTypeId) {
-            return db.Role.Where(r => r.WorkType.ID == workTypeId);
+            return dbCtx.Role.Where(r => r.WorkType.ID == workTypeId);
         }
 
         //public Role GetRole(long id) {
@@ -204,20 +207,43 @@ namespace WorksAssign.Persistence
         //}
 
         public Role GetRole(long workTypeId, string roleName) {
-            return db.Role.SingleOrDefault(r => r.TID == workTypeId && r.RoleName == roleName);
+            return dbCtx.Role.SingleOrDefault(r => r.TID == workTypeId && r.RoleName == roleName);
+        }
+        #endregion
+
+        #region Table ExWorkdays
+        public IQueryable<ExWorkdays> GetHolidaysWorkdays() {
+            return dbCtx.ExWorkdays;
+        }
+
+        public IQueryable<ExWorkdays> GetHolidaysWorkdays(int year) {
+            return dbCtx.ExWorkdays.Where(d => d.Date.Year == year);
         }
         #endregion
 
         #region View V_AllPoints
-        public IQueryable<V_AllPoints> GetWorkScoreById(long id) {
-            return db.V_AllPoints.Where(p => p.EmpId == id);
+        public IQueryable<V_AllPoints> GetWorkPointById(long id) {
+            return dbCtx.V_AllPoints.Where(p => p.EmpId == id);
         }
+
+        public V_AllPoints GetDefaultWorkPoint() {
+            V_AllPoints result = new V_AllPoints();
+            
+            result.WorkContent = DefaultConstant.WorkContent;
+            result.WorkType = DefaultConstant.WorkType;
+            result.TypeWgt = GetWorkType(result.WorkType).TypeWgt;
+            result.RoleName = DefaultConstant.RoleName;
+            result.RoleWgt = DefaultConstant.RoleWgt;
+            return result;
+        }
+
+
         #endregion
 
         #region Transactions
         public void AddWork(long substationId, long typeId, string workContent, DateTime workDate,
             List<WorkInvolve> involves, string exMember = null, string workComment = null) {
-            using (var transcation = db.Database.BeginTransaction()) {
+            using (var transcation = dbCtx.Database.BeginTransaction()) {
                 long wid = AddWorkContent(workDate, workContent, substationId, typeId, exMember, workComment);
                 foreach (var i in involves) {
                     i.WID = wid;
@@ -229,7 +255,7 @@ namespace WorksAssign.Persistence
 
 
         public void UpdateWork(WorkContent wc, List<WorkInvolve> list) {
-            using (var transcation = db.Database.BeginTransaction()) {
+            using (var transcation = dbCtx.Database.BeginTransaction()) {
 
                 DelWorkInvolve(wc.ID);
                 foreach(var item in list) {
