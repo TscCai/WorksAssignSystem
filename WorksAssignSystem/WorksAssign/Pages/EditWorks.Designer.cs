@@ -1,28 +1,30 @@
-﻿namespace WorksAssign.Pages {
-	partial class EditWorks {
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+﻿namespace WorksAssign.Pages
+{
+    partial class EditWorks
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing) {
-			if (disposing && (components != null)) {
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent() {
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -86,7 +88,7 @@
             this.dpk_WorkDate.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_WorkDate.Name = "dpk_WorkDate";
             this.dpk_WorkDate.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_WorkDate.Size = new System.Drawing.Size(150, 34);
+            this.dpk_WorkDate.Size = new System.Drawing.Size(150, 30);
             this.dpk_WorkDate.SymbolDropDown = 61555;
             this.dpk_WorkDate.SymbolNormal = 61555;
             this.dpk_WorkDate.TabIndex = 18;
@@ -103,7 +105,7 @@
             this.cb_Manager.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Manager.Name = "cb_Manager";
             this.cb_Manager.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Manager.Size = new System.Drawing.Size(150, 34);
+            this.cb_Manager.Size = new System.Drawing.Size(150, 30);
             this.cb_Manager.TabIndex = 21;
             this.cb_Manager.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Manager.EditorLostFocus += new System.EventHandler(this.cb_Manager_EditorLostFocus);
@@ -117,7 +119,7 @@
             this.cb_Leader.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Leader.Name = "cb_Leader";
             this.cb_Leader.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Leader.Size = new System.Drawing.Size(150, 34);
+            this.cb_Leader.Size = new System.Drawing.Size(150, 30);
             this.cb_Leader.TabIndex = 20;
             this.cb_Leader.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Leader.EditorLostFocus += new System.EventHandler(this.cb_Leader_EditorLostFocus);
@@ -132,7 +134,7 @@
             this.cb_WorkType.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_WorkType.Name = "cb_WorkType";
             this.cb_WorkType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_WorkType.Size = new System.Drawing.Size(610, 34);
+            this.cb_WorkType.Size = new System.Drawing.Size(610, 30);
             this.cb_WorkType.TabIndex = 16;
             this.cb_WorkType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_WorkType.SelectedIndexChanged += new System.EventHandler(this.cb_WorkType_SelectedIndexChanged);
@@ -146,7 +148,7 @@
             this.cb_Substation.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Substation.Name = "cb_Substation";
             this.cb_Substation.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Substation.Size = new System.Drawing.Size(150, 34);
+            this.cb_Substation.Size = new System.Drawing.Size(150, 30);
             this.cb_Substation.TabIndex = 17;
             this.cb_Substation.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Substation.EditorLostFocus += new System.EventHandler(this.cb_Substation_EditorLostFocus);
@@ -276,6 +278,8 @@
             this.dg_Member.ShowGridLine = true;
             this.dg_Member.Size = new System.Drawing.Size(608, 166);
             this.dg_Member.TabIndex = 26;
+            this.dg_Member.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dg_Member_CellBeginEdit);
+            this.dg_Member.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_Member_CellEndEdit);
             // 
             // col_Name
             // 
@@ -315,7 +319,7 @@
             this.txt_exMember.MinimumSize = new System.Drawing.Size(1, 1);
             this.txt_exMember.Name = "txt_exMember";
             this.txt_exMember.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_exMember.Size = new System.Drawing.Size(606, 34);
+            this.txt_exMember.Size = new System.Drawing.Size(606, 30);
             this.txt_exMember.TabIndex = 28;
             // 
             // lbl_exMember
@@ -330,7 +334,7 @@
             // 
             // EditWorks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 653);
             this.Controls.Add(this.txt_exMember);
@@ -358,12 +362,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dg_Member)).EndInit();
             this.ResumeLayout(false);
 
-		}
+        }
 
         #endregion
 
         private Sunny.UI.UISymbolButton btn_Cancel;
-		private Sunny.UI.UISymbolButton btn_OK;
+        private Sunny.UI.UISymbolButton btn_OK;
         private Sunny.UI.UIDatePicker dpk_WorkDate;
         private Sunny.UI.UIComboBox cb_Manager;
         private Sunny.UI.UIComboBox cb_Leader;
@@ -377,10 +381,10 @@
         private Sunny.UI.UILabel lbl_WorkContent;
         private Sunny.UI.UILabel lbl_WorkDate;
         private Sunny.UI.UILabel lbl_Station;
-		private Sunny.UI.UIDataGridView dg_Member;
-		private Sunny.UI.UILine uiLine1;
-		private Sunny.UI.UITextBox txt_exMember;
-		private Sunny.UI.UILabel lbl_exMember;
+        private Sunny.UI.UIDataGridView dg_Member;
+        private Sunny.UI.UILine uiLine1;
+        private Sunny.UI.UITextBox txt_exMember;
+        private Sunny.UI.UILabel lbl_exMember;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Name;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_Role;
     }

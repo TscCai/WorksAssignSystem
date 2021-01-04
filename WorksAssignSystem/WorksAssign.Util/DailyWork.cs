@@ -1,19 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using WorksAssign.Persistence;
+using WorksAssign.Persistence.Adapter;
+using WorksAssign.Util.Adapter;
 
 namespace WorksAssign.Util
 {
-    public class DailyWork
+    public class DailyWork:IDisposable
     {
-        public DailyWork() {
 
+        /// <summary>
+        /// 内置Workbook对象
+        /// </summary>
+        IWorkbook Workbook;
+        IWorkbook Template;
+        /// <summary>
+        /// 汇总页表格
+        /// </summary>
+        ISheet ActiveSheet;
+
+        
+
+        /// <summary>
+        /// 默认日期格式，初始化为yyyy-MM-dd
+        /// </summary>
+        ICellStyle DefaultDateStyle;
+
+
+        public DailyWork(string templateFilename) {
+            using (FileStream fs = new FileStream(templateFilename, FileMode.Open, FileAccess.Read)) {
+                Workbook = WorkbookFactory.Create(fs);
+            }
+            //WorkBook = new XSSFWorkbook(templateFilename);
+            
+            //CreateSheetHeader("出勤流水");
+            DefaultDateStyle = Workbook.CreateCellStyle();
+            DefaultDateStyle.DataFormat = Workbook.CreateDataFormat().GetFormat("yyyy-MM-dd");
+            ActiveSheet = Workbook.GetSheetAt(Workbook.ActiveSheetIndex);
         }
 
-        public void ExportExcel(string filename, IQueryable<WorkContent> list) {
+        public void ExportExcel(string filename, List<WorkAbstractDataRow> list) {
+            int rowNum = DailyWorkTableDefine.StartRow;
+            foreach(var item in list) {
+               IRow row=  ActiveSheet.GetRow(rowNum);
+                row.GetCell(DailyWorkTableDefine.Date).SetCellValue(item.Date.ToString("yyyy-MM-dd"));
+                row.GetCell(DailyWorkTableDefine.Location).SetCellValue(item.Location);
+                row.GetCell(DailyWorkTableDefine.Substation).SetCellValue(item.Substation);
+                row.GetCell(DailyWorkTableDefine.Content).SetCellValue(item.Content);
+                row.GetCell(DailyWorkTableDefine.Leader).SetCellValue(item.Leader);
+                row.GetCell(DailyWorkTableDefine.Member).SetCellValue(item.Member);
+                row.GetCell(DailyWorkTableDefine.ExMember).SetCellValue(item.ExMember);
+                row.GetCell(DailyWorkTableDefine.Manager).SetCellValue(item.Manager);
+                rowNum++;
+            }
+
+            using (FileStream file = new FileStream(filename, FileMode.Create)) {
+                Workbook.Write(file);
+            }
 
         }
 
@@ -27,6 +76,10 @@ namespace WorksAssign.Util
 
         public void ExportExcel(string filename, DateTime start, DateTime end) {
 
+        }
+
+        public void Dispose() {
+            Workbook.Close();
         }
     }
 }

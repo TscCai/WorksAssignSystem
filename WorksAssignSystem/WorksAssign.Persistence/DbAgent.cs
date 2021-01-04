@@ -27,7 +27,7 @@ namespace WorksAssign.Persistence
         /// </summary>
         /// <param name="ctx"></param>
         public DbAgent(WorksAssignEntities ctx) {
-            this.dbCtx = ctx;           
+            this.dbCtx = ctx;
         }
 
         public void Dispose() {
@@ -170,7 +170,7 @@ namespace WorksAssign.Persistence
         }
 
         public WorkType GetWorkType(string typeName) {
-            return dbCtx.WorkType.SingleOrDefault(t=>t.Content == typeName);
+            return dbCtx.WorkType.SingleOrDefault(t => t.Content == typeName);
         }
 
         public WorkType GetWorkType(long id) {
@@ -228,7 +228,7 @@ namespace WorksAssign.Persistence
 
         public V_AllPoints GetDefaultWorkPoint() {
             V_AllPoints result = new V_AllPoints();
-            
+
             result.WorkContent = DefaultConstant.WorkContent;
             result.WorkType = DefaultConstant.WorkType;
             result.TypeWgt = GetWorkType(result.WorkType).TypeWgt;
@@ -253,18 +253,30 @@ namespace WorksAssign.Persistence
             }
         }
 
-
-        public void UpdateWork(WorkContent wc, List<WorkInvolve> list) {
+        public void UpdateWork(WorkContent wc, List<WorkInvolve> list, bool needUpdateList=false) {
             using (var transcation = dbCtx.Database.BeginTransaction()) {
-
-                DelWorkInvolve(wc.ID);
-                foreach(var item in list) {
-                    item.WID = wc.ID;
-                    AddWorkInvolve(item);
+                if (needUpdateList) {
+                    DelWorkInvolve(wc.ID);
+                    foreach (var item in list) {
+                        item.WID = wc.ID;
+                        AddWorkInvolve(item);
+                    }
                 }
                 transcation.Commit();
             }
         }
+
+        //public void UpdateWork(WorkContent wc, List<WorkInvolve> list) {
+        //    using (var transcation = dbCtx.Database.BeginTransaction()) {
+
+        //        DelWorkInvolve(wc.ID);
+        //        foreach (var item in list) {
+        //            item.WID = wc.ID;
+        //            AddWorkInvolve(item);
+        //        }
+        //        transcation.Commit();
+        //    }
+        //}
 
         #endregion
 

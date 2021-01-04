@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
-using WorksAssign.Persistence.Adapter;
+using WorksAssign.Util.Adapter;
 
 namespace WorksAssign.Pages
 {
     public partial class EditWorks : AbstractForm
     {
         long workId;
+        bool needUpdateMember = false;
+        object tmpCellForUpdate;
         protected Dictionary<string, long> roles;
 
         WorkAbstractDataRow chosenData;
@@ -76,7 +78,7 @@ namespace WorksAssign.Pages
 
                 chosenWorkContent = db.GetWorkContent(workId);
                 roles = db.GetRole(chosenWorkContent.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
-                
+
                 string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
                 string managerAlias = RoleNameType.Manager.GetEnumStringValue();
 
@@ -165,7 +167,7 @@ namespace WorksAssign.Pages
                         originalData.SID = model.SubstationId;
                         originalData.TID = model.WorkTypeId;
                         originalData.Content = model.WorkContent;
-                        db.UpdateWork(originalData, model.InvolveList);
+                        db.UpdateWork(originalData, model.InvolveList,needUpdateMember);
                     }
                     // 更新成功后，必须先关闭本模态窗口，再弹对话框
                     this.ShowSuccessDialog("编辑工作成功！");
@@ -306,6 +308,17 @@ namespace WorksAssign.Pages
 
             return result;
 
+        }
+
+        private void dg_Member_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e) {
+            tmpCellForUpdate = dg_Member.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+        }
+
+        private void dg_Member_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+            if(tmpCellForUpdate.ToString() != dg_Member.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) {
+                needUpdateMember = true;
+               // this.ShowInfoDialog("you changed");
+            }
         }
     }
 
