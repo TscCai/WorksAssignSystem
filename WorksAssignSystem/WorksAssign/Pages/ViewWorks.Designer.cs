@@ -25,10 +25,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dg_worksAssign = new Sunny.UI.UIDataGridView();
             this.col_chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,18 +69,18 @@
             // 
             this.dg_worksAssign.AllowUserToAddRows = false;
             this.dg_worksAssign.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.dg_worksAssign.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.dg_worksAssign.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dg_worksAssign.BackgroundColor = System.Drawing.Color.White;
             this.dg_worksAssign.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("微软雅黑", 12F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_worksAssign.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 12F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_worksAssign.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dg_worksAssign.ColumnHeadersHeight = 32;
             this.dg_worksAssign.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dg_worksAssign.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -91,22 +91,22 @@
             this.col_Member,
             this.col_exMember,
             this.col_manager});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("微软雅黑", 12F);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dg_worksAssign.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 12F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_worksAssign.DefaultCellStyle = dataGridViewCellStyle3;
             this.dg_worksAssign.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_worksAssign.EnableHeadersVisualStyles = false;
             this.dg_worksAssign.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.dg_worksAssign.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.dg_worksAssign.Location = new System.Drawing.Point(35, 0);
             this.dg_worksAssign.Name = "dg_worksAssign";
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            this.dg_worksAssign.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dg_worksAssign.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dg_worksAssign.RowTemplate.Height = 29;
             this.dg_worksAssign.SelectedIndex = -1;
             this.dg_worksAssign.ShowGridLine = true;
@@ -168,7 +168,7 @@
             this.dpk_Start.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_Start.Name = "dpk_Start";
             this.dpk_Start.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_Start.Size = new System.Drawing.Size(150, 30);
+            this.dpk_Start.Size = new System.Drawing.Size(150, 34);
             this.dpk_Start.SymbolDropDown = 61555;
             this.dpk_Start.SymbolNormal = 61555;
             this.dpk_Start.TabIndex = 1;
@@ -187,7 +187,7 @@
             this.dpk_End.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_End.Name = "dpk_End";
             this.dpk_End.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_End.Size = new System.Drawing.Size(150, 30);
+            this.dpk_End.Size = new System.Drawing.Size(150, 34);
             this.dpk_End.SymbolDropDown = 61555;
             this.dpk_End.SymbolNormal = 61555;
             this.dpk_End.TabIndex = 1;
@@ -481,7 +481,7 @@
             // 
             // ViewWorks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(897, 606);
             this.Controls.Add(this.pgr_workContent);
