@@ -61,6 +61,7 @@
             this.dpk_MonthlyAttendance.SymbolDropDown = 61555;
             this.dpk_MonthlyAttendance.SymbolNormal = 61555;
             this.dpk_MonthlyAttendance.TabIndex = 4;
+            this.dpk_MonthlyAttendance.Text = "2021-01-05";
             this.dpk_MonthlyAttendance.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.dpk_MonthlyAttendance.Value = new System.DateTime(2021, 1, 5, 15, 9, 38, 612);
             // 
