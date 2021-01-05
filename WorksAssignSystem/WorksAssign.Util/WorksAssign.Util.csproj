@@ -86,12 +86,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapter\WorkAbstractDataRow.cs" />
+    <Compile Include="DataModel\DailyWorkModel.cs" />
     <Compile Include="CommonUtil.cs" />
-    <Compile Include="DailyWork.cs" />
-    <Compile Include="DailyWorkTableDefine.cs" />
-    <Compile Include="MonthlyAttendance.cs" />
-    <Compile Include="WorkPoint.cs" />
+    <Compile Include="DataModel\MonthlyAttendanceModel.cs" />
+    <Compile Include="Export\DailyWork.cs" />
+    <Compile Include="Export\MonthlyAttendance.cs" />
+    <Compile Include="Export\WorkPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

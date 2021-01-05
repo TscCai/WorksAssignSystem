@@ -8,7 +8,7 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using WorksAssign.Persistence;
 
-namespace WorksAssign.Util {
+namespace WorksAssign.Util.Export {
     public class WorkPoint:IDisposable {
 
         DbAgent db;
@@ -47,6 +47,7 @@ namespace WorksAssign.Util {
             db = new DbAgent();
             CreateSheetSumHeader("当月绩效表");
             DefaultDateStyle = wb.CreateCellStyle();
+            
             DefaultDateStyle.DataFormat = wb.CreateDataFormat().GetFormat("yyyy-MM-dd");
             
         }

@@ -14,10 +14,10 @@ namespace WorksAssign.Persistence
     
     public partial class MaintenceRecord
     {
-        public long ID { get; set; }
-        public long StationID { get; set; }
-        public long EquipID { get; set; }
-        public long TypeID { get; set; }
+        public long Id { get; set; }
+        public long StationId { get; set; }
+        public long EquipId { get; set; }
+        public long TypeId { get; set; }
         public string Content { get; set; }
         public string Measure { get; set; }
     }

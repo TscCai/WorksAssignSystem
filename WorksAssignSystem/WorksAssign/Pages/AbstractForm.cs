@@ -21,7 +21,7 @@ namespace WorksAssign.Pages {
 			using (db = new DbAgent()) {
 				substations = db.GetSubstation().ToDictionary(k => k.SubstationName, v => v.Id);
 				employees = db.GetEmployee().ToDictionary(k => k.Name, v => v.Id);
-				workType = db.GetWorkType().ToDictionary(k => k.Content, v => v.ID);
+				workType = db.GetWorkType().ToDictionary(k => k.Content, v => v.Id);
 				
 				dictErr = new Dictionary<string, bool>();
 			}

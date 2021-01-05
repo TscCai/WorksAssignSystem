@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
-using WorksAssign.Util.Adapter;
+using WorksAssign.Util.DataModel;
 
 namespace WorksAssign.Pages
 {
@@ -20,7 +20,7 @@ namespace WorksAssign.Pages
         object tmpCellForUpdate;
         protected Dictionary<string, long> roles;
 
-        WorkAbstractDataRow chosenData;
+        DailyWorkModel chosenData;
         /// <summary>
         /// 原工作内容
         /// </summary>
@@ -77,7 +77,7 @@ namespace WorksAssign.Pages
             using (db = new DbAgent()) {
 
                 chosenWorkContent = db.GetWorkContent(workId);
-                roles = db.GetRole(chosenWorkContent.WorkType.ID).ToDictionary(k => k.RoleName, v => v.ID);
+                roles = db.GetRole(chosenWorkContent.WorkType.Id).ToDictionary(k => k.RoleName, v => v.Id);
 
                 string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
                 string managerAlias = RoleNameType.Manager.GetEnumStringValue();
@@ -92,8 +92,8 @@ namespace WorksAssign.Pages
                 foreach (var i in originalMembers) {
                     var tmp = new MemberDataRow();
                     tmp.EmployeeName = i.Employee.Name;
-                    tmp.EmployeeId = i.EID;
-                    tmp.RoleId = i.RID;
+                    tmp.EmployeeId = i.EmployeeId;
+                    tmp.RoleId = i.RoleId;
                     tmp.RoleName = i.Role.RoleName;
                     data.Add(tmp);
                 }
@@ -106,7 +106,7 @@ namespace WorksAssign.Pages
 
         }
 
-        public EditWorks(WorkAbstractDataRow data)
+        public EditWorks(DailyWorkModel data)
             : this() {
             this.chosenData = data;
             dpk_WorkDate.Value = this.chosenData.Date;
@@ -164,8 +164,8 @@ namespace WorksAssign.Pages
                         WorkContent originalData = db.GetWorkContent(workId);
                         originalData.ExMember = model.Outsider;
                         originalData.WorkDate = model.WorkDate;
-                        originalData.SID = model.SubstationId;
-                        originalData.TID = model.WorkTypeId;
+                        originalData.SubstationId = model.SubstationId;
+                        originalData.TypeId = model.WorkTypeId;
                         originalData.Content = model.WorkContent;
                         db.UpdateWork(originalData, model.InvolveList,needUpdateMember);
                     }
@@ -206,7 +206,7 @@ namespace WorksAssign.Pages
         private void cb_WorkType_SelectedIndexChanged(object sender, EventArgs e) {
             long typeId = (long)cb_WorkType.SelectedValue;
             using (db = new DbAgent()) {
-                roles = db.GetRole(typeId).ToDictionary(k => k.RoleName, v => v.ID);
+                roles = db.GetRole(typeId).ToDictionary(k => k.RoleName, v => v.Id);
             }
         }
 
@@ -241,8 +241,8 @@ namespace WorksAssign.Pages
             }
             else {
                 WorkInvolve wi = new WorkInvolve();
-                wi.EID = leaderId;
-                wi.RID = roles[RoleNameType.Leader.GetEnumStringValue()];
+                wi.EmployeeId = leaderId;
+                wi.RoleId = roles[RoleNameType.Leader.GetEnumStringValue()];
                 involveList.Add(wi);
             }
             // add manager
@@ -258,8 +258,8 @@ namespace WorksAssign.Pages
             }
             else {
                 WorkInvolve wi = new WorkInvolve();
-                wi.EID = managerId;
-                wi.RID = roles[RoleNameType.Manager.GetEnumStringValue()];
+                wi.EmployeeId = managerId;
+                wi.RoleId = roles[RoleNameType.Manager.GetEnumStringValue()];
                 involveList.Add(wi);
             }
 
@@ -270,8 +270,8 @@ namespace WorksAssign.Pages
                 foreach (var i in currentMembers) {
 
                     WorkInvolve wi = new WorkInvolve();
-                    wi.EID = i.EmployeeId;
-                    wi.RID = i.RoleId;
+                    wi.EmployeeId = i.EmployeeId;
+                    wi.RoleId = i.RoleId;
                     involveList.Add(wi);
                 }
 

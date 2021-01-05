@@ -21,9 +21,11 @@ namespace WorksAssign.Persistence
             this.WorkContent = new HashSet<WorkContent>();
         }
     
-        public long ID { get; set; }
+        public long Id { get; set; }
         public string Content { get; set; }
+        public string Alias { get; set; }
         public double TypeWgt { get; set; }
+        public Nullable<bool> IsOutdoor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Role { get; set; }

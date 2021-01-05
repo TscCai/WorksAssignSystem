@@ -31,7 +31,7 @@ namespace WorksAssign.Pages
             using (db = new DbAgent()) {
                 substations = db.GetSubstation().ToDictionary(k => k.SubstationName, v => v.Id);
                 employees = db.GetEmployee().ToDictionary(k => k.Name, v => v.Id);
-                workType = db.GetWorkType().ToDictionary(k => k.Content, v => v.ID);
+                workType = db.GetWorkType().ToDictionary(k => k.Content, v => v.Id);
                 //  dictErr = new Dictionary<string, bool>();
 
 
@@ -130,8 +130,8 @@ namespace WorksAssign.Pages
             }
             else {
                 WorkInvolve wi = new WorkInvolve();
-                wi.EID = leaderId;
-                wi.RID = db.GetRole(workTypeId, RoleNameType.Leader.GetEnumStringValue()).ID;
+                wi.EmployeeId = leaderId;
+                wi.RoleId = db.GetRole(workTypeId, RoleNameType.Leader.GetEnumStringValue()).Id;
                 involveList.Add(wi);
             }
 
@@ -151,8 +151,8 @@ namespace WorksAssign.Pages
             }
             else {
                 WorkInvolve wi = new WorkInvolve();
-                wi.EID = managerId;
-                wi.RID = db.GetRole(workTypeId, RoleNameType.Manager.GetEnumStringValue()).ID;
+                wi.EmployeeId = managerId;
+                wi.RoleId = db.GetRole(workTypeId, RoleNameType.Manager.GetEnumStringValue()).Id;
                 involveList.Add(wi);
             }
 
@@ -161,7 +161,7 @@ namespace WorksAssign.Pages
             foreach (var i in memberId) {
                 // set all member as senior by default except the young guy judged by his join date
                 WorkInvolve wi = new WorkInvolve();
-                wi.EID = i;
+                wi.EmployeeId = i;
                 DateTime tmp = db.GetEmployee(i).JoinDate;
                 string roleName;
                 if ((DateTime.Now - tmp).TotalDays < 365 * 2) {
@@ -170,7 +170,7 @@ namespace WorksAssign.Pages
                 else {
                     roleName = RoleNameType.Senior.GetEnumStringValue();
                 }
-                wi.RID = db.GetRole(workTypeId, roleName).ID;
+                wi.RoleId = db.GetRole(workTypeId, roleName).Id;
                 involveList.Add(wi);
             }
 

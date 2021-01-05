@@ -14,9 +14,9 @@ namespace WorksAssign.Persistence
     
     public partial class WorkBonus
     {
-        public long ID { get; set; }
-        public long WIID { get; set; }
-        public double Score { get; set; }
+        public long Id { get; set; }
+        public long InvolveId { get; set; }
+        public double Point { get; set; }
         public string Reason { get; set; }
     
         public virtual WorkInvolve WorkInvolve { get; set; }

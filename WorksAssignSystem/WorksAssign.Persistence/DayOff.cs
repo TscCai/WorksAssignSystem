@@ -14,8 +14,8 @@ namespace WorksAssign.Persistence
     
     public partial class DayOff
     {
-        public long ID { get; set; }
-        public long EID { get; set; }
+        public long Id { get; set; }
+        public long EmployeeId { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Type { get; set; }
     

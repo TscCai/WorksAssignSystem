@@ -20,8 +20,8 @@ namespace WorksAssign.Persistence
             this.WorkInvolve = new HashSet<WorkInvolve>();
         }
     
-        public long ID { get; set; }
-        public long TID { get; set; }
+        public long Id { get; set; }
+        public long TypeId { get; set; }
         public string RoleName { get; set; }
         public double RoleWgt { get; set; }
     

@@ -45,7 +45,7 @@ namespace WorksAssign.Util {
 
         public static bool IsDayOff(DateTime dt, long id, IQueryable<DayOff> offDays)
         {
-            var tmp = offDays.SingleOrDefault(o => o.Date == dt && o.EID == id);
+            var tmp = offDays.SingleOrDefault(o => o.Date == dt && o.EmployeeId == id);
             if (tmp != null) {
                 return true;
             }

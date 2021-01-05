@@ -11,16 +11,16 @@ namespace WorksAssign.Persistence
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class V_AllPoints
     {
         public string WorkType { get; set; }
+        public DateTime WorkDate { get; set; }
         public string WorkContent { get; set; }
         public long EmpId { get; set; }
         public string Name { get; set; }
         public string RoleName { get; set; }
         public double RoleWgt { get; set; }
         public double TypeWgt { get; set; }
-        public DateTime WorkDate { get; set; }
     }
 }

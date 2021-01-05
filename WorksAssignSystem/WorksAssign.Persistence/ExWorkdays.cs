@@ -14,7 +14,7 @@ namespace WorksAssign.Persistence
     
     public partial class ExWorkdays
     {
-        public long ID { get; set; }
+        public long Id { get; set; }
         public System.DateTime Date { get; set; }
         public bool IsHoliday { get; set; }
         public bool IsWorkday { get; set; }

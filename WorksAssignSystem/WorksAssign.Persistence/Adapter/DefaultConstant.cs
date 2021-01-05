@@ -14,5 +14,8 @@ namespace WorksAssign.Persistence.Adapter
         public static string RoleName { get{ return ""; } }
 
         public static double RoleWgt { get { return 1.0; } }
+
+        public static string IndoorSymbol { get { return "√"; } }
+        public static string OutdoorSymbol { get { return "现"; } }
     }
 }
