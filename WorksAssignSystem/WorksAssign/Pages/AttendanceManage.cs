@@ -26,10 +26,10 @@ namespace WorksAssign.Pages
         }
 
         private void btn_ExportMonthlyAttendance_Click(object sender, EventArgs e) {
-            string template = "/Template/monthly_attendance_template.xlsx";
+            string template = "Template/monthly_attendance_template.xlsx";
             using (MonthlyAttendance ma = new MonthlyAttendance(template)) {
                 DateTime date = dpk_MonthlyAttendance.Value;
-                string filename = "/Export/[" + date.ToString("yyyy.MM") + "]考勤统计-二次班";
+                string filename = "Export/[" + date.ToString("yyyy.MM") + "]考勤统计-二次班.xlsx";
                 List<MonthlyAttendanceModel> list = CreateMonthlyAttendanceData(date);
                 ma.ExportExcel(filename, date, list);
             }

@@ -35,8 +35,8 @@ namespace WorksAssign {
                 //显示默认界面
                 Aside.SelectFirst();
             }catch(Exception ex) {
-
                 MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.InnerException.Message);
             }
 
         }

@@ -33,11 +33,11 @@ namespace WorksAssign.Test
 
                     max = db.GetSubstation().Count();
                     rndInt = rnd.Next(min, max);
-                    substationId = db.GetSubstation().Skip(rndInt).First().Id;
+                    substationId = db.GetSubstation().AsEnumerable().ElementAt(rndInt).Id;
 
                     max = db.GetWorkType().Count();
                     rndInt = rnd.Next(min, max);
-                    typeId = db.GetWorkType().Skip(rndInt).First().Id;
+                    typeId = db.GetWorkType().AsEnumerable().ElementAt(rndInt).Id;
 
                     content = "This is work " + i;
                     outsider = "外协人员：Member" + i;
@@ -46,7 +46,7 @@ namespace WorksAssign.Test
                     max = db.GetEmployee().Count();
 
                     WorkInvolve leader = new WorkInvolve();
-                    leader.EmployeeId = db.GetEmployee().Skip(rnd.Next(min, max)).First().Id;
+                    leader.EmployeeId = db.GetEmployee().AsEnumerable().ElementAt((rnd.Next(min, max))).Id;
                     leader.RoleId = db.GetRole(typeId, "负责人").Id;
                     list.Add(leader);
 
@@ -54,7 +54,7 @@ namespace WorksAssign.Test
                     int memberCnt = rnd.Next(1, 6);
                     for (int j = 0; j < memberCnt; j++) {
                         WorkInvolve member = new WorkInvolve();
-                        member.EmployeeId = db.GetEmployee().Skip(rnd.Next(min, max)).First().Id;
+                        member.EmployeeId = db.GetEmployee().AsEnumerable().ElementAt(rnd.Next(min, max)).Id;
                         member.RoleId = db.GetRole(typeId, "骨干").Id;
                         list.Add(member);
                     }

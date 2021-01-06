@@ -13,15 +13,14 @@ namespace WorksAssign.Pages
     public partial class ViewWorks : UIPage
     {
         List<DailyWorkModel> WorkList;
+        EditWorks frm_EditWorks;
+
 
         public ViewWorks() {
             InitializeComponent();
 
-            for (int i = 1; i < 15; i++) {
-                UIPanel c = this.GetControl("uiPanel" + i) as UIPanel;
-                c.Text = "";
-                c.RectSides = ToolStripStatusLabelBorderSides.None;
-            }
+            frm_EditWorks = new EditWorks();
+            frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
         }
 
         public override void Init() {
@@ -147,16 +146,19 @@ namespace WorksAssign.Pages
             if (chosenWork.Count > 1) {
                 UIMessageBox.ShowInfo("选中多个工作，编辑模式下只能对第一个进行操作。");
             }
-            EditWorks frm_EditWorks = new EditWorks(chosenWork.First());
-            frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
-
+            //EditWorks frm_EditWorks = new EditWorks(chosenWork.First());
+            //frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
+            frm_EditWorks.SetDataModel(chosenWork.First());
             frm_EditWorks.ShowDialog();
+
         }
 
         private void Frm_EditWorks_FormClosed(object sender, FormClosedEventArgs e) {
-            InitializeData();
-            pgr_workContent.ActivePage = 0;
-            pgr_workContent.ActivePage = 1;
+            if (!frm_EditWorks.CancelEditFlag) {
+                InitializeData();
+                pgr_workContent.ActivePage = 0;
+                pgr_workContent.ActivePage = 1;
+            }
         }
 
         private void pgr_workContent_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
@@ -185,8 +187,8 @@ namespace WorksAssign.Pages
                 string template = "Template/daily_assign_template.xlsx";
                 using (DailyWork dw = new DailyWork(template)) {
 
-                    dw.ExportExcel("Export/每日工作安排["+start.ToString("MM.dd")+"-"+end.ToString("MM.dd")+"].xlsx",WorkList);
-                    
+                    dw.ExportExcel("Export/每日工作安排[" + start.ToString("MM.dd") + "-" + end.ToString("MM.dd") + "].xlsx", WorkList);
+
                     dw.Dispose();
                 }
                 this.ShowInfoDialog("导出成功。");

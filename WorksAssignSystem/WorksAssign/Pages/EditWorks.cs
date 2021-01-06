@@ -20,6 +20,8 @@ namespace WorksAssign.Pages
         object tmpCellForUpdate;
         protected Dictionary<string, long> roles;
 
+        public bool CancelEditFlag { get; private set; }
+
         DailyWorkModel chosenData;
         /// <summary>
         /// 原工作内容
@@ -28,7 +30,7 @@ namespace WorksAssign.Pages
 
         public EditWorks() {
             InitializeComponent();
-
+            CancelEditFlag = false;
 
         }
 
@@ -122,8 +124,27 @@ namespace WorksAssign.Pages
             InitializeData();
         }
 
+
+        public void SetDataModel(DailyWorkModel data) {
+            this.chosenData = data;
+            dpk_WorkDate.Value = this.chosenData.Date;
+            cb_Leader.Text = this.chosenData.Leader;
+            cb_Substation.Text = this.chosenData.Substation;
+            cb_Manager.Text = this.chosenData.Manager;
+            cb_WorkType.Text = this.chosenData.WorkType;
+            txt_WorkContent.Text = this.chosenData.Content;
+            workId = this.chosenData.Id;
+            // 外协人员不计入绩效，直接覆盖，存入WorkContent.Comments即可
+            txt_exMember.Text = chosenData.ExMember;
+
+            InitializeData();
+        }
+
+
         private void btn_Cancel_Click(object sender, EventArgs e) {
+            CancelEditFlag = true;
             this.Close();
+            
         }
 
         private void cb_Substation_EditorLostFocus(object sender, EventArgs e) {

@@ -31,6 +31,7 @@ namespace WorksAssign.Util.Export
         public MonthlyAttendance(string templateFilename) {
             using (FileStream fs = new FileStream(templateFilename, FileMode.Open, FileAccess.Read)) {
                 Workbook = WorkbookFactory.Create(fs);
+                Workbook.MissingCellPolicy = MissingCellPolicy.CREATE_NULL_AS_BLANK;
             }
 
             DefaultDateStyle = Workbook.CreateCellStyle();
