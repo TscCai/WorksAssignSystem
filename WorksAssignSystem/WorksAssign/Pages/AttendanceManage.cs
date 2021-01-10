@@ -40,7 +40,7 @@ namespace WorksAssign.Pages
             List<MonthlyAttendanceModel> result = new List<MonthlyAttendanceModel>();
             using (db = new DbAgent()) {
                 holidaysWorkdays = db.GetHolidaysWorkdays(date.Year);
-                var employees = db.GetEmployee();
+                var employees = db.GetEmployee(false);
                 foreach (var e in employees) {
                     result.Add(CreatePersonalData(date, e));
                 }

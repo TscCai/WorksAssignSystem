@@ -9,7 +9,7 @@ namespace WorksAssign.Persistence
 {
     public class DbAgent : IDisposable
     {
-        
+
         Entities dbCtx;
         //public DateTime StartDate;
         //public V_AllPoints DefaultWorkPoint;
@@ -37,9 +37,24 @@ namespace WorksAssign.Persistence
 
         #region Table Employee
 
+        /// <summary>
+        /// return all employees include outsider
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<Employee> GetEmployee() {
-            return dbCtx.Employee;
+            return GetEmployee(true);
         }
+
+
+        public IQueryable<Employee> GetEmployee(bool includeOutsider) {
+            if (includeOutsider) {
+                return dbCtx.Employee;
+            }
+            else {
+                return dbCtx.Employee.Where(e => e.Id > 1);
+            }
+        }
+
 
         public Employee GetEmployee(string name) {
             return dbCtx.Employee.FirstOrDefault(e => e.Name == name);
@@ -258,7 +273,7 @@ namespace WorksAssign.Persistence
             }
         }
 
-        public void UpdateWork(WorkContent wc, List<WorkInvolve> list, bool needUpdateList=false) {
+        public void UpdateWork(WorkContent wc, List<WorkInvolve> list, bool needUpdateList = false) {
             using (var transcation = dbCtx.Database.BeginTransaction()) {
                 if (needUpdateList) {
                     DelWorkInvolve(wc.Id);

@@ -9,7 +9,7 @@ using WorksAssign.Util.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class MonthlyAttendance:IDisposable
+    public class MonthlyAttendance : IDisposable
     {
         /// <summary>
         /// 内置Workbook对象
@@ -47,13 +47,17 @@ namespace WorksAssign.Util.Export
                 row.GetCell(MonthlyAttendanceTableDefine.Name).SetCellValue(data.EmployeeName);
                 row.GetCell(MonthlyAttendanceTableDefine.Sequence).SetCellValue(seqCnt);
                 seqCnt++;
-                foreach(var k in data.AttendanceFlag.Keys) {
+                foreach (var k in data.AttendanceFlag.Keys) {
                     string flag = data.AttendanceFlag[k];
                     int col = MonthlyAttendanceTableDefine.FirstDate + k - 1;
                     row.GetCell(col).SetCellValue(flag);
                 }
                 // 因为有footer，故必须用插入行命令
-                row = ActiveSheet.CreateRow(row.RowNum);
+                //row = ActiveSheet.CreateRow(row.RowNum);
+                InsertRows(row.RowNum + 1, 1);
+                row = ActiveSheet.GetRow(row.RowNum + 1);
+                // ActiveSheet.ShiftRows(MonthlyAttendanceTableDefine.StartRow + 1, MonthlyAttendanceTableDefine.StartRow + 2, 1);
+
             }
 
             using (FileStream fs = new FileStream(filename, FileMode.Create)) {
@@ -66,6 +70,44 @@ namespace WorksAssign.Util.Export
         public void Dispose() {
             Workbook.Close();
         }
+
+        void InsertRows(int fromRowIndex, int rowCount) {
+            // sheet1.ShiftRows(fromRowIndex, sheet1.LastRowNum, rowCount, true, false, true);
+            ActiveSheet.ShiftRows(fromRowIndex, ActiveSheet.LastRowNum, rowCount);
+            for (int rowIndex = fromRowIndex; rowIndex < fromRowIndex + rowCount; rowIndex++) {
+                IRow rowSource = ActiveSheet.GetRow(rowIndex + rowCount);
+                IRow rowInsert = ActiveSheet.CreateRow(rowIndex);
+                rowInsert.Height = rowSource.Height;
+                for (int colIndex = 0; colIndex < rowSource.LastCellNum; colIndex++) {
+                    ICell cellSource = rowSource.GetCell(colIndex);
+                    ICell cellInsert = rowInsert.CreateCell(colIndex);
+                    if (cellSource != null) {
+                        cellInsert.CellStyle = cellSource.CellStyle;
+                    }
+                }
+            }
+        }
+
+
+
+        /*
+        void InsertRows(ref ISheet sheet1, int fromRowIndex, int rowCount) {
+            // sheet1.ShiftRows(fromRowIndex, sheet1.LastRowNum, rowCount, true, false, true);
+            sheet1.ShiftRows(fromRowIndex, sheet1.LastRowNum, rowCount);
+            for (int rowIndex = fromRowIndex; rowIndex < fromRowIndex + rowCount; rowIndex++) {
+                IRow rowSource = sheet1.GetRow(rowIndex + rowCount);
+                IRow rowInsert = sheet1.CreateRow(rowIndex);
+                rowInsert.Height = rowSource.Height;
+                for (int colIndex = 0; colIndex < rowSource.LastCellNum; colIndex++) {
+                    ICell cellSource = rowSource.GetCell(colIndex);
+                    ICell cellInsert = rowInsert.CreateCell(colIndex);
+                    if (cellSource != null) {
+                        cellInsert.CellStyle = cellSource.CellStyle;
+                    }
+                }
+            }
+        }*/
+
     }
 
     class MonthlyAttendanceTableDefine
