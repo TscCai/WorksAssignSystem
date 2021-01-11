@@ -336,7 +336,7 @@ namespace WorksAssign.Pages
         }
 
         private void dg_Member_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
-            if(tmpCellForUpdate.ToString() != dg_Member.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) {
+            if(tmpCellForUpdate == null ||tmpCellForUpdate.ToString() != dg_Member.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) {
                 needUpdateMember = true;
                // this.ShowInfoDialog("you changed");
             }
