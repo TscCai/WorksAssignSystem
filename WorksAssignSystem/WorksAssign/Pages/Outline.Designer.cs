@@ -25,6 +25,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Outline));
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.uiPanel1.SuspendLayout();
@@ -41,6 +42,7 @@
             this.uiPanel1.Name = "uiPanel1";
             this.uiPanel1.Size = new System.Drawing.Size(802, 87);
             this.uiPanel1.TabIndex = 0;
+            this.uiPanel1.Text = null;
             // 
             // uiSymbolLabel1
             // 
@@ -60,6 +62,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 523);
             this.Controls.Add(this.uiPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Outline";
             this.Text = "工作概况";
             this.uiPanel1.ResumeLayout(false);
