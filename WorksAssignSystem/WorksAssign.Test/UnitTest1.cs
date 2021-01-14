@@ -18,6 +18,12 @@ namespace WorksAssign.Test
             }
         }
 
+        [TestMethod]
+        public void TestView_AllPoints() {
+            WorksAssign.Util.Export.WorkPoint wp = new Util.Export.WorkPoint();
+            wp.ExportExcel("Export/test.xlsx",new DateTime(2020,10,3));
+        }
+
 
         [TestMethod]
         public void GenerateSampleData() {
@@ -62,9 +68,13 @@ namespace WorksAssign.Test
                     db.AddWork(substationId, typeId, content, date, "预试",list, outsider, "This is a comment" + i);
 
                     date = date.AddDays(rnd.Next(3));
+                    Console.WriteLine("Work {0} Added",i);
                 }
 
             }
+
+            Console.WriteLine("Test complete!");
+
         }
 
 

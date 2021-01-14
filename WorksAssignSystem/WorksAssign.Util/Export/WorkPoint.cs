@@ -60,6 +60,11 @@ namespace WorksAssign.Util.Export {
             ExportExcel(filename, DateTime.Now);
         }
 
+        /// <summary>
+        /// 导出指定月份的绩效分数
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="startDate"></param>
         public void ExportExcel(string filename, DateTime startDate) {
             
             holidaysWorkdays = db.GetHolidaysWorkdays(startDate.Year);

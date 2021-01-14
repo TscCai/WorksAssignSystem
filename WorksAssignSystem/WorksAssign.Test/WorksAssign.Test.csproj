@@ -90,6 +90,10 @@
       <Project>{300b92f4-ffdd-4d54-b537-b1e4bb2008cb}</Project>
       <Name>WorksAssign.Persistence</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WorksAssign.Util\WorksAssign.Util.csproj">
+      <Project>{837ee222-9cd7-4980-8176-3cc4c0f0411e}</Project>
+      <Name>WorksAssign.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
