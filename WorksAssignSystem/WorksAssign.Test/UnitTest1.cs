@@ -35,7 +35,7 @@ namespace WorksAssign.Test
                 int min = 0, max, rndInt;
                 Random rnd = new Random();
 
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 300; i++) {
 
                     max = db.GetSubstation().Count();
                     rndInt = rnd.Next(min, max);

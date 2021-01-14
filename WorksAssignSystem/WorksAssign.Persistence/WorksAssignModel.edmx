@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WorksAssignModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;D:\Documents\Git Projects\Remote\WorksAssignSystem\WorksAssignSystem\WorksAssign\App_Data\WorksAssign.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WorksAssignModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;E:\Documents\Git Projects\Remote\WorksAssignSystem\WorksAssignSystem\WorksAssign\App_Data\WorksAssign.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AbstractInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -114,10 +114,10 @@
           <Property Name="IsOutdoor" Type="bit" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6005: 目标实体框架版本目前不支持数据类型“”；已排除表“main.V_AllPoints”中的列“WorkDate”。
 警告 6002: 表/视图“main.V_AllPoints”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="V_AllPoints">
           <Key>
+            <PropertyRef Name="WorkDate" />
             <PropertyRef Name="WorkContent" />
             <PropertyRef Name="EmpId" />
             <PropertyRef Name="Name" />
@@ -125,6 +125,7 @@
             <PropertyRef Name="RoleWgt" />
             <PropertyRef Name="TypeWgt" />
           </Key>
+          <Property Name="WorkDate" Type="datetime" Nullable="false" />
           <Property Name="WorkType" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="WorkContent" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="EmpId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -243,6 +244,7 @@
           <EntitySet Name="WorkType" EntityType="Self.WorkType" store:Type="Tables" />
           <EntitySet Name="V_AllPoints" EntityType="Self.V_AllPoints" store:Type="Views">
             <DefiningQuery>SELECT 
+[V_AllPoints].[WorkDate] AS [WorkDate], 
 [V_AllPoints].[WorkType] AS [WorkType], 
 [V_AllPoints].[WorkContent] AS [WorkContent], 
 [V_AllPoints].[EmpId] AS [EmpId], 
@@ -301,7 +303,6 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           <EntitySet Name="WorkContent" EntityType="WorksAssignModel.WorkContent" />
           <EntitySet Name="WorkInvolve" EntityType="WorksAssignModel.WorkInvolve" />
           <EntitySet Name="WorkType" EntityType="WorksAssignModel.WorkType" />
-          <EntitySet Name="V_AllPoints" EntityType="WorksAssignModel.V_AllPoints" />
           <AssociationSet Name="FK_DayOff_0_0" Association="WorksAssignModel.FK_DayOff_0_0">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="DayOff" EntitySet="DayOff" />
@@ -334,6 +335,7 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
             <End Role="WorkContent" EntitySet="WorkContent" />
             <End Role="WorkInvolve" EntitySet="WorkInvolve" />
           </AssociationSet>
+          <EntitySet Name="V_AllPoints" EntityType="WorksAssignModel.V_AllPoints" />
         </EntityContainer>
         <EntityType Name="AbstractInfo">
           <Key>
@@ -459,23 +461,6 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           <NavigationProperty Name="Role" Relationship="WorksAssignModel.FK_Role_0_0" FromRole="WorkType" ToRole="Role" />
           <NavigationProperty Name="WorkContent" Relationship="WorksAssignModel.FK_WorkContent_1_0" FromRole="WorkType" ToRole="WorkContent" />
         </EntityType>
-        <EntityType Name="V_AllPoints">
-          <Key>
-            <PropertyRef Name="WorkContent" />
-            <PropertyRef Name="EmpId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="RoleName" />
-            <PropertyRef Name="RoleWgt" />
-            <PropertyRef Name="TypeWgt" />
-          </Key>
-          <Property Name="WorkType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="WorkContent" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="EmpId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="RoleWgt" Type="Double" Nullable="false" />
-          <Property Name="TypeWgt" Type="Double" Nullable="false" />
-        </EntityType>
         <Association Name="FK_DayOff_0_0">
           <End Type="WorksAssignModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="WorksAssignModel.DayOff" Role="DayOff" Multiplicity="*" />
@@ -572,6 +557,25 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="V_AllPoints">
+          <Key>
+            <PropertyRef Name="WorkDate" />
+            <PropertyRef Name="WorkContent" />
+            <PropertyRef Name="EmpId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="RoleName" />
+            <PropertyRef Name="RoleWgt" />
+            <PropertyRef Name="TypeWgt" />
+          </Key>
+          <Property Name="WorkDate" Type="DateTime" Nullable="false" />
+          <Property Name="WorkType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="WorkContent" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EmpId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RoleWgt" Type="Double" Nullable="false" />
+          <Property Name="TypeWgt" Type="Double" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -707,6 +711,7 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
                 <ScalarProperty Name="EmpId" ColumnName="EmpId" />
                 <ScalarProperty Name="WorkContent" ColumnName="WorkContent" />
                 <ScalarProperty Name="WorkType" ColumnName="WorkType" />
+                <ScalarProperty Name="WorkDate" ColumnName="WorkDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
