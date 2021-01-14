@@ -20,7 +20,7 @@ namespace WorksAssign.Persistence
             this.WorkBonus = new HashSet<WorkBonus>();
         }
     
-        public long Id { get; set; }
+        public string Id { get; set; }
         public long WorkId { get; set; }
         public long EmployeeId { get; set; }
         public long RoleId { get; set; }

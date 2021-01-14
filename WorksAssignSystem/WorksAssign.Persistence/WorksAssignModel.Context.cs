@@ -13,9 +13,9 @@ namespace WorksAssign.Persistence
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class WorksAssignEntities : DbContext
     {
-        public Entities()
+        public WorksAssignEntities()
             : base("name=WorksAssignEntities")
         {
         }
@@ -25,6 +25,7 @@ namespace WorksAssign.Persistence
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AbstractInfo> AbstractInfo { get; set; }
         public virtual DbSet<DayOff> DayOff { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<ExWorkdays> ExWorkdays { get; set; }

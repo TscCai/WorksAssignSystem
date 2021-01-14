@@ -59,6 +59,7 @@ namespace WorksAssign.Util.Export
                 row.GetCell(DailyWorkTableDefine.Member).SetCellValue(item.Member);
                 row.GetCell(DailyWorkTableDefine.ExMember).SetCellValue(item.ExMember);
                 row.GetCell(DailyWorkTableDefine.Manager).SetCellValue(item.Manager);
+                row.GetCell(DailyWorkTableDefine.ShortType).SetCellValue(item.ShortType);
                 rowNum++;
             }
 
@@ -91,7 +92,7 @@ namespace WorksAssign.Util.Export
         public const int Location = 2;
         public const int Substation = 3;
         public const int Voltage = 4;
-        //public const int WorkType = 5;
+        public const int ShortType = 5;
         public const int Content = 6;
         public const int Leader = 7;
         public const int Member = 8;

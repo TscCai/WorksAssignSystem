@@ -17,5 +17,11 @@ namespace WorksAssign.Persistence.Adapter
 
         public static string IndoorSymbol { get { return "√"; } }
         public static string OutdoorSymbol { get { return "现"; } }
+        /// <summary>
+        /// 公休
+        /// </summary>
+        public static string DayoffSymbol { get  { return "休"; } }
+
+        public static string HolidayWithSalary { get { return "H"; } }
     }
 }

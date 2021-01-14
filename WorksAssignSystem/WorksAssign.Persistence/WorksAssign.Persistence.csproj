@@ -37,8 +37,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AbstractInfo.cs">
+      <DependentUpon>WorksAssignModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Adapter\DefaultConstant.cs" />
     <Compile Include="Adapter\ViewDataAdapter.cs" />
+    <Compile Include="DatabaseUpdater.cs" />
     <Compile Include="DayOff.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>

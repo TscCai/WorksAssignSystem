@@ -11,6 +11,7 @@ namespace WorksAssign.Util.DataModel
         public long Id { get; set; }
         public DateTime Date { get; set; }
         public string Substation { get; set; }
+        public string ShortType { get; set; }
         public string Location { get; set; }
         public long Voltage { get; set; }
         public string WorkType { get; set; }

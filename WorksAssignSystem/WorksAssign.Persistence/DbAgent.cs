@@ -9,8 +9,7 @@ namespace WorksAssign.Persistence
 {
     public class DbAgent : IDisposable
     {
-
-        Entities dbCtx;
+        WorksAssignEntities dbCtx;
         //public DateTime StartDate;
         //public V_AllPoints DefaultWorkPoint;
         //public IQueryable<ExWorkdays> HolidaysWorkdays;
@@ -20,14 +19,14 @@ namespace WorksAssign.Persistence
         public const long NOT_SUBSTATION = 0;
 
 
-        public DbAgent() : this(new Entities()) {
+        public DbAgent() : this(new WorksAssignEntities()) {
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ctx"></param>
-        public DbAgent(Entities ctx) {
+        public DbAgent(WorksAssignEntities ctx) {
             this.dbCtx = ctx;
         }
 
@@ -82,12 +81,13 @@ namespace WorksAssign.Persistence
 
         #region Table WorkContent
 
-        public long AddWorkContent(DateTime workDate, string content, long substationId, long typeId, string exMember = null, string comment = null) {
+        public long AddWorkContent(DateTime workDate, string content, long substationId, long typeId, string shortType, string exMember = null, string comment = null) {
             WorkContent wc = new WorkContent();
             wc.Content = content;
             wc.WorkDate = workDate;
             wc.SubstationId = substationId;
             wc.TypeId = typeId;
+            wc.ShortType = shortType;
             wc.ExMember = exMember;
             wc.Comment = comment;
             dbCtx.WorkContent.Add(wc);
@@ -133,7 +133,7 @@ namespace WorksAssign.Persistence
             return dbCtx.WorkInvolve.Where(wi => wi.WorkContent.WorkDate >= start && wi.WorkContent.WorkDate <= end && wi.EmployeeId == employeeId);
         }
 
-        public WorkInvolve GetWorkInvolve(long id) {
+        public WorkInvolve GetWorkInvolve(string id) {
             return dbCtx.WorkInvolve.SingleOrDefault(w => w.Id == id);
         }
 
@@ -145,17 +145,23 @@ namespace WorksAssign.Persistence
             return dbCtx.WorkInvolve.SingleOrDefault(w => w.WorkId == wid && w.EmployeeId == eid);
         }
 
-        public long AddWorkInvolve(long wid, long eid, long rid) {
+        public string AddWorkInvolve(long wid, long eid, long rid) {
             WorkInvolve wi = new WorkInvolve();
             wi.EmployeeId = eid;
             wi.RoleId = rid;
             wi.WorkId = wid;
-            dbCtx.WorkInvolve.Add(wi);
-            dbCtx.SaveChanges();
-            return wi.Id;
+
+            return AddWorkInvolve(wi);
         }
 
-        public long AddWorkInvolve(WorkInvolve wi) {
+        /// <summary>
+        /// 增加一个WorkInvolve，其主键Id将自动生成一个GUID
+        /// </summary>
+        /// <param name="wi"></param>
+        /// <returns></returns>
+        public string AddWorkInvolve(WorkInvolve wi) {
+            string id = Guid.NewGuid().ToString();
+            wi.Id = id;
             dbCtx.WorkInvolve.Add(wi);
             dbCtx.SaveChanges();
             return wi.Id;
@@ -260,11 +266,17 @@ namespace WorksAssign.Persistence
 
         #endregion
 
+        #region Table AbstractInfo
+        public string GetAbstractInfo(string key) {
+            return dbCtx.AbstractInfo.SingleOrDefault(k => k.Key == key).Value;
+        }
+        #endregion
+
         #region Transactions
-        public void AddWork(long substationId, long typeId, string workContent, DateTime workDate,
+        public void AddWork(long substationId, long typeId, string workContent, DateTime workDate, string shortType,
             List<WorkInvolve> involves, string exMember = null, string workComment = null) {
             using (var transcation = dbCtx.Database.BeginTransaction()) {
-                long wid = AddWorkContent(workDate, workContent, substationId, typeId, exMember, workComment);
+                long wid = AddWorkContent(workDate, workContent, substationId, typeId, shortType, exMember, workComment);
                 foreach (var i in involves) {
                     i.WorkId = wid;
                     AddWorkInvolve(i);
@@ -282,6 +294,7 @@ namespace WorksAssign.Persistence
                         AddWorkInvolve(item);
                     }
                 }
+                dbCtx.SaveChanges();
                 transcation.Commit();
             }
         }

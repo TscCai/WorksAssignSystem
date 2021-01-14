@@ -59,7 +59,7 @@ namespace WorksAssign.Test
                         list.Add(member);
                     }
 
-                    db.AddWork(substationId, typeId, content, date, list, outsider, "This is a comment" + i);
+                    db.AddWork(substationId, typeId, content, date, "预试",list, outsider, "This is a comment" + i);
 
                     date = date.AddDays(rnd.Next(3));
                 }

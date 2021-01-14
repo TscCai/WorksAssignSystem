@@ -70,7 +70,7 @@ namespace WorksAssign.Pages
                     isContinue = this.ShowAskDialog(model.HintMessage + "确认添加吗？");
                 }
                 if (isContinue) {
-                    db.AddWork(model.SubstationId, model.WorkTypeId, model.WorkContent, model.WorkDate, model.InvolveList, model.Outsider);
+                    db.AddWork(model.SubstationId, model.WorkTypeId, model.WorkContent, model.WorkDate, model.ShortType,model.InvolveList, model.Outsider);
                     this.ShowSuccessNotifier("新增工作成功！");
                     ResetInput();
                 }
@@ -98,6 +98,7 @@ namespace WorksAssign.Pages
             long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
             long workTypeId = (long)cb_WorkType.SelectedValue;
             string workContent = txt_WorkContent.Text;
+            string shortType = cb_ShortType.Text;
 
             // leader, manager下拉框的选择值为空则为外部人员
             long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
@@ -195,6 +196,7 @@ namespace WorksAssign.Pages
             result.WorkDate = workDate;
             result.Outsider = outsider;
             result.HintMessage = hintMsg;
+            result.ShortType = shortType;
             // 暂无备注，下一行代码注释掉
             //result.Comment = null;
             result.InvolveList = involveList;
@@ -269,6 +271,7 @@ namespace WorksAssign.Pages
         public long SubstationId { get; set; }
         public long WorkTypeId { get; set; }
         public string WorkContent { get; set; }
+        public string ShortType { get; set; }
         public DateTime WorkDate { get; set; }
         public List<WorkInvolve> InvolveList { get; set; }
         public string Outsider { get; set; }

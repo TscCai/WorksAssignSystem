@@ -23,6 +23,7 @@ namespace WorksAssign.Persistence
         public long Id { get; set; }
         public long TypeId { get; set; }
         public long SubstationId { get; set; }
+        public string ShortType { get; set; }
         public System.DateTime WorkDate { get; set; }
         public string Content { get; set; }
         public string ExMember { get; set; }

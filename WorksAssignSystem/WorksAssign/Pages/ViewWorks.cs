@@ -88,6 +88,7 @@ namespace WorksAssign.Pages
                     di.Member = member;
                     di.Voltage = i.Substations.Voltage;
                     di.ExMember = exMember;
+                    di.ShortType = i.ShortType;
 
                     WorkList.Add(di);
 

@@ -71,9 +71,16 @@ namespace WorksAssign.Pages
 
             }
 
+            // 对未外勤工作的日期进行填充，默认为出勤
             for (int day = date.BeginOfMonth().Day; day <= date.EndOfMonth().Day; day++) {
-                if (!result.AttendanceFlag.ContainsKey(day) && CommonUtil.IsWorkday(new DateTime(date.Year, date.Month, day), holidaysWorkdays)) {
-                    result.AttendanceFlag[day] = DefaultConstant.IndoorSymbol;
+                if (!result.AttendanceFlag.ContainsKey(day)) {
+                    DateTime thisDay = new DateTime(date.Year, date.Month, day);
+                    if (CommonUtil.IsWorkday(thisDay, holidaysWorkdays)) {
+                        result.AttendanceFlag[day] = DefaultConstant.IndoorSymbol;
+                    }
+                    else if (CommonUtil.IsHoliday(thisDay, holidaysWorkdays)) {
+                        result.AttendanceFlag[day] = DefaultConstant.DayoffSymbol;
+                    }
                 }
             }
 

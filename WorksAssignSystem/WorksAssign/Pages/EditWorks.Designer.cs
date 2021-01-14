@@ -50,6 +50,8 @@
             this.uiLine1 = new Sunny.UI.UILine();
             this.txt_exMember = new Sunny.UI.UITextBox();
             this.lbl_exMember = new Sunny.UI.UILabel();
+            this.cb_ShortType = new Sunny.UI.UIComboBox();
+            this.uiLabel1 = new Sunny.UI.UILabel();
             ((System.ComponentModel.ISupportInitialize)(this.dg_Member)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +84,7 @@
             // 
             this.dpk_WorkDate.FillColor = System.Drawing.Color.White;
             this.dpk_WorkDate.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.dpk_WorkDate.Location = new System.Drawing.Point(472, 60);
+            this.dpk_WorkDate.Location = new System.Drawing.Point(389, 58);
             this.dpk_WorkDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dpk_WorkDate.MaxLength = 10;
             this.dpk_WorkDate.MinimumSize = new System.Drawing.Size(63, 0);
@@ -100,7 +102,7 @@
             // 
             this.cb_Manager.FillColor = System.Drawing.Color.White;
             this.cb_Manager.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.cb_Manager.Location = new System.Drawing.Point(472, 281);
+            this.cb_Manager.Location = new System.Drawing.Point(417, 281);
             this.cb_Manager.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cb_Manager.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Manager.Name = "cb_Manager";
@@ -134,7 +136,7 @@
             this.cb_WorkType.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_WorkType.Name = "cb_WorkType";
             this.cb_WorkType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_WorkType.Size = new System.Drawing.Size(610, 30);
+            this.cb_WorkType.Size = new System.Drawing.Size(672, 30);
             this.cb_WorkType.TabIndex = 16;
             this.cb_WorkType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_WorkType.SelectedIndexChanged += new System.EventHandler(this.cb_WorkType_SelectedIndexChanged);
@@ -143,7 +145,7 @@
             // 
             this.cb_Substation.FillColor = System.Drawing.Color.White;
             this.cb_Substation.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.cb_Substation.Location = new System.Drawing.Point(141, 60);
+            this.cb_Substation.Location = new System.Drawing.Point(141, 58);
             this.cb_Substation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cb_Substation.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Substation.Name = "cb_Substation";
@@ -166,7 +168,7 @@
             this.txt_WorkContent.Multiline = true;
             this.txt_WorkContent.Name = "txt_WorkContent";
             this.txt_WorkContent.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_WorkContent.Size = new System.Drawing.Size(610, 111);
+            this.txt_WorkContent.Size = new System.Drawing.Size(672, 111);
             this.txt_WorkContent.TabIndex = 19;
             // 
             // lbl_Member
@@ -182,7 +184,7 @@
             // lbl_Manager
             // 
             this.lbl_Manager.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lbl_Manager.Location = new System.Drawing.Point(387, 288);
+            this.lbl_Manager.Location = new System.Drawing.Point(332, 288);
             this.lbl_Manager.Name = "lbl_Manager";
             this.lbl_Manager.Size = new System.Drawing.Size(100, 23);
             this.lbl_Manager.TabIndex = 14;
@@ -222,7 +224,7 @@
             // lbl_WorkDate
             // 
             this.lbl_WorkDate.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lbl_WorkDate.Location = new System.Drawing.Point(415, 64);
+            this.lbl_WorkDate.Location = new System.Drawing.Point(332, 62);
             this.lbl_WorkDate.Name = "lbl_WorkDate";
             this.lbl_WorkDate.Size = new System.Drawing.Size(100, 23);
             this.lbl_WorkDate.TabIndex = 12;
@@ -232,7 +234,7 @@
             // lbl_Station
             // 
             this.lbl_Station.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lbl_Station.Location = new System.Drawing.Point(54, 65);
+            this.lbl_Station.Location = new System.Drawing.Point(54, 62);
             this.lbl_Station.Name = "lbl_Station";
             this.lbl_Station.Size = new System.Drawing.Size(73, 23);
             this.lbl_Station.TabIndex = 9;
@@ -276,10 +278,8 @@
             this.dg_Member.RowTemplate.Height = 29;
             this.dg_Member.SelectedIndex = -1;
             this.dg_Member.ShowGridLine = true;
-            this.dg_Member.Size = new System.Drawing.Size(608, 166);
+            this.dg_Member.Size = new System.Drawing.Size(672, 166);
             this.dg_Member.TabIndex = 26;
-            this.dg_Member.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dg_Member_CellBeginEdit);
-            this.dg_Member.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_Member_CellEndEdit);
             // 
             // col_Name
             // 
@@ -303,7 +303,7 @@
             this.uiLine1.Location = new System.Drawing.Point(3, 560);
             this.uiLine1.MinimumSize = new System.Drawing.Size(2, 2);
             this.uiLine1.Name = "uiLine1";
-            this.uiLine1.Size = new System.Drawing.Size(794, 29);
+            this.uiLine1.Size = new System.Drawing.Size(844, 29);
             this.uiLine1.TabIndex = 27;
             this.uiLine1.TabStop = false;
             // 
@@ -319,7 +319,7 @@
             this.txt_exMember.MinimumSize = new System.Drawing.Size(1, 1);
             this.txt_exMember.Name = "txt_exMember";
             this.txt_exMember.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_exMember.Size = new System.Drawing.Size(606, 30);
+            this.txt_exMember.Size = new System.Drawing.Size(670, 30);
             this.txt_exMember.TabIndex = 28;
             // 
             // lbl_exMember
@@ -332,11 +332,46 @@
             this.lbl_exMember.Text = "外协人员";
             this.lbl_exMember.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // cb_ShortType
+            // 
+            this.cb_ShortType.FillColor = System.Drawing.Color.White;
+            this.cb_ShortType.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.cb_ShortType.Items.AddRange(new object[] {
+            "查勘",
+            "预试",
+            "处缺",
+            "直流预试",
+            "抢修",
+            "验收",
+            "内务",
+            "出差",
+            "培训"});
+            this.cb_ShortType.Location = new System.Drawing.Point(663, 58);
+            this.cb_ShortType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cb_ShortType.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cb_ShortType.Name = "cb_ShortType";
+            this.cb_ShortType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
+            this.cb_ShortType.Size = new System.Drawing.Size(150, 30);
+            this.cb_ShortType.TabIndex = 30;
+            this.cb_ShortType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel1
+            // 
+            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiLabel1.Location = new System.Drawing.Point(583, 62);
+            this.uiLabel1.Name = "uiLabel1";
+            this.uiLabel1.Size = new System.Drawing.Size(73, 23);
+            this.uiLabel1.TabIndex = 29;
+            this.uiLabel1.Text = "短类型";
+            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // EditWorks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 653);
+            this.ClientSize = new System.Drawing.Size(850, 653);
+            this.Controls.Add(this.cb_ShortType);
+            this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.txt_exMember);
             this.Controls.Add(this.uiLine1);
             this.Controls.Add(this.dg_Member);
@@ -387,5 +422,7 @@
         private Sunny.UI.UILabel lbl_exMember;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Name;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_Role;
+        private Sunny.UI.UIComboBox cb_ShortType;
+        private Sunny.UI.UILabel uiLabel1;
     }
 }

@@ -16,8 +16,9 @@ namespace WorksAssign.Pages
     public partial class EditWorks : AbstractForm
     {
         long workId;
-        bool needUpdateMember = false;
+
         object tmpCellForUpdate;
+        int dgOriginCnt = 0;
         protected Dictionary<string, long> roles;
 
         public bool CancelEditFlag { get; private set; }
@@ -67,6 +68,9 @@ namespace WorksAssign.Pages
             cb_Leader.Text = chosenData.Leader;
             cb_Manager.Text = chosenData.Manager;
 
+            // 短类型无需绑定
+            cb_ShortType.Text = chosenData.ShortType;
+
 
             ComboBox_EditorLostFocus(cb_Substation, substations);
             ComboBox_EditorLostFocus(cb_WorkType, workType);
@@ -103,6 +107,8 @@ namespace WorksAssign.Pages
                 BindingSource bs = new BindingSource();
                 bs.DataSource = data;
                 dg_Member.DataSource = bs;
+
+                dgOriginCnt = dg_Member.Rows.Count;
             }
 
 
@@ -144,7 +150,7 @@ namespace WorksAssign.Pages
         private void btn_Cancel_Click(object sender, EventArgs e) {
             CancelEditFlag = true;
             this.Close();
-            
+
         }
 
         private void cb_Substation_EditorLostFocus(object sender, EventArgs e) {
@@ -176,9 +182,7 @@ namespace WorksAssign.Pages
                     string hintMsg = "提示：\n" + model.HintMessage + "\n确认添加吗？";
                     isContinue = UIMessageDialog.ShowAskDialog(this, hintMsg);
                 }
-
                 if (isContinue) {
-
                     // Remove orginal members involve, then add new ones.
 
                     using (db = new DbAgent()) {
@@ -188,7 +192,8 @@ namespace WorksAssign.Pages
                         originalData.SubstationId = model.SubstationId;
                         originalData.TypeId = model.WorkTypeId;
                         originalData.Content = model.WorkContent;
-                        db.UpdateWork(originalData, model.InvolveList,needUpdateMember);
+                        originalData.ShortType = model.ShortType;
+                        db.UpdateWork(originalData, model.InvolveList, true);
                     }
                     // 更新成功后，必须先关闭本模态窗口，再弹对话框
                     this.ShowSuccessDialog("编辑工作成功！");
@@ -234,7 +239,7 @@ namespace WorksAssign.Pages
         private EditWorkModel CreateViewDataModel() {
             EditWorkModel result = new EditWorkModel();
             List<WorkInvolve> involveList = new List<WorkInvolve>();
-
+            string shortType = cb_ShortType.Text;
 
             List<long> memberId = new List<long>();
             List<string> exMemberName = new List<string>();  // 外部人员名单
@@ -309,6 +314,7 @@ namespace WorksAssign.Pages
                 result.WorkTypeId = workTypeId;
                 result.WorkContent = workContent;
                 result.WorkDate = workDate;
+                result.ShortType = shortType;
                 result.Outsider = outsider;
                 result.HintMessage = hintMsg;
                 // 暂无备注，下一行代码注释掉
@@ -331,16 +337,6 @@ namespace WorksAssign.Pages
 
         }
 
-        private void dg_Member_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e) {
-            tmpCellForUpdate = dg_Member.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-        }
-
-        private void dg_Member_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
-            if(tmpCellForUpdate == null ||tmpCellForUpdate.ToString() != dg_Member.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) {
-                needUpdateMember = true;
-               // this.ShowInfoDialog("you changed");
-            }
-        }
     }
 
     class MemberDataRow

@@ -42,6 +42,8 @@
             this.btn_Reset = new Sunny.UI.UISymbolButton();
             this.lbl_WorkType = new Sunny.UI.UILabel();
             this.cb_WorkType = new Sunny.UI.UIComboBox();
+            this.uiLabel1 = new Sunny.UI.UILabel();
+            this.cb_ShortType = new Sunny.UI.UIComboBox();
             this.SuspendLayout();
             // 
             // lbl_Station
@@ -57,7 +59,7 @@
             // lbl_WorkDate
             // 
             this.lbl_WorkDate.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lbl_WorkDate.Location = new System.Drawing.Point(391, 39);
+            this.lbl_WorkDate.Location = new System.Drawing.Point(323, 39);
             this.lbl_WorkDate.Name = "lbl_WorkDate";
             this.lbl_WorkDate.Size = new System.Drawing.Size(100, 23);
             this.lbl_WorkDate.TabIndex = 0;
@@ -77,7 +79,7 @@
             // lbl_Leader
             // 
             this.lbl_Leader.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lbl_Leader.Location = new System.Drawing.Point(30, 319);
+            this.lbl_Leader.Location = new System.Drawing.Point(30, 342);
             this.lbl_Leader.Name = "lbl_Leader";
             this.lbl_Leader.Size = new System.Drawing.Size(73, 23);
             this.lbl_Leader.TabIndex = 0;
@@ -87,7 +89,7 @@
             // lbl_Manager
             // 
             this.lbl_Manager.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lbl_Manager.Location = new System.Drawing.Point(363, 319);
+            this.lbl_Manager.Location = new System.Drawing.Point(363, 342);
             this.lbl_Manager.Name = "lbl_Manager";
             this.lbl_Manager.Size = new System.Drawing.Size(100, 23);
             this.lbl_Manager.TabIndex = 0;
@@ -97,7 +99,7 @@
             // lbl_Member
             // 
             this.lbl_Member.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lbl_Member.Location = new System.Drawing.Point(12, 378);
+            this.lbl_Member.Location = new System.Drawing.Point(12, 375);
             this.lbl_Member.Name = "lbl_Member";
             this.lbl_Member.Size = new System.Drawing.Size(100, 23);
             this.lbl_Member.TabIndex = 0;
@@ -117,7 +119,7 @@
             this.txt_WorkContent.Multiline = true;
             this.txt_WorkContent.Name = "txt_WorkContent";
             this.txt_WorkContent.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_WorkContent.Size = new System.Drawing.Size(622, 169);
+            this.txt_WorkContent.Size = new System.Drawing.Size(691, 196);
             this.txt_WorkContent.TabIndex = 3;
             // 
             // txt_Member
@@ -125,7 +127,7 @@
             this.txt_Member.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_Member.FillColor = System.Drawing.Color.White;
             this.txt_Member.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txt_Member.Location = new System.Drawing.Point(119, 378);
+            this.txt_Member.Location = new System.Drawing.Point(117, 375);
             this.txt_Member.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_Member.Maximum = 2147483647D;
             this.txt_Member.Minimum = -2147483648D;
@@ -133,7 +135,7 @@
             this.txt_Member.Multiline = true;
             this.txt_Member.Name = "txt_Member";
             this.txt_Member.Padding = new System.Windows.Forms.Padding(5);
-            this.txt_Member.Size = new System.Drawing.Size(620, 114);
+            this.txt_Member.Size = new System.Drawing.Size(689, 114);
             this.txt_Member.TabIndex = 6;
             // 
             // cb_Substation
@@ -145,7 +147,7 @@
             this.cb_Substation.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Substation.Name = "cb_Substation";
             this.cb_Substation.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Substation.Size = new System.Drawing.Size(150, 34);
+            this.cb_Substation.Size = new System.Drawing.Size(150, 30);
             this.cb_Substation.TabIndex = 1;
             this.cb_Substation.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Substation.EditorLostFocus += new System.EventHandler(this.cb_Substation_EditorLostFocus);
@@ -154,12 +156,12 @@
             // 
             this.cb_Leader.FillColor = System.Drawing.Color.White;
             this.cb_Leader.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.cb_Leader.Location = new System.Drawing.Point(119, 312);
+            this.cb_Leader.Location = new System.Drawing.Point(117, 335);
             this.cb_Leader.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cb_Leader.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Leader.Name = "cb_Leader";
             this.cb_Leader.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Leader.Size = new System.Drawing.Size(150, 34);
+            this.cb_Leader.Size = new System.Drawing.Size(150, 30);
             this.cb_Leader.TabIndex = 4;
             this.cb_Leader.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Leader.EditorLostFocus += new System.EventHandler(this.cb_Leader_EditorLostFocus);
@@ -168,12 +170,12 @@
             // 
             this.cb_Manager.FillColor = System.Drawing.Color.White;
             this.cb_Manager.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.cb_Manager.Location = new System.Drawing.Point(448, 312);
+            this.cb_Manager.Location = new System.Drawing.Point(448, 335);
             this.cb_Manager.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cb_Manager.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Manager.Name = "cb_Manager";
             this.cb_Manager.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Manager.Size = new System.Drawing.Size(150, 34);
+            this.cb_Manager.Size = new System.Drawing.Size(150, 30);
             this.cb_Manager.TabIndex = 5;
             this.cb_Manager.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Manager.EditorLostFocus += new System.EventHandler(this.cb_Manager_EditorLostFocus);
@@ -182,13 +184,13 @@
             // 
             this.dpk_WorkDate.FillColor = System.Drawing.Color.White;
             this.dpk_WorkDate.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.dpk_WorkDate.Location = new System.Drawing.Point(448, 33);
+            this.dpk_WorkDate.Location = new System.Drawing.Point(380, 33);
             this.dpk_WorkDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dpk_WorkDate.MaxLength = 10;
             this.dpk_WorkDate.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_WorkDate.Name = "dpk_WorkDate";
             this.dpk_WorkDate.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_WorkDate.Size = new System.Drawing.Size(150, 34);
+            this.dpk_WorkDate.Size = new System.Drawing.Size(150, 30);
             this.dpk_WorkDate.SymbolDropDown = 61555;
             this.dpk_WorkDate.SymbolNormal = 61555;
             this.dpk_WorkDate.TabIndex = 2;
@@ -199,10 +201,10 @@
             // uiLine1
             // 
             this.uiLine1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiLine1.Location = new System.Drawing.Point(0, 497);
+            this.uiLine1.Location = new System.Drawing.Point(12, 497);
             this.uiLine1.MinimumSize = new System.Drawing.Size(2, 2);
             this.uiLine1.Name = "uiLine1";
-            this.uiLine1.Size = new System.Drawing.Size(753, 29);
+            this.uiLine1.Size = new System.Drawing.Size(813, 29);
             this.uiLine1.TabIndex = 7;
             this.uiLine1.TabStop = false;
             // 
@@ -246,21 +248,55 @@
             this.cb_WorkType.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             this.cb_WorkType.FillColor = System.Drawing.Color.White;
             this.cb_WorkType.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.cb_WorkType.Location = new System.Drawing.Point(119, 87);
+            this.cb_WorkType.Location = new System.Drawing.Point(117, 87);
             this.cb_WorkType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cb_WorkType.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_WorkType.Name = "cb_WorkType";
             this.cb_WorkType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_WorkType.Size = new System.Drawing.Size(620, 34);
+            this.cb_WorkType.Size = new System.Drawing.Size(689, 30);
             this.cb_WorkType.TabIndex = 1;
             this.cb_WorkType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // uiLabel1
+            // 
+            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiLabel1.Location = new System.Drawing.Point(578, 39);
+            this.uiLabel1.Name = "uiLabel1";
+            this.uiLabel1.Size = new System.Drawing.Size(73, 23);
+            this.uiLabel1.TabIndex = 0;
+            this.uiLabel1.Text = "短类型";
+            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cb_ShortType
+            // 
+            this.cb_ShortType.FillColor = System.Drawing.Color.White;
+            this.cb_ShortType.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.cb_ShortType.Items.AddRange(new object[] {
+            "查勘",
+            "预试",
+            "处缺",
+            "直流预试",
+            "抢修",
+            "验收",
+            "内务",
+            "出差",
+            "培训"});
+            this.cb_ShortType.Location = new System.Drawing.Point(658, 32);
+            this.cb_ShortType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cb_ShortType.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cb_ShortType.Name = "cb_ShortType";
+            this.cb_ShortType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
+            this.cb_ShortType.Size = new System.Drawing.Size(150, 30);
+            this.cb_ShortType.TabIndex = 1;
+            this.cb_ShortType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cb_ShortType.EditorLostFocus += new System.EventHandler(this.cb_Substation_EditorLostFocus);
+            // 
             // NewWorks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(752, 592);
+            this.ClientSize = new System.Drawing.Size(837, 592);
             this.Controls.Add(this.btn_Reset);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.uiLine1);
@@ -268,6 +304,7 @@
             this.Controls.Add(this.cb_Manager);
             this.Controls.Add(this.cb_Leader);
             this.Controls.Add(this.cb_WorkType);
+            this.Controls.Add(this.cb_ShortType);
             this.Controls.Add(this.cb_Substation);
             this.Controls.Add(this.txt_Member);
             this.Controls.Add(this.txt_WorkContent);
@@ -277,6 +314,7 @@
             this.Controls.Add(this.lbl_WorkType);
             this.Controls.Add(this.lbl_WorkContent);
             this.Controls.Add(this.lbl_WorkDate);
+            this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.lbl_Station);
             this.Name = "NewWorks";
             this.Text = "NewWorks";
@@ -303,5 +341,7 @@
         private Sunny.UI.UISymbolButton btn_Reset;
         private Sunny.UI.UILabel lbl_WorkType;
         private Sunny.UI.UIComboBox cb_WorkType;
+        private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UIComboBox cb_ShortType;
     }
 }
