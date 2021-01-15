@@ -43,7 +43,7 @@ namespace WorksAssign
                 Aside.CreateNode("工作概况", 61451, 24, 1);
                 Aside.CreateNode("增加工作", 61694, 24, 2);
                 Aside.CreateNode("浏览工作", 61442, 24, 3);
-                Aside.CreateNode("考勤管理", 62068, 24, 4);
+                Aside.CreateNode("考勤与绩效", 62068, 24, 4);
                 Aside.CreateNode("关于", 61530, 24, 8);
 
                 //显示默认界面

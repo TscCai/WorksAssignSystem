@@ -29,13 +29,13 @@
             this.dpk_MonthlyAttendance = new Sunny.UI.UIDatePicker();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.uiLabel1 = new Sunny.UI.UILabel();
+            this.btn_ExportWorkPoints = new Sunny.UI.UISymbolButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_ExportMonthlyAttendance
             // 
             this.btn_ExportMonthlyAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_ExportMonthlyAttendance.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_ExportMonthlyAttendance.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.btn_ExportMonthlyAttendance.Location = new System.Drawing.Point(342, 16);
             this.btn_ExportMonthlyAttendance.Margin = new System.Windows.Forms.Padding(0);
@@ -67,14 +67,17 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 6;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.dpk_MonthlyAttendance, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.uiLabel1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btn_ExportMonthlyAttendance, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btn_ExportWorkPoints, 5, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -97,6 +100,19 @@
             this.uiLabel1.Text = "月份选择：";
             this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btn_ExportWorkPoints
+            // 
+            this.btn_ExportWorkPoints.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_ExportWorkPoints.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.btn_ExportWorkPoints.Location = new System.Drawing.Point(527, 16);
+            this.btn_ExportWorkPoints.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_ExportWorkPoints.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btn_ExportWorkPoints.Name = "btn_ExportWorkPoints";
+            this.btn_ExportWorkPoints.Size = new System.Drawing.Size(165, 34);
+            this.btn_ExportWorkPoints.TabIndex = 6;
+            this.btn_ExportWorkPoints.Text = "导出月度绩效表";
+            this.btn_ExportWorkPoints.Click += new System.EventHandler(this.btn_ExportWorkPoints_Click);
+            // 
             // AttendanceManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -116,5 +132,6 @@
         private Sunny.UI.UIDatePicker dpk_MonthlyAttendance;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UISymbolButton btn_ExportWorkPoints;
     }
 }

@@ -17,9 +17,13 @@ namespace WorksAssign.Pages
     {
         public About() {
             InitializeComponent();
+#if PRO
+            lbl_AboutMsg.Text = AssemblyGetter.AssemblyTitle + " " + AssemblyGetter.AssemblyVersion + " Pro\n";
+#else
             lbl_AboutMsg.Text = AssemblyGetter.AssemblyTitle+" "+ AssemblyGetter.AssemblyVersion +"\n";
-            lbl_AboutMsg.Text += "Build at: "+ System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location)+"\n";
-            lbl_AboutMsg.Text += "Developed by: " + AssemblyGetter.AssemblyCompany +"\n";
+#endif
+            lbl_AboutMsg.Text += "Build at: " + System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location) + "\n";
+            lbl_AboutMsg.Text += "Developed by: " + AssemblyGetter.AssemblyCompany + "\n";
             lbl_AboutMsg.Text += AssemblyGetter.AssemblyCopyright;
         }
 

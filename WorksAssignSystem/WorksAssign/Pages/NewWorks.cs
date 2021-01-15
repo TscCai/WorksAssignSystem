@@ -11,6 +11,7 @@ namespace WorksAssign.Pages
 {
     public partial class NewWorks : UIPage
     {
+
         DbAgent db;
         Dictionary<string, long> substations;
         Dictionary<string, long> employees;

@@ -87,5 +87,12 @@ namespace WorksAssign.Pages
 
             return result;
         }
+
+        private void btn_ExportWorkPoints_Click(object sender, EventArgs e) {
+            DateTime date = dpk_MonthlyAttendance.Value;
+            string filename = "Export/[" + date.ToString("yyyy.MM") + "]考勤表-二次班.xlsx";
+            WorkPoint wp = new WorkPoint();
+            wp.ExportExcel(filename, date);
+        }
     }
 }

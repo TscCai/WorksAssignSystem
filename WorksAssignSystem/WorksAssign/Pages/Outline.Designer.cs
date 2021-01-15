@@ -40,7 +40,7 @@
             this.uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel1.Name = "uiPanel1";
-            this.uiPanel1.Size = new System.Drawing.Size(802, 87);
+            this.uiPanel1.Size = new System.Drawing.Size(802, 89);
             this.uiPanel1.TabIndex = 0;
             this.uiPanel1.Text = null;
             // 
@@ -52,9 +52,9 @@
             this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel1.Name = "uiSymbolLabel1";
             this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
-            this.uiSymbolLabel1.Size = new System.Drawing.Size(170, 87);
+            this.uiSymbolLabel1.Size = new System.Drawing.Size(170, 89);
             this.uiSymbolLabel1.TabIndex = 0;
-            this.uiSymbolLabel1.Text = "uiSymbolLabel1";
+            this.uiSymbolLabel1.Text = "欢迎使用";
             // 
             // Outline
             // 
