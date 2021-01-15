@@ -19,13 +19,6 @@ namespace WorksAssign.Pages
         public ViewWorks() {
             InitializeComponent();
 
-            frm_EditWorks = new EditWorks();
-            frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
-        }
-
-        public override void Init() {
-            base.Init();
-
             dpk_Start.Value = DateTime.Now.Date;
             dpk_Start.Text = dpk_Start.Value.ToString("yyyy-MM-dd");
 
@@ -33,7 +26,12 @@ namespace WorksAssign.Pages
             dpk_End.Text = dpk_End.Value.ToString("yyyy-MM-dd");
             col_Date.DefaultCellStyle.Format = "yyyy-MM-dd";
 
+
+            frm_EditWorks = new EditWorks();
+            frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
         }
+
+       
 
         /// <summary>
         /// Need to be refactor

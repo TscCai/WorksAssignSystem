@@ -22,7 +22,7 @@ namespace WorksAssign.Pages
             InitializeComponent();
             // additional component init.
             dpk_WorkDate.Value = DateTime.Now.AddDays(1).Date;
-
+            cb_ShortType.SelectedIndex = 1;
             InitializeData();
 
         }
@@ -95,9 +95,21 @@ namespace WorksAssign.Pages
 
             // 获取简单字段的值
             DateTime workDate = dpk_WorkDate.Value.Date;
-            long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
+            long substationId = DbAgent.NOT_SUBSTATION;
+            if (cb_Substation.SelectedValue != null) {
+                substationId = (long)cb_Substation.SelectedValue;
+            }
+            else {
+                hintMsg += "注意，该工作未选择变电站，将以“其他”填充\n";
+            }
+             
+
             long workTypeId = (long)cb_WorkType.SelectedValue;
             string workContent = txt_WorkContent.Text;
+            if (workContent.IsNullOrEmpty()) {
+                error = true;
+                errorMsg += "无工作内容\n";
+            }
             string shortType = cb_ShortType.Text;
 
             // leader, manager下拉框的选择值为空则为外部人员
@@ -200,6 +212,8 @@ namespace WorksAssign.Pages
             // 暂无备注，下一行代码注释掉
             //result.Comment = null;
             result.InvolveList = involveList;
+            result.Error = error;
+            result.ErrorMessage = errorMsg;
             return result;
 
 

@@ -241,3 +241,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /WorksAssignSystem/WorksAssign/App_Data/*.db
+/WorksAssignSystem/WorksAssign/Update/WorksAssign.main.sql
+/WorksAssignSystem/WorksAssign/Update/update-script-0.2.1.114.sql
