@@ -8,10 +8,13 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using WorksAssign.Persistence;
 
-namespace WorksAssign.Util.Export {
-    public class WorkPoint:IDisposable {
+namespace WorksAssign.Util.Export
+{
+    public class WorkPoint : IDisposable
+    {
 
         DbAgent db;
+
         /// <summary>
         /// 内置Workbook对象
         /// </summary>
@@ -36,20 +39,19 @@ namespace WorksAssign.Util.Export {
         /// 默认日期格式，初始化为yyyy-MM-dd
         /// </summary>
         ICellStyle DefaultDateStyle;
-
+        HolidayWorkdayDiscriminator hwd;
         /// <summary>
         /// 初始化资源，创建汇总表表头、默认日期格式
         /// </summary>
         /// <param name="db">外部DbAgent实例</param>
-        public WorkPoint()
-        {
+        public WorkPoint() {
             wb = new XSSFWorkbook();
             db = new DbAgent();
             CreateSheetSumHeader("当月绩效表");
             DefaultDateStyle = wb.CreateCellStyle();
-            
+
             DefaultDateStyle.DataFormat = wb.CreateDataFormat().GetFormat("yyyy-MM-dd");
-            
+
         }
 
         /// <summary>
@@ -63,25 +65,24 @@ namespace WorksAssign.Util.Export {
         /// <summary>
         /// 导出指定月份的绩效分数
         /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="startDate"></param>
-        public void ExportExcel(string filename, DateTime startDate) {
-            
-            holidaysWorkdays = db.GetHolidaysWorkdays(startDate.Year);
-            int currentMonth = startDate.Month;
+        /// <param name="filename">导出文件文件名，支持相对路径</param>
+        /// <param name="beginOfMonth">指定月份的首日</param>
+        public void ExportExcel(string filename, DateTime beginOfMonth) {
+
+
+            hwd = new HolidayWorkdayDiscriminator(beginOfMonth.Year);
+            //holidaysWorkdays = db.GetHolidaysWorkdays(beginOfMonth.Year);
+            int currentMonth = beginOfMonth.Month;
 
             // 逐个计算个人绩效
-            foreach (Employee emp in db.GetEmployee()) {
+            foreach (Employee emp in db.GetEmployee(false)) {
 
-                // Id=1 为外部人员，不参与绩效计算
-                if (emp.Id == 1) {
-                    continue;
-                }
                 double total_points = 0;
-                datePointer = startDate;
+                datePointer = beginOfMonth;
 
-                // 取出该人员的所有工作内容
-                IQueryable<V_AllPoints> personal_points = db.GetWorkPointById(emp.Id);
+                // 取出该人员在所有时间范围内的的全部工作内容
+                DateTime endOfMonth = beginOfMonth.AddMonths(1).AddDays(-1);
+                IQueryable<V_AllPoints> personal_points = db.GetWorkPoint(emp.Id, beginOfMonth, endOfMonth);
 
                 ISheet personal_sheet = CreatePersonalSheet(emp.Name);
 
@@ -115,8 +116,7 @@ namespace WorksAssign.Util.Export {
         /// </summary>
         /// <param name="name">汇总表名称</param>
         /// <returns></returns>
-        void CreateSheetSumHeader(string name)
-        {
+        void CreateSheetSumHeader(string name) {
             SummarySheet = wb.CreateSheet(name);
             int row_sheet_sum = 0;
             IRow hdr = SummarySheet.CreateRow(row_sheet_sum);
@@ -128,8 +128,12 @@ namespace WorksAssign.Util.Export {
             return;
         }
 
-        ISheet CreatePersonalSheet(string name)
-        {
+        /// <summary>
+        /// 创建1个以人员姓名命名的工作表(WorkSheet)，并初始化表头信息
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        ISheet CreatePersonalSheet(string name) {
             ISheet result = wb.CreateSheet(name);
             result.SetColumnWidth(0, 12 * 256);
             // 首行留白，从row1开始
@@ -142,9 +146,8 @@ namespace WorksAssign.Util.Export {
             r.CreateCell(5).SetCellValue("角色系数");
             return result;
         }
-    
-        double GetDailyPoints(List<V_AllPoints> workOfOneDay, ISheet personalSheet)
-        {
+
+        double GetDailyPoints(List<V_AllPoints> workOfOneDay, ISheet personalSheet) {
             double total_point = 0;
             if (workOfOneDay != null && workOfOneDay.Count > 0) {
                 foreach (var i in workOfOneDay) {
@@ -154,10 +157,11 @@ namespace WorksAssign.Util.Export {
                 }
             }
             else {
-                if (CommonUtil.IsHoliday(datePointer, holidaysWorkdays)) {
+                if (hwd.IsHoliday(datePointer)) {
+                    //if (CommonUtil.IsHoliday(datePointer, holidaysWorkdays)) {
                     FillPersonalSheet(personalSheet, datePointer, "休息", "休息", 0, "", 0);
                 }
-                else if (CommonUtil.IsWorkday(datePointer, holidaysWorkdays)) {
+                else if (hwd.IsWorkday(datePointer)) {
                     var defaultWorkPoint = db.GetDefaultWorkPoint();
                     defaultWorkPoint.WorkDate = datePointer;
                     FillPersonalSheet(personalSheet, defaultWorkPoint);
@@ -165,7 +169,8 @@ namespace WorksAssign.Util.Export {
                     // 绩效计算公式
                     total_point += CalcWorkPoints(defaultWorkPoint.TypeWgt, defaultWorkPoint.RoleWgt);
                 }
-                else if (CommonUtil.IsDayOff(datePointer, 0, null)) {
+                // 以下方法尚未完成
+                else if (hwd.IsDayOff(datePointer, 0, null)) {
                     FillPersonalSheet(personalSheet, datePointer, "休息", "休息", 0, "", 0);
                 }
             }
@@ -176,14 +181,12 @@ namespace WorksAssign.Util.Export {
             return typeWgt * roleWgt;
         }
 
-        void FillPersonalSheet(ISheet sheet, V_AllPoints pointTable)
-        {
+        void FillPersonalSheet(ISheet sheet, V_AllPoints pointTable) {
             FillPersonalSheet(sheet, pointTable.WorkDate, pointTable.WorkContent, pointTable.WorkType,
                 pointTable.TypeWgt, pointTable.RoleName, pointTable.RoleWgt);
         }
 
-        void FillPersonalSheet(ISheet sheet, DateTime date, string workContent, string workType, double typeWgt, string role, double roleWgt)
-        {
+        void FillPersonalSheet(ISheet sheet, DateTime date, string workContent, string workType, double typeWgt, string role, double roleWgt) {
             IRow r = sheet.CreateRow(sheet.LastRowNum + 1);
             r.CreateCell(0).SetCellValue(date);
             r.GetCell(0).CellStyle = DefaultDateStyle;
@@ -196,7 +199,7 @@ namespace WorksAssign.Util.Export {
         }
 
         public void Dispose() {
-           db.Dispose();
+            db.Dispose();
         }
     }
 

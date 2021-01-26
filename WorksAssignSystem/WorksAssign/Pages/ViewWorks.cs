@@ -47,8 +47,8 @@ namespace WorksAssign.Pages
                     string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
                     string managerAlias = RoleNameType.Manager.GetEnumStringValue();
 
-                    string leaderName = ViewDataAdapter.GetName(i, leaderAlias);
-                    string manager = ViewDataAdapter.GetName(i, managerAlias);
+                    string leaderName = ViewDataAdapter.GetName(i, RoleNameType.Leader);
+                    string manager = ViewDataAdapter.GetName(i, RoleNameType.Manager);
                     string exMember = null;
                     string member = "";
 
@@ -152,6 +152,22 @@ namespace WorksAssign.Pages
 
         }
 
+        private void btn_Export_Click(object sender, EventArgs e) {
+            if (WorkList != null && WorkList.Count > 0) {
+                DateTime start = dpk_Start.Value;
+                DateTime end = dpk_End.Value;
+                string template = "Template/daily_assign_template.xlsx";
+                using (DailyWork dw = new DailyWork(template)) {
+
+                    dw.ExportExcel("Export/每日工作安排[" + start.ToString("MM.dd") + "-" + end.ToString("MM.dd") + "].xlsx", WorkList);
+
+                    dw.Dispose();
+                }
+                this.ShowInfoDialog("导出成功。");
+
+            }
+        }
+
         private void Frm_EditWorks_FormClosed(object sender, FormClosedEventArgs e) {
             if (!frm_EditWorks.CancelEditFlag) {
                 InitializeData();
@@ -179,21 +195,6 @@ namespace WorksAssign.Pages
             return chosenWork;
         }
 
-        private void btn_Export_Click(object sender, EventArgs e) {
-            if (WorkList != null && WorkList.Count > 0) {
-                DateTime start = dpk_Start.Value;
-                DateTime end = dpk_End.Value;
-                string template = "Template/daily_assign_template.xlsx";
-                using (DailyWork dw = new DailyWork(template)) {
-
-                    dw.ExportExcel("Export/每日工作安排[" + start.ToString("MM.dd") + "-" + end.ToString("MM.dd") + "].xlsx", WorkList);
-
-                    dw.Dispose();
-                }
-                this.ShowInfoDialog("导出成功。");
-
-            }
-        }
     }
 
 }

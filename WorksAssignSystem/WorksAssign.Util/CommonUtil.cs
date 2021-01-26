@@ -10,6 +10,13 @@ namespace WorksAssign.Util
 
     public class CommonUtil
     {
+        /*
+        /// <summary>
+        /// 判断是否为假期
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="exDays"></param>
+        /// <returns></returns>
         public static bool IsHoliday(DateTime dt, IQueryable<ExWorkdays> exDays) {
             bool result = false;
             var tmp = exDays.AsEnumerable().SingleOrDefault(w => w.Date.Date == dt);
@@ -26,6 +33,12 @@ namespace WorksAssign.Util
 
         }
 
+        /// <summary>
+        /// 判断是否为工作日
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="exDays"></param>
+        /// <returns></returns>
         public static bool IsWorkday(DateTime dt, IQueryable<ExWorkdays> exDays) {
             bool result = false;
             var tmp = exDays.AsEnumerable().SingleOrDefault(w => w.Date.Date == dt.Date);
@@ -50,7 +63,7 @@ namespace WorksAssign.Util
                 return false;
             }
         }
-
+        */
     }
 
 

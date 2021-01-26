@@ -40,7 +40,7 @@
     <Compile Include="AbstractInfo.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Adapter\DefaultConstant.cs" />
+    <Compile Include="DbDefaultValues.cs" />
     <Compile Include="Adapter\ViewDataAdapter.cs" />
     <Compile Include="DatabaseUpdater.cs" />
     <Compile Include="DayOff.cs">
@@ -73,6 +73,7 @@
     <Compile Include="WorkContent.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="HolidayWorkdayDiscriminator.cs" />
     <Compile Include="WorkInvolve.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>

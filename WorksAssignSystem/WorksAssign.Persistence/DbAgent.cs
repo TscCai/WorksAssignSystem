@@ -1,35 +1,52 @@
-﻿using System;
+﻿/******************************************************************************
+ * WorksAssign.Persistence 工作安排数据库访问组件
+ * CopyRight (C) 2020-2021 TscCai.
+ * E-Mail：caijiran@hotmail.com
+ *
+ * GitHub: https://github.com/TscCai/WorksAssignSystem
+ *
+ ******************************************************************************
+ * 文件名称: DbAgent.cs
+ * 文件说明: 数据库访问器
+ * 当前版本: 
+ * 创建日期: 2020-11-28
+ * 2020-01-23: 增加文件说明
+******************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WorksAssign.Persistence.Adapter;
 
 namespace WorksAssign.Persistence
 {
-    public class DbAgent : IDisposable
-    {
+    public class DbAgent : IDisposable {
+        /// <summary>
+        /// 数据库访问实体
+        /// </summary>
         WorksAssignEntities dbCtx;
-        //public DateTime StartDate;
-        //public V_AllPoints DefaultWorkPoint;
-        //public IQueryable<ExWorkdays> HolidaysWorkdays;
 
+        /// <summary>
+        /// 外部人员EmployeeId
+        /// </summary>
         public const long OUTSIDER = 1;
+
+        /// <summary>
+        /// 无管理人员标记
+        /// </summary>
         public const long NO_MANAGER = 0;
+
+        /// <summary>
+        /// 无变电站标记
+        /// </summary>
         public const long NOT_SUBSTATION = 0;
 
 
-        public DbAgent() : this(new WorksAssignEntities()) {
+        public DbAgent() {
+            dbCtx = new WorksAssignEntities();
         }
 
         /// <summary>
-        /// 
+        /// 关闭数据库连接，释放dbCtx对象。此方法后调用后必须再次实例化才可操作数据库
         /// </summary>
-        /// <param name="ctx"></param>
-        public DbAgent(WorksAssignEntities ctx) {
-            this.dbCtx = ctx;
-        }
-
         public void Dispose() {
             dbCtx.Dispose();
         }
@@ -37,7 +54,7 @@ namespace WorksAssign.Persistence
         #region Table Employee
 
         /// <summary>
-        /// return all employees include outsider
+        /// 返回所有班组成员，包括1个内置的默认外部人员（Id=1）
         /// </summary>
         /// <returns></returns>
         public IQueryable<Employee> GetEmployee() {
@@ -248,18 +265,22 @@ namespace WorksAssign.Persistence
         #endregion
 
         #region View V_AllPoints
-        public IQueryable<V_AllPoints> GetWorkPointById(long id) {
-            return dbCtx.V_AllPoints.Where(p => p.EmpId == id);
+        public IQueryable<V_AllPoints> GetWorkPoint(long employeeId) {
+            return dbCtx.V_AllPoints.Where(p => p.EmpId == employeeId);
+        }
+
+        public IQueryable<V_AllPoints> GetWorkPoint(long employeeId, DateTime start, DateTime end){
+            return dbCtx.V_AllPoints.Where(p => p.EmpId == employeeId && p.WorkDate >= start && p.WorkDate <= end);
         }
 
         public V_AllPoints GetDefaultWorkPoint() {
             V_AllPoints result = new V_AllPoints();
 
-            result.WorkContent = DefaultConstant.WorkContent;
-            result.WorkType = DefaultConstant.WorkType;
+            result.WorkContent = DbDefaultValues.WorkContent;
+            result.WorkType = DbDefaultValues.WorkType;
             result.TypeWgt = GetWorkType(result.WorkType).TypeWgt;
-            result.RoleName = DefaultConstant.RoleName;
-            result.RoleWgt = DefaultConstant.RoleWgt;
+            result.RoleName = DbDefaultValues.RoleName;
+            result.RoleWgt = DbDefaultValues.RoleWgt;
             return result;
         }
 
@@ -273,6 +294,17 @@ namespace WorksAssign.Persistence
         #endregion
 
         #region Transactions
+        /// <summary>
+        /// 增加一项工作安排，将使用数据库事务
+        /// </summary>
+        /// <param name="substationId">变电站Id</param>
+        /// <param name="typeId">工作类型Id</param>
+        /// <param name="workContent">工作内容详细</param>
+        /// <param name="workDate">工作时间</param>
+        /// <param name="shortType">工作短类型</param>
+        /// <param name="involves">人员安排</param>
+        /// <param name="exMember">外部人员，含厂家、民工、非本班组负责人和管理人员</param>
+        /// <param name="workComment">备注</param>
         public void AddWork(long substationId, long typeId, string workContent, DateTime workDate, string shortType,
             List<WorkInvolve> involves, string exMember = null, string workComment = null) {
             using (var transcation = dbCtx.Database.BeginTransaction()) {
@@ -285,6 +317,12 @@ namespace WorksAssign.Persistence
             }
         }
 
+        /// <summary>
+        /// 更新工作概况及人员安排，将使用数据库事务
+        /// </summary>
+        /// <param name="wc">工作内容概况</param>
+        /// <param name="list">人员安排</param>
+        /// <param name="needUpdateList">是否需要更新人员安排</param>
         public void UpdateWork(WorkContent wc, List<WorkInvolve> list, bool needUpdateList = false) {
             using (var transcation = dbCtx.Database.BeginTransaction()) {
                 if (needUpdateList) {
@@ -298,20 +336,18 @@ namespace WorksAssign.Persistence
                 transcation.Commit();
             }
         }
-
-        //public void UpdateWork(WorkContent wc, List<WorkInvolve> list) {
-        //    using (var transcation = dbCtx.Database.BeginTransaction()) {
-
-        //        DelWorkInvolve(wc.ID);
-        //        foreach (var item in list) {
-        //            item.WID = wc.ID;
-        //            AddWorkInvolve(item);
-        //        }
-        //        transcation.Commit();
-        //    }
-        //}
-
         #endregion
 
+        /// <summary>
+        /// 更新工作概况，而不更新人员安排
+        /// </summary>
+        /// <param name="wc">工作内容概况</param>
+        public void UpdateWork(WorkContent wc) {
+            dbCtx.SaveChanges();
+        }
     }
+
+    
+
+
 }
