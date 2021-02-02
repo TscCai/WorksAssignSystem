@@ -20,7 +20,7 @@ namespace WorksAssign.Test
 
         [TestMethod]
         public void TestView_AllPoints() {
-            WorksAssign.Util.Export.WorkPoint wp = new Util.Export.WorkPoint();
+            WorksAssign.Util.Export.WorkPoint wp = new Util.Export.WorkPoint(new DateTime(2020, 10, 1));
             wp.ExportExcel("Export/test.xlsx",new DateTime(2020,10,3));
         }
 

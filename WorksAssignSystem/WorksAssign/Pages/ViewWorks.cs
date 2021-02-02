@@ -157,9 +157,9 @@ namespace WorksAssign.Pages
                 DateTime start = dpk_Start.Value;
                 DateTime end = dpk_End.Value;
                 string template = "Template/daily_assign_template.xlsx";
-                using (DailyWork dw = new DailyWork(template)) {
+                using (DailyWork dw = new DailyWork(template,WorkList)) {
 
-                    dw.ExportExcel("Export/每日工作安排[" + start.ToString("MM.dd") + "-" + end.ToString("MM.dd") + "].xlsx", WorkList);
+                    dw.ExportExcel("Export/每日工作安排[" + start.ToString("MM.dd") + "-" + end.ToString("MM.dd") + "].xlsx");
 
                     dw.Dispose();
                 }

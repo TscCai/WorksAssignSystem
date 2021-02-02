@@ -37,14 +37,16 @@ namespace WorksAssign.Pages
         /// <param name="e"></param>
         private void btn_ExportMonthlyAttendance_Click(object sender, EventArgs e) {
             string template = ConfigurationManager.AppSettings["MonthlyAttendanceTemplatePath"];
-            using (MonthlyAttendance ma = new MonthlyAttendance(template)) {
-                DateTime date = dpk_MonthlyAttendance.Value;
-                hwd = new HolidayWorkdayDiscriminator(date.Year);
+            DateTime date = dpk_MonthlyAttendance.Value;
+            hwd = new HolidayWorkdayDiscriminator(date.Year);
+            List<MonthlyAttendanceModel> list = CreateMonthlyAttendanceData(date);
+
+            using (MonthlyAttendance ma = new MonthlyAttendance(template, date, list)) {    
+                
                 // 创建目录，若存在则不会创建
                 DirEx.CreateDir(ConfigurationManager.AppSettings["ExportFilePath"]);
                 string filename = ConfigurationManager.AppSettings["ExportFilePath"] + date.ToString("[yyyy.MM]") + "考勤统计-二次班.xlsx";
-                List<MonthlyAttendanceModel> list = CreateMonthlyAttendanceData(date);
-                ma.ExportExcel(filename, date, list);
+                ma.ExportExcel(filename);
             }
             this.ShowSuccessDialog("月度考勤表导出成功。");
         }
@@ -58,7 +60,7 @@ namespace WorksAssign.Pages
             DateTime date = dpk_MonthlyAttendance.Value.BeginOfMonth();
             hwd = new HolidayWorkdayDiscriminator(date.Year);
             string filename = "Export/" + date.ToString("[yyyy.MM]") + "绩效表-二次班.xlsx";
-            WorkPoint wp = new WorkPoint();
+            WorkPoint wp = new WorkPoint(date);
             wp.ExportExcel(filename, date);
             this.ShowSuccessDialog("月度绩效表导出成功。");
         }

@@ -91,6 +91,7 @@
     <Compile Include="DataModel\MonthlyAttendanceModel.cs" />
     <Compile Include="DataModel\WorkPointModel.cs" />
     <Compile Include="Export\DailyWork.cs" />
+    <Compile Include="Export\GeneralExpoter.cs" />
     <Compile Include="Export\WorkSheetDefaultValues.cs" />
     <Compile Include="Export\MonthlyAttendance.cs" />
     <Compile Include="Export\WorkPoint.cs" />

@@ -37,15 +37,15 @@ namespace WorksAssign.Persistence.Adapter {
 				string[] tmp = wc.ExMember.Split('|');
 				foreach (var i in tmp) {
 					if (i.StartsWith(RoleNameType.Leader.GetEnumStringValue()+"：")) {
-						string value = i.Substring(4);
+						string value = i.Substring(RoleNameType.Leader.GetEnumStringValue().Length+1);
 						result.Add(RoleNameType.Leader.ToString(), value);
 					}
 					else if (i.StartsWith(RoleNameType.Manager.GetEnumStringValue()+"：")) {
-						string value = i.Substring(5);
+						string value = i.Substring(RoleNameType.Manager.GetEnumStringValue().Length+1);
 						result.Add(RoleNameType.Manager.ToString(), value);
 					}
 					else if (i.StartsWith(RoleNameType.ExMember.GetEnumStringValue() + "：")) {
-						string value = i.Substring(5);
+						string value = i.Substring(RoleNameType.ExMember.GetEnumStringValue().Length + 1);
 						result.Add(RoleNameType.ExMember.ToString(), value);
 					}
 				}			

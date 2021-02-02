@@ -9,41 +9,27 @@ using WorksAssign.Util.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class MonthlyAttendance : IDisposable
+    public class MonthlyAttendance : GeneralExpoter, IDisposable
     {
-        /// <summary>
-        /// 内置Workbook对象
-        /// </summary>
-        IWorkbook Workbook;
+        DateTime StaticsTime;
+        List<MonthlyAttendanceModel> AttendanceList;
 
-        /// <summary>
-        /// 活动页表格
-        /// </summary>
-        ISheet ActiveSheet;
-
-
-        /// <summary>
-        /// 默认日期格式，初始化为yyyy-MM-dd
-        /// </summary>
-        ICellStyle DefaultDateStyle;
-
-
-        public MonthlyAttendance(string templateFilename) {
+        public MonthlyAttendance(string templateFilename, DateTime staticsTime, List<MonthlyAttendanceModel> list) {
             using (FileStream fs = new FileStream(templateFilename, FileMode.Open, FileAccess.Read)) {
                 Workbook = WorkbookFactory.Create(fs);
                 Workbook.MissingCellPolicy = MissingCellPolicy.CREATE_NULL_AS_BLANK;
             }
-
-            DefaultDateStyle = Workbook.CreateCellStyle();
-            DefaultDateStyle.DataFormat = Workbook.CreateDataFormat().GetFormat("yyyy-MM-dd");
-            ActiveSheet = Workbook.GetSheetAt(Workbook.ActiveSheetIndex);
+            StaticsTime = staticsTime;
+            AttendanceList = list;
+            Init();
+            
         }
 
-        public void ExportExcel(string filename, DateTime staticsTime, List<MonthlyAttendanceModel> list) {
+        public override void ExportExcel(string filename) {
             ActiveSheet.SetDefaultColumnStyle(MonthlyAttendanceTableDefine.StaticsTime.Column, DefaultDateStyle);
             int seqCnt = 1;
             IRow row = ActiveSheet.GetRow(MonthlyAttendanceTableDefine.StartRow);
-            foreach (var data in list) {
+            foreach (var data in AttendanceList) {
                 row.GetCell(MonthlyAttendanceTableDefine.Name).SetCellValue(data.EmployeeName);
                 row.GetCell(MonthlyAttendanceTableDefine.Sequence).SetCellValue(seqCnt);
                 seqCnt++;
@@ -65,11 +51,7 @@ namespace WorksAssign.Util.Export
             }
 
 
-        }
-
-        public void Dispose() {
-            Workbook.Close();
-        }
+        }     
 
         void InsertRows(int fromRowIndex, int rowCount) {
             // sheet1.ShiftRows(fromRowIndex, sheet1.LastRowNum, rowCount, true, false, true);
@@ -87,26 +69,6 @@ namespace WorksAssign.Util.Export
                 }
             }
         }
-
-
-
-        /*
-        void InsertRows(ref ISheet sheet1, int fromRowIndex, int rowCount) {
-            // sheet1.ShiftRows(fromRowIndex, sheet1.LastRowNum, rowCount, true, false, true);
-            sheet1.ShiftRows(fromRowIndex, sheet1.LastRowNum, rowCount);
-            for (int rowIndex = fromRowIndex; rowIndex < fromRowIndex + rowCount; rowIndex++) {
-                IRow rowSource = sheet1.GetRow(rowIndex + rowCount);
-                IRow rowInsert = sheet1.CreateRow(rowIndex);
-                rowInsert.Height = rowSource.Height;
-                for (int colIndex = 0; colIndex < rowSource.LastCellNum; colIndex++) {
-                    ICell cellSource = rowSource.GetCell(colIndex);
-                    ICell cellInsert = rowInsert.CreateCell(colIndex);
-                    if (cellSource != null) {
-                        cellInsert.CellStyle = cellSource.CellStyle;
-                    }
-                }
-            }
-        }*/
 
     }
 
