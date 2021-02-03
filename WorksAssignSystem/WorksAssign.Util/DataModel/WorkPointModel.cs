@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorksAssign.Persistence;
 
 namespace WorksAssign.Util.DataModel
 {
@@ -34,27 +35,27 @@ namespace WorksAssign.Util.DataModel
         /// <summary>
         /// 每日工分
         /// </summary>
-        public List<DailyWorkPointModel> MonthWorkPoints{get;set;}
+        public List<V_AllPoints> MonthWorkPoints{get;set;}
 
         public double TotalPoints() {
             double result = 0;
             foreach(var i in MonthWorkPoints) {
-                result += i.Point;
+                result += i.TypeWgt * i.RoleWgt;
             }
             return result;
         }
     }
 
-    public class DailyWorkPointModel:IComparable<DailyWorkPointModel>
-    {
-        public DateTime WorkDate { get; set; }
-        public string WorkContent { get; set; }
-        public double Point { get; set; }
+    //public class DailyWorkPointModel:IComparable<DailyWorkPointModel>
+    //{
+    //    public DateTime WorkDate { get; set; }
+    //    public string WorkContent { get; set; }
+    //    public double Point { get; set; }
 
-        public int CompareTo(DailyWorkPointModel other) {
-            TimeSpan ts = this.WorkDate - other.WorkDate;
-            return Convert.ToInt32(ts.TotalHours);
-        }
-    }
+    //    public int CompareTo(DailyWorkPointModel other) {
+    //        TimeSpan ts = this.WorkDate - other.WorkDate;
+    //        return Convert.ToInt32(ts.TotalHours);
+    //    }
+    //}
 
 }

@@ -69,10 +69,18 @@ namespace WorksAssign.Pages
         /// <param name="e"></param>
         private void btn_ExportWorkPoints_Click(object sender, EventArgs e) {
             DateTime date = dpk_MonthlyAttendance.Value.BeginOfMonth();
-            hwd = new HolidayWorkdayDiscriminator(date.Year);
+            //hwd = new HolidayWorkdayDiscriminator(date.Year);
             string filename = "Export/" + date.ToString("[yyyy.MM]") + "绩效表-二次班.xlsx";
-            WorkPoint wp = new WorkPoint(date);
-            wp.ExportExcel(filename, date);
+
+
+            List<WorkPointModel> wpm = new DataModelBuilder().CreateWorkPointData(date);
+
+            using (WorkPoint wp = new WorkPoint(date,wpm)) {
+                
+                wp.ExportExcel(filename);
+
+            }
+               
             this.ShowSuccessDialog("月度绩效表导出成功。");
         }
 

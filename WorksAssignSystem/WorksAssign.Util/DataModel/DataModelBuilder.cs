@@ -13,7 +13,7 @@ namespace WorksAssign.Util.DataModel
     {
         DbAgent db;
         HolidayWorkdayDiscriminator hwd;
-        
+
         public List<DailyWorkModel> CreateDailyWorkData(IQueryable<WorkContent> works) {
             var workList = new List<DailyWorkModel>();
             foreach (var i in works) {
@@ -143,6 +143,7 @@ namespace WorksAssign.Util.DataModel
         public List<WorkPointModel> CreateWorkPointData(DateTime beginOfMonth) {
             DateTime endOfMonth = beginOfMonth.AddMonths(1).AddDays(-1);
             List<WorkPointModel> result = new List<WorkPointModel>();
+            hwd = new HolidayWorkdayDiscriminator(beginOfMonth.Year);
             using (var db = new DbAgent()) {
                 var allEmployees = db.GetEmployee(false);
                 foreach (Employee emp in allEmployees) {
@@ -159,16 +160,34 @@ namespace WorksAssign.Util.DataModel
             return result;
         }
 
-        List<DailyWorkPointModel> CreatePersonalWorkPoint(IQueryable<V_AllPoints> personalPoint, DateTime beginOfMonth, DateTime endOfMonth) {
-            List<DailyWorkPointModel> result = new List<DailyWorkPointModel>();
-            for (int i = beginOfMonth.Day; i<endOfMonth.Day; i++) {
-                DailyWorkPointModel item = new DailyWorkPointModel();
-                var list = personalPoint.ToList();
-                
+        List<V_AllPoints> CreatePersonalWorkPoint(IQueryable<V_AllPoints> personalPoint, DateTime beginOfMonth, DateTime endOfMonth) {
+            List<V_AllPoints> result = new List<V_AllPoints>();
+            for (int day = beginOfMonth.Day; day <= endOfMonth.Day; day++) {
+                DateTime datePointer = new DateTime(beginOfMonth.Year, beginOfMonth.Month, day);
+
+                var thisDayWork = personalPoint.AsEnumerable().Where(p => p.WorkDate.Date == datePointer);
+                if (thisDayWork != null && thisDayWork.Count() > 0) {
+                    foreach (var item in thisDayWork) {
+                        result.Add(item);
+                    }
+                }
+                else {
+                    V_AllPoints item = null;
+                    if (hwd.IsWorkday(datePointer)) {
+                        item = WorkSheetDefaultValues.PersonalWorkPoint(datePointer);
+                    }
+                    else if (hwd.IsHoliday(datePointer)) {
+                        item = new V_AllPoints();
+                        item.WorkContent = "休息";
+                        item.WorkDate = datePointer;
+                        item.RoleWgt = 0;
+                        item.TypeWgt = 0;
+                    }
+
+                    result.Add(item);
+                }
+
             }
-
-            result.Sort();
-
             return result;
         }
 

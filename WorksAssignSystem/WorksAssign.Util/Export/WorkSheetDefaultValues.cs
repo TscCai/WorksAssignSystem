@@ -13,6 +13,7 @@
  * 2021-02-03: 增加文件说明
 ******************************************************************************/
 
+using System;
 using WorksAssign.Persistence;
 
 namespace WorksAssign.Util.Export
@@ -62,16 +63,17 @@ namespace WorksAssign.Util.Export
         /// <summary>
         /// 用于绩效表的默认工作内容的权重：1.0
         /// </summary>
-        public static double TypeWgt { get { return 1.0; } }
+        public static double TypeWgt { get { return 0.6; } }
 
 
-        public static V_AllPoints PersonalWorkPoint() {
+        public static V_AllPoints PersonalWorkPoint(DateTime date) {
             V_AllPoints result = new V_AllPoints();
             result.WorkContent = WorkSheetDefaultValues.WorkContent;
             result.WorkType = WorkSheetDefaultValues.WorkType;
             result.TypeWgt = WorkSheetDefaultValues.TypeWgt;
             result.RoleName = WorkSheetDefaultValues.RoleName;
             result.RoleWgt = WorkSheetDefaultValues.RoleWgt;
+            result.WorkDate = date;
             return result;
         }
 

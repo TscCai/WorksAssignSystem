@@ -7,23 +7,20 @@ using System.Threading.Tasks;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using WorksAssign.Persistence;
+using WorksAssign.Util.DataModel;
 
 namespace WorksAssign.Util.Export
 {
     public class WorkPoint : GeneralExpoter, IDisposable
     {
 
-        DbAgent db;
-
-        /// <summary>
-        /// 内置日期指针
-        /// </summary>
-        DateTime DatePointer;
-
+      
         /// <summary>
         /// 表格所统计的月份，从给定的日期开始
         /// </summary>
         public DateTime StaticsMonth { get; set; }
+
+        List<WorkPointModel> WorkPoints;
 
         /// <summary>
         /// 汇总页表格
@@ -36,11 +33,10 @@ namespace WorksAssign.Util.Export
         /// 初始化资源，创建汇总表表头、默认日期格式
         /// </summary>
         /// <param name="staticsTime">统计时间</param>
-        public WorkPoint(DateTime staticsTime) {
+        public WorkPoint(DateTime staticsTime, List<WorkPointModel> wpm) {
             Workbook = new XSSFWorkbook();
             StaticsMonth = staticsTime;
-            
-            db = new DbAgent();
+            WorkPoints = wpm;
             CreateSheetSumHeader("当月绩效表");
             Init();
 
@@ -51,55 +47,23 @@ namespace WorksAssign.Util.Export
         /// </summary>
         /// <param name="filename">文件名</param>
         public override void ExportExcel(string filename) {
-            ExportExcel(filename, DateTime.Now);
-        }
-
-        /// <summary>
-        /// 导出指定月份的绩效分数
-        /// </summary>
-        /// <param name="filename">导出文件文件名，支持相对路径</param>
-        /// <param name="beginOfMonth">指定月份的首日</param>
-        public void ExportExcel(string filename, DateTime beginOfMonth) {
-            if (beginOfMonth.Day != 1) {
-                throw new ArgumentException("参数beginOfMonth.Day不为1");
-            }
-
-            hwd = new HolidayWorkdayDiscriminator(beginOfMonth.Year);
-            int currentMonth = beginOfMonth.Month;
-
-            // 逐个计算个人绩效
-            foreach (Employee emp in db.GetEmployee(false)) {
-
-                double total_points = 0;
-                DatePointer = beginOfMonth;
-
-                // 取出该人员在所有时间范围内的的全部工作内容
-                DateTime endOfMonth = beginOfMonth.AddMonths(1).AddDays(-1);
-                IQueryable<V_AllPoints> personal_points = db.GetWorkPoint(emp.Id, beginOfMonth, endOfMonth);
-
-                ISheet personal_sheet = CreatePersonalSheet(emp.Name);
-
-                while (DatePointer.Month == currentMonth) {
-                    // search if this day have work
-                    List<V_AllPoints> item = personal_points.Where(s => s.WorkDate == DatePointer).ToList();
-
-                    total_points += GetDailyPoints(item, personal_sheet);
-
-                    //TODO: append bonus items
-
-
-                    DatePointer = DatePointer.AddDays(1);
+           // ExportExcel(filename, StaticsMonth);
+            foreach(var i in WorkPoints) {
+                ISheet personal_sheet = CreatePersonalSheet(i.EmloyeeName);
+                foreach(var j in i.MonthWorkPoints) {
+                    FillPersonalSheet(personal_sheet, j);
                 }
 
                 // 在汇总表中写入总分
                 IRow sum_row = Workbook.GetSheet("当月绩效表").CreateRow(SummarySheet.LastRowNum + 1);
-                sum_row.CreateCell(0).SetCellValue(emp.Name);
-                sum_row.CreateCell(1).SetCellValue(total_points);
-
+                sum_row.CreateCell(0).SetCellValue(i.EmloyeeName);
+                sum_row.CreateCell(1).SetCellValue(i.TotalPoints());
             }
+
             using (FileStream file = new FileStream(filename, FileMode.Create)) {
                 Workbook.Write(file);
             }
+
 
         }
 
@@ -138,41 +102,7 @@ namespace WorksAssign.Util.Export
             r.CreateCell(5).SetCellValue("角色系数");
             return result;
         }
-
-        double GetDailyPoints(List<V_AllPoints> workOfOneDay, ISheet personalSheet) {
-            double total_point = 0;
-            if (workOfOneDay != null && workOfOneDay.Count > 0) {
-                foreach (var i in workOfOneDay) {
-                    FillPersonalSheet(personalSheet, i);
-                    // 绩效计算公式
-                    total_point += CalcWorkPoints(i.TypeWgt, i.RoleWgt);
-                }
-            }
-            else {
-                if (hwd.IsHoliday(DatePointer)) {
-                    FillPersonalSheet(personalSheet, DatePointer, "休息", "休息", 0, "", 0);
-                }
-                else if (hwd.IsWorkday(DatePointer)) {
-                    var defaultWorkPoint = WorkSheetDefaultValues.PersonalWorkPoint();
-                    defaultWorkPoint.WorkDate = DatePointer;
-                    FillPersonalSheet(personalSheet, defaultWorkPoint);
-
-                    // 绩效计算公式
-                    total_point += CalcWorkPoints(defaultWorkPoint.TypeWgt, defaultWorkPoint.RoleWgt);
-                }
-                // 以下方法尚未完成
-                else if (hwd.IsDayOff(DatePointer, 0, null)) {
-                    FillPersonalSheet(personalSheet, DatePointer, "休息", "休息", 0, "", 0);
-                    throw new NotImplementedException();
-                }
-            }
-            return total_point;
-        }
-
-        double CalcWorkPoints(double typeWgt, double roleWgt) {
-            return typeWgt * roleWgt;
-        }
-
+       
         void FillPersonalSheet(ISheet sheet, V_AllPoints pointTable) {
             FillPersonalSheet(sheet, pointTable.WorkDate, pointTable.WorkContent, pointTable.WorkType,
                 pointTable.TypeWgt, pointTable.RoleName, pointTable.RoleWgt);
@@ -191,7 +121,6 @@ namespace WorksAssign.Util.Export
         }
 
         public new void Dispose() {
-            db.Dispose();
             base.Dispose();
         }
     }
