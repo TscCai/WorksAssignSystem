@@ -1,13 +1,21 @@
-﻿using System;
+﻿/******************************************************************************
+ * WorksAssign.Util.Export 工作安排 Excel导出功能组件
+ * CopyRight (C) 2020-2021 TscCai.
+ * E-Mail：caijiran@hotmail.com
+ *
+ * GitHub: https://github.com/TscCai/WorksAssignSystem
+ *
+ ******************************************************************************
+ * 文件名称: DailyWorks.cs
+ * 文件说明: 每日工作安排表导出
+ * 当前版本: 
+ * 创建日期: 2021-02-03
+ * 2021-02-03: 增加文件说明
+******************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using WorksAssign.Persistence;
-using WorksAssign.Persistence.Adapter;
 using WorksAssign.Util.DataModel;
 
 namespace WorksAssign.Util.Export
@@ -15,7 +23,9 @@ namespace WorksAssign.Util.Export
     public class DailyWork: GeneralExpoter, IDisposable
     {
 
-
+        /// <summary>
+        /// 待导出的每日工作安排列表
+        /// </summary>
         List<DailyWorkModel> DailyWorkList;
 
         public DailyWork(string templateFilename, List<DailyWorkModel> list) {
@@ -29,6 +39,10 @@ namespace WorksAssign.Util.Export
             ActiveSheet = Workbook.GetSheetAt(Workbook.ActiveSheetIndex);
         }
 
+        /// <summary>
+        /// 导出Excel
+        /// </summary>
+        /// <param name="filename">导出文件的文件名</param>
         public override void ExportExcel(string filename) {
             int rowNum = DailyWorkTableDefine.StartRow;
             ActiveSheet.SetDefaultColumnStyle(DailyWorkTableDefine.Date, DefaultDateStyle);

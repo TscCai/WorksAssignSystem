@@ -1,9 +1,20 @@
-﻿using System;
+﻿/******************************************************************************
+ * WorksAssign.Util.Export 工作安排 Excel导出功能组件
+ * CopyRight (C) 2020-2021 TscCai.
+ * E-Mail：caijiran@hotmail.com
+ *
+ * GitHub: https://github.com/TscCai/WorksAssignSystem
+ *
+ ******************************************************************************
+ * 文件名称: MonthlyAttendance.cs
+ * 文件说明: 月度考勤表导出
+ * 当前版本: 
+ * 创建日期: 2021-02-03
+ * 2021-02-03: 增加文件说明
+******************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NPOI.SS.UserModel;
 using WorksAssign.Util.DataModel;
 
@@ -22,7 +33,6 @@ namespace WorksAssign.Util.Export
             StaticsTime = staticsTime;
             AttendanceList = list;
             Init();
-            
         }
 
         public override void ExportExcel(string filename) {
@@ -39,11 +49,8 @@ namespace WorksAssign.Util.Export
                     row.GetCell(col).SetCellValue(flag);
                 }
                 // 因为有footer，故必须用插入行命令
-                //row = ActiveSheet.CreateRow(row.RowNum);
                 InsertRows(row.RowNum + 1, 1);
                 row = ActiveSheet.GetRow(row.RowNum + 1);
-                // ActiveSheet.ShiftRows(MonthlyAttendanceTableDefine.StartRow + 1, MonthlyAttendanceTableDefine.StartRow + 2, 1);
-
             }
 
             using (FileStream fs = new FileStream(filename, FileMode.Create)) {
@@ -53,22 +60,7 @@ namespace WorksAssign.Util.Export
 
         }     
 
-        void InsertRows(int fromRowIndex, int rowCount) {
-            // sheet1.ShiftRows(fromRowIndex, sheet1.LastRowNum, rowCount, true, false, true);
-            ActiveSheet.ShiftRows(fromRowIndex, ActiveSheet.LastRowNum, rowCount);
-            for (int rowIndex = fromRowIndex; rowIndex < fromRowIndex + rowCount; rowIndex++) {
-                IRow rowSource = ActiveSheet.GetRow(rowIndex + rowCount);
-                IRow rowInsert = ActiveSheet.CreateRow(rowIndex);
-                rowInsert.Height = rowSource.Height;
-                for (int colIndex = 0; colIndex < rowSource.LastCellNum; colIndex++) {
-                    ICell cellSource = rowSource.GetCell(colIndex);
-                    ICell cellInsert = rowInsert.CreateCell(colIndex);
-                    if (cellSource != null) {
-                        cellInsert.CellStyle = cellSource.CellStyle;
-                    }
-                }
-            }
-        }
+       
 
     }
 
@@ -76,7 +68,6 @@ namespace WorksAssign.Util.Export
     {
         public static CellPosition Department { get { return new CellPosition(6, 0); } }
         public static CellPosition StaticsTime { get { return new CellPosition(6, 18); } }
-
 
         public const int StartRow = 10;
         public const int Sequence = 0;

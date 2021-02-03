@@ -270,19 +270,10 @@ namespace WorksAssign.Persistence
         }
 
         public IQueryable<V_AllPoints> GetWorkPoint(long employeeId, DateTime start, DateTime end){
-            return dbCtx.V_AllPoints.Where(p => p.EmpId == employeeId && p.WorkDate >= start && p.WorkDate <= end);
+            return dbCtx.V_AllPoints.Where(p => p.EmpId == employeeId && p.WorkDate >= start && p.WorkDate <= end).OrderBy(o=>o.WorkDate);
         }
 
-        public V_AllPoints GetDefaultWorkPoint() {
-            V_AllPoints result = new V_AllPoints();
 
-            result.WorkContent = DbDefaultValues.WorkContent;
-            result.WorkType = DbDefaultValues.WorkType;
-            result.TypeWgt = GetWorkType(result.WorkType).TypeWgt;
-            result.RoleName = DbDefaultValues.RoleName;
-            result.RoleWgt = DbDefaultValues.RoleWgt;
-            return result;
-        }
 
 
         #endregion

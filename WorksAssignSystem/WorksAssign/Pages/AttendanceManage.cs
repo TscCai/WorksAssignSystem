@@ -1,13 +1,24 @@
-﻿using System;
+﻿/******************************************************************************
+ * WorksAssign 工作安排应用程序界面
+ * CopyRight (C) 2020-2021 TscCai.
+ * E-Mail：caijiran@hotmail.com
+ *
+ * GitHub: https://github.com/TscCai/WorksAssignSystem
+ *
+ ******************************************************************************
+ * 文件名称: AttendanceManage.cs
+ * 文件说明: 出勤管理
+ * 当前版本: 
+ * 创建日期: 2021-02-03
+ * 2021-02-03: 增加文件说明
+******************************************************************************/
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Sunny.UI;
 using System.Configuration;
 using WorksAssign.Persistence;
 using WorksAssign.Util.DataModel;
-using WorksAssign.Util;
 using WorksAssign.Util.Export;
-using System.Text;
 
 namespace WorksAssign.Pages
 {
@@ -38,8 +49,8 @@ namespace WorksAssign.Pages
         private void btn_ExportMonthlyAttendance_Click(object sender, EventArgs e) {
             string template = ConfigurationManager.AppSettings["MonthlyAttendanceTemplatePath"];
             DateTime date = dpk_MonthlyAttendance.Value;
-            hwd = new HolidayWorkdayDiscriminator(date.Year);
-            List<MonthlyAttendanceModel> list = CreateMonthlyAttendanceData(date);
+
+            List<MonthlyAttendanceModel> list = new DataModelBuilder().CreateMonthlyAttendanceData(date);
 
             using (MonthlyAttendance ma = new MonthlyAttendance(template, date, list)) {    
                 
@@ -65,65 +76,7 @@ namespace WorksAssign.Pages
             this.ShowSuccessDialog("月度绩效表导出成功。");
         }
 
-        /// <summary>
-        /// 生成全体成员的月度考勤数据模型
-        /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
-        List<MonthlyAttendanceModel> CreateMonthlyAttendanceData(DateTime date) {
-            List<MonthlyAttendanceModel> result = new List<MonthlyAttendanceModel>();
-            using (db = new DbAgent()) {
-                var employees = db.GetEmployee(false);
-                foreach (var e in employees) {
-                    result.Add(CreatePersonalData(date, e));
-                }
-            }
-            
-            return result;
-        }
-
-        /// <summary>
-        /// 按月份生成单个成员的月度考勤数据模型
-        /// </summary>
-        /// <param name="date">目标月份，其中Day属性并不被使用</param>
-        /// <param name="employee">成员实例</param>
-        /// <returns>该月份该成员的出勤数据模型</returns>
-        MonthlyAttendanceModel CreatePersonalData(DateTime date, Employee employee) {
-            MonthlyAttendanceModel result = new MonthlyAttendanceModel();
-            result.EmployeeId = employee.Id;
-            result.EmployeeName = employee.Name;
-            result.AttendanceFlag = new Dictionary<int, string>();
-            var wi = db.GetWorkInvolve(date.BeginOfMonth(), date.EndOfMonth(), employee.Id);
-            foreach (var i in wi) {
-                int key = i.WorkContent.WorkDate.Day;
-                string value = i.WorkContent.WorkType.IsOutdoor == true ? WorkSheetDefaultValues.OutdoorSymbol : WorkSheetDefaultValues.IndoorSymbol;
-                if (result.AttendanceFlag.ContainsKey(key)) {
-                    if (result.AttendanceFlag[key] == WorkSheetDefaultValues.OutdoorSymbol && value == WorkSheetDefaultValues.IndoorSymbol) {
-                        continue;
-                    }
-                    else {
-                        result.AttendanceFlag[key] = value;
-                    }
-                }
-                else {
-                    result.AttendanceFlag[key] = value;
-                }
-            }
-
-            // 对未外勤工作的日期进行填充，默认为出勤
-            for (int day = date.BeginOfMonth().Day; day <= date.EndOfMonth().Day; day++) {
-                if (!result.AttendanceFlag.ContainsKey(day)) {
-                    DateTime thisDay = new DateTime(date.Year, date.Month, day);
-                    if (hwd.IsWorkday(thisDay)) {
-                        result.AttendanceFlag[day] = WorkSheetDefaultValues.IndoorSymbol;
-                    }
-                    else if (hwd.IsHoliday(thisDay)) {
-                        result.AttendanceFlag[day] = WorkSheetDefaultValues.DayoffSymbol;
-                    }
-                }
-            }
-            return result;
-        }
+     
 
        
     }

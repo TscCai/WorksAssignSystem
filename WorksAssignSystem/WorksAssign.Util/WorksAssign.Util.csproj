@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="DataModel\DailyWorkModel.cs" />
     <Compile Include="CommonUtil.cs" />
+    <Compile Include="DataModel\DataModelBuilder.cs" />
     <Compile Include="DataModel\MonthlyAttendanceModel.cs" />
     <Compile Include="DataModel\WorkPointModel.cs" />
     <Compile Include="Export\DailyWork.cs" />

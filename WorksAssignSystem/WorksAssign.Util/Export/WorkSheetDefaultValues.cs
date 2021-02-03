@@ -1,8 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/******************************************************************************
+ * WorksAssign.Util.Export 工作安排 Excel导出功能组件
+ * CopyRight (C) 2020-2021 TscCai.
+ * E-Mail：caijiran@hotmail.com
+ *
+ * GitHub: https://github.com/TscCai/WorksAssignSystem
+ *
+ ******************************************************************************
+ * 文件名称: WorkSheetDefaultValues.cs
+ * 文件说明: 工作表默认值
+ * 当前版本: 
+ * 创建日期: 2021-02-03
+ * 2021-02-03: 增加文件说明
+******************************************************************************/
+
+using WorksAssign.Persistence;
 
 namespace WorksAssign.Util.Export
 {
@@ -26,5 +37,44 @@ namespace WorksAssign.Util.Export
         /// 用于月度考勤的默认带薪年休符号：H
         /// </summary>
         public static string PaidHolidaySymbol { get { return "H"; } }
+
+
+        /// <summary>
+        /// 用于绩效表的默认工作类型：出勤
+        /// </summary>
+        public static string WorkType { get { return "出勤"; } }
+
+        /// <summary>
+        /// 用于绩效表的默认工作内容：出勤
+        /// </summary>
+        public static string WorkContent { get { return "出勤"; } }
+
+        /// <summary>
+        /// 用于绩效表的默认角色名称：
+        /// </summary>
+        public static string RoleName { get { return ""; } }
+
+        /// <summary>
+        /// 用于绩效表的默认角色权重：1.0
+        /// </summary>
+        public static double RoleWgt { get { return 1.0; } }
+
+        /// <summary>
+        /// 用于绩效表的默认工作内容的权重：1.0
+        /// </summary>
+        public static double TypeWgt { get { return 1.0; } }
+
+
+        public static V_AllPoints PersonalWorkPoint() {
+            V_AllPoints result = new V_AllPoints();
+            result.WorkContent = WorkSheetDefaultValues.WorkContent;
+            result.WorkType = WorkSheetDefaultValues.WorkType;
+            result.TypeWgt = WorkSheetDefaultValues.TypeWgt;
+            result.RoleName = WorkSheetDefaultValues.RoleName;
+            result.RoleWgt = WorkSheetDefaultValues.RoleWgt;
+            return result;
+        }
+
+
     }
 }

@@ -40,57 +40,8 @@ namespace WorksAssign.Pages
 
             using (var db = new DbAgent()) {
                 var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
-                WorkList = new List<DailyWorkModel>();
-                foreach (var i in works) {
-                    DateTime date = i.WorkDate;
-                    string content = i.Content;
-                    string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
-                    string managerAlias = RoleNameType.Manager.GetEnumStringValue();
-
-                    string leaderName = ViewDataAdapter.GetName(i, RoleNameType.Leader);
-                    string manager = ViewDataAdapter.GetName(i, RoleNameType.Manager);
-                    string exMember = null;
-                    string member = "";
-
-                    var mem_involve = i.WorkInvolve.Where(wi => wi.Role.RoleName != leaderAlias && wi.Role.RoleName != managerAlias);
-                    foreach (var j in mem_involve) {
-                        member += j.Employee.Name + "、";
-                    }
-                    if (member != "") {
-                        member = member.Substring(0, member.Length - 1);
-                    }
-
-                    Dictionary<string, string> outsiders = ViewDataAdapter.GetOutsider(i);
-                    string key = RoleNameType.Leader.ToString();
-                    if (leaderName == null && outsiders != null && outsiders.Keys.Contains(key)) {
-                        leaderName = outsiders[key];
-                    }
-                    key = RoleNameType.Manager.ToString();
-                    if (manager == null && outsiders != null && outsiders.Keys.Contains(key)) {
-                        manager = outsiders[key];
-                    }
-                    key = RoleNameType.ExMember.ToString();
-                    if (outsiders != null && outsiders.Keys.Contains(key)) {
-                        exMember = outsiders[key];
-                    }
-
-                    DailyWorkModel di = new DailyWorkModel();
-                    di.Id = i.Id;
-                    di.Date = date;
-                    di.Substation = i.Substations.SubstationName;
-                    di.Location = i.Substations.Location;
-                    di.WorkType = i.WorkType.Content;
-                    di.Content = content;
-                    di.Leader = leaderName;
-                    di.Manager = manager;
-                    di.Member = member;
-                    di.Voltage = i.Substations.Voltage;
-                    di.ExMember = exMember;
-                    di.ShortType = i.ShortType;
-
-                    WorkList.Add(di);
-
-                }
+                WorkList = new DataModelBuilder().CreateDailyWorkData(works);
+               
 
                 // Controls data binding
                 dg_worksAssign.AutoGenerateColumns = false;

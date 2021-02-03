@@ -35,7 +35,7 @@ namespace WorksAssign.Util.Export
         /// <summary>
         /// 初始化资源，创建汇总表表头、默认日期格式
         /// </summary>
-        /// <param name="db">外部DbAgent实例</param>
+        /// <param name="staticsTime">统计时间</param>
         public WorkPoint(DateTime staticsTime) {
             Workbook = new XSSFWorkbook();
             StaticsMonth = staticsTime;
@@ -45,14 +45,14 @@ namespace WorksAssign.Util.Export
             Init();
 
         }
-        /*
+        
         /// <summary>
         /// 导出绩效统计表Excel
         /// </summary>
         /// <param name="filename">文件名</param>
-        public void ExportExcel(string filename) {
+        public override void ExportExcel(string filename) {
             ExportExcel(filename, DateTime.Now);
-        }*/
+        }
 
         /// <summary>
         /// 导出指定月份的绩效分数
@@ -65,7 +65,6 @@ namespace WorksAssign.Util.Export
             }
 
             hwd = new HolidayWorkdayDiscriminator(beginOfMonth.Year);
-            //holidaysWorkdays = db.GetHolidaysWorkdays(beginOfMonth.Year);
             int currentMonth = beginOfMonth.Month;
 
             // 逐个计算个人绩效
@@ -129,7 +128,7 @@ namespace WorksAssign.Util.Export
         ISheet CreatePersonalSheet(string name) {
             ISheet result = Workbook.CreateSheet(name);
             result.SetColumnWidth(0, 12 * 256);
-            // 首行留白，从row1开始
+            // 首行(row = 0)留白，从row1开始
             IRow r = result.CreateRow(1);
             r.CreateCell(0).SetCellValue("时间");
             r.CreateCell(1).SetCellValue("工作内容");
@@ -154,7 +153,7 @@ namespace WorksAssign.Util.Export
                     FillPersonalSheet(personalSheet, DatePointer, "休息", "休息", 0, "", 0);
                 }
                 else if (hwd.IsWorkday(DatePointer)) {
-                    var defaultWorkPoint = db.GetDefaultWorkPoint();
+                    var defaultWorkPoint = WorkSheetDefaultValues.PersonalWorkPoint();
                     defaultWorkPoint.WorkDate = DatePointer;
                     FillPersonalSheet(personalSheet, defaultWorkPoint);
 
@@ -191,8 +190,9 @@ namespace WorksAssign.Util.Export
             r.CreateCell(5).SetCellValue(roleWgt);
         }
 
-        public void Dispose() {
+        public new void Dispose() {
             db.Dispose();
+            base.Dispose();
         }
     }
 

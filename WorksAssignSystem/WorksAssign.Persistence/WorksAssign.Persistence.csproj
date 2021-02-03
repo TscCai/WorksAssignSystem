@@ -40,7 +40,6 @@
     <Compile Include="AbstractInfo.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbDefaultValues.cs" />
     <Compile Include="Adapter\ViewDataAdapter.cs" />
     <Compile Include="DatabaseUpdater.cs" />
     <Compile Include="DayOff.cs">

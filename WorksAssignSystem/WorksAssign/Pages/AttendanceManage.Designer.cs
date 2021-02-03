@@ -57,7 +57,7 @@
             this.dpk_MonthlyAttendance.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_MonthlyAttendance.Name = "dpk_MonthlyAttendance";
             this.dpk_MonthlyAttendance.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_MonthlyAttendance.Size = new System.Drawing.Size(178, 34);
+            this.dpk_MonthlyAttendance.Size = new System.Drawing.Size(178, 30);
             this.dpk_MonthlyAttendance.SymbolDropDown = 61555;
             this.dpk_MonthlyAttendance.SymbolNormal = 61555;
             this.dpk_MonthlyAttendance.TabIndex = 4;
@@ -115,7 +115,7 @@
             // 
             // AttendanceManage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 559);
             this.Controls.Add(this.tableLayoutPanel1);
