@@ -15,7 +15,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WorksAssign.Util.DataModel
+namespace WorksAssign.Util.Export.DataModel
 {
     public class MonthlyAttendanceModel {
         /// <summary>

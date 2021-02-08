@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using WorksAssign.Persistence;
-using WorksAssign.Util.DataModel;
+using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class WorkPoint : GeneralExpoter, IDisposable
+    public class WorkPoint : GenericExpoter, IDisposable
     {
 
       
@@ -28,7 +28,6 @@ namespace WorksAssign.Util.Export
         ISheet SummarySheet;
 
       
-        HolidayWorkdayDiscriminator hwd;
         /// <summary>
         /// 初始化资源，创建汇总表表头、默认日期格式
         /// </summary>

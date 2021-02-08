@@ -17,24 +17,14 @@ using System.Collections.Generic;
 using Sunny.UI;
 using System.Configuration;
 using WorksAssign.Persistence;
-using WorksAssign.Util.DataModel;
+using WorksAssign.Util.Export.DataModel;
 using WorksAssign.Util.Export;
 
 namespace WorksAssign.Pages
 {
     public partial class AttendanceManage : UIPage
     {
-        /// <summary>
-        /// 数据库访问器
-        /// </summary>
-        DbAgent db;
-
-        /// <summary>
-        /// 法定假日调休及工作日判别器
-        /// </summary>
-        HolidayWorkdayDiscriminator hwd;
-
-
+   
         public AttendanceManage() {
             InitializeComponent();
             dpk_MonthlyAttendance.Value = DateTime.Now.Date;
@@ -49,8 +39,13 @@ namespace WorksAssign.Pages
         private void btn_ExportMonthlyAttendance_Click(object sender, EventArgs e) {
             string template = ConfigurationManager.AppSettings["MonthlyAttendanceTemplatePath"];
             DateTime date = dpk_MonthlyAttendance.Value;
+            //IDataModelBuilder<MonthlyAttendanceModel> builder = BuilderFactory<MonthlyAttendanceModel>.GetBuilder();
+            IDataModelBuilder<MonthlyAttendanceModel> builder = new MonthlyAttendanceBuilder(date);
+            List<MonthlyAttendanceModel> list = builder.BuildData();
+           // List<MonthlyAttendanceModel> list = new DataModelBuilder().CreateMonthlyAttendanceData(date);
 
-            List<MonthlyAttendanceModel> list = new DataModelBuilder().CreateMonthlyAttendanceData(date);
+            
+
 
             using (MonthlyAttendance ma = new MonthlyAttendance(template, date, list)) {    
                 
@@ -72,8 +67,8 @@ namespace WorksAssign.Pages
             //hwd = new HolidayWorkdayDiscriminator(date.Year);
             string filename = "Export/" + date.ToString("[yyyy.MM]") + "绩效表-二次班.xlsx";
 
-
-            List<WorkPointModel> wpm = new DataModelBuilder().CreateWorkPointData(date);
+            IDataModelBuilder<WorkPointModel> builder = new WorkPointBuilder(date);
+            List<WorkPointModel> wpm = builder.BuildData();
 
             using (WorkPoint wp = new WorkPoint(date,wpm)) {
                 

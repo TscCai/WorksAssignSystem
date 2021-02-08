@@ -14,7 +14,7 @@
 ******************************************************************************/
 using System;
 
-namespace WorksAssign.Util.DataModel
+namespace WorksAssign.Util.Export.DataModel
 {
     public class DailyWorkModel
     {

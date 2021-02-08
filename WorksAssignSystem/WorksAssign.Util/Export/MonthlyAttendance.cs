@@ -16,11 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using NPOI.SS.UserModel;
-using WorksAssign.Util.DataModel;
+using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class MonthlyAttendance : GeneralExpoter, IDisposable
+    public class MonthlyAttendance : GenericExpoter, IDisposable
     {
         DateTime StaticsTime;
         List<MonthlyAttendanceModel> AttendanceList;

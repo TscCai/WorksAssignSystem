@@ -16,11 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using NPOI.SS.UserModel;
-using WorksAssign.Util.DataModel;
+using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class DailyWork: GeneralExpoter, IDisposable
+    public class DailyWork: GenericExpoter, IDisposable
     {
 
         /// <summary>

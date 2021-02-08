@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
-using WorksAssign.Util.DataModel;
+using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Pages
 {

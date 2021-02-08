@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorksAssign.Persistence;
 
-namespace WorksAssign.Util.DataModel
+namespace WorksAssign.Util.Export.DataModel
 {
     public class WorkPointModel {
         /// <summary>
