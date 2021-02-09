@@ -16,7 +16,7 @@
 using System;
 using WorksAssign.Persistence;
 
-namespace WorksAssign.Util.Export
+namespace WorksAssign.Util.Export.DataModel
 {
     public class WorkSheetDefaultValues
     {

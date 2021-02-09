@@ -32,6 +32,11 @@ namespace WorksAssign.Util.Export.DataModel
         /// </summary>
         public long EmployeeId { get; set; }
 
+        public DateTime JoinDate { get; set; }
+
+        public bool IsCCP { get; set; }
+
+
         /// <summary>
         /// 每日工分
         /// </summary>
@@ -46,16 +51,6 @@ namespace WorksAssign.Util.Export.DataModel
         }
     }
 
-    //public class DailyWorkPointModel:IComparable<DailyWorkPointModel>
-    //{
-    //    public DateTime WorkDate { get; set; }
-    //    public string WorkContent { get; set; }
-    //    public double Point { get; set; }
-
-    //    public int CompareTo(DailyWorkPointModel other) {
-    //        TimeSpan ts = this.WorkDate - other.WorkDate;
-    //        return Convert.ToInt32(ts.TotalHours);
-    //    }
-    //}
+ 
 
 }

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorksAssign.Persistence;
+using WorksAssign.Util.Export.DataModel;
 
-namespace WorksAssign.Util.Export.DataModel
+namespace WorksAssign.Util.Export.DataBuilder
 {
     public class MonthlyAttendanceBuilder :BaseDataModelBuilder<MonthlyAttendanceModel>
     {

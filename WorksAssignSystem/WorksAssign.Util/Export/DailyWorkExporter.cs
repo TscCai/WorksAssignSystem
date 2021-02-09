@@ -20,7 +20,7 @@ using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class DailyWork: GenericExpoter, IDisposable
+    public class DailyWorkExporter : GenericExpoter, IDisposable
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace WorksAssign.Util.Export
         /// </summary>
         List<DailyWorkModel> DailyWorkList;
 
-        public DailyWork(string templateFilename, List<DailyWorkModel> list) {
+        public DailyWorkExporter(string templateFilename, List<DailyWorkModel> list) {
             using (FileStream fs = new FileStream(templateFilename, FileMode.Open, FileAccess.Read)) {
                 Workbook = WorkbookFactory.Create(fs);
                 Workbook.MissingCellPolicy = MissingCellPolicy.CREATE_NULL_AS_BLANK;
@@ -39,15 +39,12 @@ namespace WorksAssign.Util.Export
             ActiveSheet = Workbook.GetSheetAt(Workbook.ActiveSheetIndex);
         }
 
-        /// <summary>
-        /// 导出Excel
-        /// </summary>
-        /// <param name="filename">导出文件的文件名</param>
-        public override void ExportExcel(string filename) {
+
+        protected override void FillTable() {
             int rowNum = DailyWorkTableDefine.StartRow;
             ActiveSheet.SetDefaultColumnStyle(DailyWorkTableDefine.Date, DefaultDateStyle);
-            foreach(var item in DailyWorkList) {
-               IRow row=  ActiveSheet.GetRow(rowNum);
+            foreach (var item in DailyWorkList) {
+                IRow row = ActiveSheet.GetRow(rowNum);
                 row.GetCell(DailyWorkTableDefine.Date).SetCellValue(item.Date.ToString("yyyy-MM-dd"));
                 row.GetCell(DailyWorkTableDefine.Location).SetCellValue(item.Location);
                 row.GetCell(DailyWorkTableDefine.Substation).SetCellValue(item.Substation);
@@ -60,21 +57,8 @@ namespace WorksAssign.Util.Export
                 row.GetCell(DailyWorkTableDefine.ShortType).SetCellValue(item.ShortType);
                 rowNum++;
             }
-
-            using (FileStream file = new FileStream(filename, FileMode.Create)) {
-                Workbook.Write(file);
-            }
-
-        }
-        /*
-        public void ExportExcel(string filename, DateTime date) {
-
         }
 
-        public void ExportExcel(string filename, DateTime start, DateTime end) {
-
-        }
-        */
     }
     struct DailyWorkTableDefine
     {

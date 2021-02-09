@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorksAssign.Persistence;
 
-namespace WorksAssign.Util.Export.DataModel
+namespace WorksAssign.Util.Export.DataBuilder
 {
     public interface IDataModelBuilder<T>
     {

@@ -19,6 +19,7 @@ using System.Configuration;
 using WorksAssign.Persistence;
 using WorksAssign.Util.Export.DataModel;
 using WorksAssign.Util.Export;
+using WorksAssign.Util.Export.DataBuilder;
 
 namespace WorksAssign.Pages
 {
@@ -39,19 +40,16 @@ namespace WorksAssign.Pages
         private void btn_ExportMonthlyAttendance_Click(object sender, EventArgs e) {
             string template = ConfigurationManager.AppSettings["MonthlyAttendanceTemplatePath"];
             DateTime date = dpk_MonthlyAttendance.Value;
-            //IDataModelBuilder<MonthlyAttendanceModel> builder = BuilderFactory<MonthlyAttendanceModel>.GetBuilder();
-            IDataModelBuilder<MonthlyAttendanceModel> builder = new MonthlyAttendanceBuilder(date);
+
+            MonthlyAttendanceBuilder builder = new MonthlyAttendanceBuilder(date);
             List<MonthlyAttendanceModel> list = builder.BuildData();
-           // List<MonthlyAttendanceModel> list = new DataModelBuilder().CreateMonthlyAttendanceData(date);
 
-            
+            using (MonthlyAttendanceExporter ma = new MonthlyAttendanceExporter(template, date, list)) {
 
-
-            using (MonthlyAttendance ma = new MonthlyAttendance(template, date, list)) {    
-                
                 // 创建目录，若存在则不会创建
-                DirEx.CreateDir(ConfigurationManager.AppSettings["ExportFilePath"]);
-                string filename = ConfigurationManager.AppSettings["ExportFilePath"] + date.ToString("[yyyy.MM]") + "考勤统计-二次班.xlsx";
+                string path = ConfigurationManager.AppSettings["ExportFilePath"];
+                DirEx.CreateDir(path);
+                string filename = path + date.ToString("[yyyy.MM]") + "考勤统计-二次班.xlsx";
                 ma.ExportExcel(filename);
             }
             this.ShowSuccessDialog("月度考勤表导出成功。");
@@ -64,13 +62,15 @@ namespace WorksAssign.Pages
         /// <param name="e"></param>
         private void btn_ExportWorkPoints_Click(object sender, EventArgs e) {
             DateTime date = dpk_MonthlyAttendance.Value.BeginOfMonth();
-            //hwd = new HolidayWorkdayDiscriminator(date.Year);
-            string filename = "Export/" + date.ToString("[yyyy.MM]") + "绩效表-二次班.xlsx";
 
-            IDataModelBuilder<WorkPointModel> builder = new WorkPointBuilder(date);
+            string path = ConfigurationManager.AppSettings["ExportFilePath"];
+            DirEx.CreateDir(path);
+            string filename = path + date.ToString("[yyyy.MM]") + "绩效表-二次班.xlsx";
+
+            WorkPointBuilder builder = new WorkPointBuilder(date);
             List<WorkPointModel> wpm = builder.BuildData();
 
-            using (WorkPoint wp = new WorkPoint(date,wpm)) {
+            using (WorkPointExporter wp = new WorkPointExporter(date,wpm)) {
                 
                 wp.ExportExcel(filename);
 

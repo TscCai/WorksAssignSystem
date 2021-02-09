@@ -12,6 +12,7 @@
  * 创建日期: 2021-02-03
  * 2021-02-03: 增加文件说明
 ******************************************************************************/
+using System.IO;
 using NPOI.SS.UserModel;
 
 namespace WorksAssign.Util.Export
@@ -34,14 +35,17 @@ namespace WorksAssign.Util.Export
         protected ICellStyle DefaultDateStyle;
 
         /// <summary>
-        /// 子类需重写本方法
+        /// 调用FillTable方法，并将表格写入导出文件
         /// </summary>
         /// <param name="filename"></param>
-        //public void ExportExcel(string filename) {
-        //    throw new NotImplementedException();
-        //}
+        public void ExportExcel(string filename) {
+            FillTable();
+            using (FileStream file = new FileStream(filename, FileMode.Create)) {
+                Workbook.Write(file);
+            }
+        }
 
-        public abstract void ExportExcel(string filename);
+        protected abstract void FillTable();
 
         /// <summary>
         /// 初始化
@@ -72,8 +76,5 @@ namespace WorksAssign.Util.Export
             Workbook.Close();
         }
 
-        //public void ExcelExport(string filename) {
-        //    throw new NotImplementedException();
-        //}
     }
 }

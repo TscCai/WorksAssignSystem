@@ -11,7 +11,7 @@ using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class WorkPoint : GenericExpoter, IDisposable
+    public class WorkPointExporter : GenericExpoter, IDisposable
     {
 
       
@@ -32,47 +32,40 @@ namespace WorksAssign.Util.Export
         /// 初始化资源，创建汇总表表头、默认日期格式
         /// </summary>
         /// <param name="staticsTime">统计时间</param>
-        public WorkPoint(DateTime staticsTime, List<WorkPointModel> wpm) {
+        public WorkPointExporter(DateTime staticsTime, List<WorkPointModel> wpm) {
             Workbook = new XSSFWorkbook();
             StaticsMonth = staticsTime;
             WorkPoints = wpm;
-            CreateSheetSumHeader("当月绩效表");
+            CreateSummarySheetHeader("当月绩效表");
             Init();
 
         }
         
-        /// <summary>
-        /// 导出绩效统计表Excel
-        /// </summary>
-        /// <param name="filename">文件名</param>
-        public override void ExportExcel(string filename) {
-           // ExportExcel(filename, StaticsMonth);
-            foreach(var i in WorkPoints) {
+
+        protected override void FillTable() {
+            foreach (var i in WorkPoints) {
                 ISheet personal_sheet = CreatePersonalSheet(i.EmloyeeName);
-                foreach(var j in i.MonthWorkPoints) {
+                foreach (var j in i.MonthWorkPoints) {
                     FillPersonalSheet(personal_sheet, j);
                 }
 
                 // 在汇总表中写入总分
-                IRow sum_row = Workbook.GetSheet("当月绩效表").CreateRow(SummarySheet.LastRowNum + 1);
-                sum_row.CreateCell(0).SetCellValue(i.EmloyeeName);
-                sum_row.CreateCell(1).SetCellValue(i.TotalPoints());
+                FillSummarySheet(i);
             }
-
-            using (FileStream file = new FileStream(filename, FileMode.Create)) {
-                Workbook.Write(file);
-            }
-
-
         }
 
+        protected void FillSummarySheet(WorkPointModel i) {
+            IRow sum_row = Workbook.GetSheet("当月绩效表").CreateRow(SummarySheet.LastRowNum + 1);
+            sum_row.CreateCell(0).SetCellValue(i.EmloyeeName);
+            sum_row.CreateCell(1).SetCellValue(i.TotalPoints());
+        }
 
         /// <summary>
         /// 创建汇总表表头
         /// </summary>
         /// <param name="name">汇总表名称</param>
         /// <returns></returns>
-        void CreateSheetSumHeader(string name) {
+        protected void CreateSummarySheetHeader(string name) {
             SummarySheet = Workbook.CreateSheet(name);
             int row_sheet_sum = 0;
             IRow hdr = SummarySheet.CreateRow(row_sheet_sum);
@@ -88,7 +81,7 @@ namespace WorksAssign.Util.Export
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        ISheet CreatePersonalSheet(string name) {
+       protected ISheet CreatePersonalSheet(string name) {
             ISheet result = Workbook.CreateSheet(name);
             result.SetColumnWidth(0, 12 * 256);
             // 首行(row = 0)留白，从row1开始
@@ -101,8 +94,8 @@ namespace WorksAssign.Util.Export
             r.CreateCell(5).SetCellValue("角色系数");
             return result;
         }
-       
-        void FillPersonalSheet(ISheet sheet, V_AllPoints pointTable) {
+
+        protected void FillPersonalSheet(ISheet sheet, V_AllPoints pointTable) {
             FillPersonalSheet(sheet, pointTable.WorkDate, pointTable.WorkContent, pointTable.WorkType,
                 pointTable.TypeWgt, pointTable.RoleName, pointTable.RoleWgt);
         }

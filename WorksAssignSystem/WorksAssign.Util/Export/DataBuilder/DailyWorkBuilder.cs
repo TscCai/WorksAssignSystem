@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorksAssign.Persistence;
-using WorksAssign.Persistence.Adapter;
+using WorksAssign.Persistence.Extension;
+using WorksAssign.Util.Export.DataModel;
 
-namespace WorksAssign.Util.Export.DataModel
+namespace WorksAssign.Util.Export.DataBuilder
 {
     public class DailyWorkBuilder : BaseDataModelBuilder<DailyWorkModel>
     {
@@ -24,8 +25,8 @@ namespace WorksAssign.Util.Export.DataModel
                 string leaderAlias = RoleNameType.Leader.GetEnumStringValue();
                 string managerAlias = RoleNameType.Manager.GetEnumStringValue();
 
-                string leaderName = ViewDataAdapter.GetName(i, RoleNameType.Leader);
-                string manager = ViewDataAdapter.GetName(i, RoleNameType.Manager);
+                string leaderName = i.GetName(RoleNameType.Leader);
+                string manager = i.GetName(RoleNameType.Manager);
                 string exMember = null;
                 string member = "";
 
@@ -37,7 +38,7 @@ namespace WorksAssign.Util.Export.DataModel
                     member = member.Substring(0, member.Length - 1);
                 }
 
-                Dictionary<string, string> outsiders = ViewDataAdapter.GetOutsider(i);
+                Dictionary<string, string> outsiders =i.GetOutsider();
                 string key = RoleNameType.Leader.ToString();
                 if (leaderName == null && outsiders != null && outsiders.Keys.Contains(key)) {
                     leaderName = outsiders[key];

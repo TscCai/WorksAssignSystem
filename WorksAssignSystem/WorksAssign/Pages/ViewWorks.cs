@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
 using WorksAssign.Util.Export;
+using WorksAssign.Util.Export.DataBuilder;
 using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Pages
@@ -39,8 +40,9 @@ namespace WorksAssign.Pages
 
             using (var db = new DbAgent()) {
                 var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
-              
-                IDataModelBuilder<DailyWorkModel> builder = new DailyWorkBuilder(works);
+
+                //IDataModelBuilder<DailyWorkModel> builder = new DailyWorkBuilder(works);
+                DailyWorkBuilder builder = new DailyWorkBuilder(works);
                 WorkList = builder.BuildData();
 
                 // Controls data binding
@@ -108,7 +110,7 @@ namespace WorksAssign.Pages
                 DateTime start = dpk_Start.Value;
                 DateTime end = dpk_End.Value;
                 string template = "Template/daily_assign_template.xlsx";
-                using (DailyWork dw = new DailyWork(template, WorkList)) {
+                using (DailyWorkExporter dw = new DailyWorkExporter(template, WorkList)) {
 
                     dw.ExportExcel("Export/每日工作安排[" + start.ToString("MM.dd") + "-" + end.ToString("MM.dd") + "].xlsx");
 

@@ -20,12 +20,12 @@ using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class MonthlyAttendance : GenericExpoter, IDisposable
+    public class MonthlyAttendanceExporter : GenericExpoter, IDisposable
     {
         DateTime StaticsTime;
         List<MonthlyAttendanceModel> AttendanceList;
 
-        public MonthlyAttendance(string templateFilename, DateTime staticsTime, List<MonthlyAttendanceModel> list) {
+        public MonthlyAttendanceExporter(string templateFilename, DateTime staticsTime, List<MonthlyAttendanceModel> list) {
             using (FileStream fs = new FileStream(templateFilename, FileMode.Open, FileAccess.Read)) {
                 Workbook = WorkbookFactory.Create(fs);
                 Workbook.MissingCellPolicy = MissingCellPolicy.CREATE_NULL_AS_BLANK;
@@ -34,8 +34,8 @@ namespace WorksAssign.Util.Export
             AttendanceList = list;
             Init();
         }
-
-        public override void ExportExcel(string filename) {
+        
+        protected override void FillTable() {
             ActiveSheet.SetDefaultColumnStyle(MonthlyAttendanceTableDefine.StaticsTime.Column, DefaultDateStyle);
             int seqCnt = 1;
             IRow row = ActiveSheet.GetRow(MonthlyAttendanceTableDefine.StartRow);
@@ -52,13 +52,7 @@ namespace WorksAssign.Util.Export
                 InsertRows(row.RowNum + 1, 1);
                 row = ActiveSheet.GetRow(row.RowNum + 1);
             }
-
-            using (FileStream fs = new FileStream(filename, FileMode.Create)) {
-                Workbook.Write(fs);
-            }
-
-
-        }     
+        }
 
        
 

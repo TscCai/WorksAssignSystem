@@ -86,20 +86,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Export\DataModel\WorkPointBuilder.cs" />
-    <Compile Include="Export\DataModel\MonthlyAttendanceBuilder.cs" />
-    <Compile Include="Export\DataModel\DailyWorkBuilder.cs" />
+    <Compile Include="Export\DataBuilder\WorkPointBuilder.cs" />
+    <Compile Include="Export\DataBuilder\MonthlyAttendanceBuilder.cs" />
+    <Compile Include="Export\DataBuilder\DailyWorkBuilder.cs" />
     <Compile Include="Export\DataModel\DailyWorkModel.cs" />
     <Compile Include="CommonUtil.cs" />
-    <Compile Include="Export\DataModel\IDataModelBuilder.cs" />
+    <Compile Include="Export\DataBuilder\IDataModelBuilder.cs" />
     <Compile Include="Export\DataModel\MonthlyAttendanceModel.cs" />
     <Compile Include="Export\DataModel\WorkPointModel.cs" />
-    <Compile Include="Export\DailyWork.cs" />
-    <Compile Include="Export\DataModel\BaseDataModelBuilder.cs" />
+    <Compile Include="Export\DailyWorkExporter.cs" />
+    <Compile Include="Export\DataBuilder\BaseDataModelBuilder.cs" />
     <Compile Include="Export\GenericExpoter.cs" />
-    <Compile Include="Export\WorkSheetDefaultValues.cs" />
-    <Compile Include="Export\MonthlyAttendance.cs" />
-    <Compile Include="Export\WorkPoint.cs" />
+    <Compile Include="Export\DataModel\WorkSheetDefaultValues.cs" />
+    <Compile Include="Export\MonthlyAttendanceExporter.cs" />
+    <Compile Include="Export\WorkPointExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
