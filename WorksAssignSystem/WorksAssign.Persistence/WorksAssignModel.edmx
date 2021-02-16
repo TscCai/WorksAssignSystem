@@ -42,6 +42,14 @@
           <Property Name="IsWorkday" Type="bit" Nullable="false" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
+        <EntityType Name="Formula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Expression" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="MaintenceRecord">
           <Key>
             <PropertyRef Name="Id" />
@@ -235,6 +243,7 @@
           <EntitySet Name="DayOff" EntityType="Self.DayOff" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" store:Type="Tables" />
           <EntitySet Name="ExWorkdays" EntityType="Self.ExWorkdays" store:Type="Tables" />
+          <EntitySet Name="Formula" EntityType="Self.Formula" store:Type="Tables" />
           <EntitySet Name="MaintenceRecord" EntityType="Self.MaintenceRecord" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" />
           <EntitySet Name="Substations" EntityType="Self.Substations" store:Type="Tables" />
@@ -336,6 +345,7 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
             <End Role="WorkInvolve" EntitySet="WorkInvolve" />
           </AssociationSet>
           <EntitySet Name="V_AllPoints" EntityType="WorksAssignModel.V_AllPoints" />
+          <EntitySet Name="Formula" EntityType="WorksAssignModel.Formula" />
         </EntityContainer>
         <EntityType Name="AbstractInfo">
           <Key>
@@ -576,6 +586,14 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
           <Property Name="RoleWgt" Type="Double" Nullable="false" />
           <Property Name="TypeWgt" Type="Double" Nullable="false" />
         </EntityType>
+        <EntityType Name="Formula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Expression" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -712,6 +730,15 @@ FROM [V_AllPoints] AS [V_AllPoints]</DefiningQuery>
                 <ScalarProperty Name="WorkContent" ColumnName="WorkContent" />
                 <ScalarProperty Name="WorkType" ColumnName="WorkType" />
                 <ScalarProperty Name="WorkDate" ColumnName="WorkDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formula">
+            <EntityTypeMapping TypeName="WorksAssignModel.Formula">
+              <MappingFragment StoreEntitySet="Formula">
+                <ScalarProperty Name="Expression" ColumnName="Expression" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

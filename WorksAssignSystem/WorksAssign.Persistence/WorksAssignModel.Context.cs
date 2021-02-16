@@ -37,5 +37,6 @@ namespace WorksAssign.Persistence
         public virtual DbSet<WorkInvolve> WorkInvolve { get; set; }
         public virtual DbSet<WorkType> WorkType { get; set; }
         public virtual DbSet<V_AllPoints> V_AllPoints { get; set; }
+        public virtual DbSet<Formula> Formula { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WorksAssign.Persistence;
+using WorksAssign.Util.Formula;
+using Z.Expressions;
 
 namespace WorksAssign.Test
 {
@@ -77,6 +79,14 @@ namespace WorksAssign.Test
 
         }
 
+
+        [TestMethod]
+        public void TestEval() {
+            FormulaManager fm = new FormulaManager(0.5,10,1);
+            double r = fm.DailyPoint("{RoleWgt}*{TypeWgt}*{SeniorityWgt}");
+            Assert.AreEqual(r, 5.0);
+
+        }
 
 
     }

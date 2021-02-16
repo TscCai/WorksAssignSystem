@@ -20,7 +20,7 @@ using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class DailyWorkExporter : GenericExpoter, IDisposable
+    public class DailyWorkExporter : BaseExpoter, IDisposable
     {
 
         /// <summary>

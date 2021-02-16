@@ -36,6 +36,7 @@ namespace WorksAssign
                 AddPage(new WorksAssign.Pages.NewWorks(), 2);
                 AddPage(new WorksAssign.Pages.ViewWorks(), 3);
                 AddPage(new WorksAssign.Pages.AttendanceManage(), 4);
+                AddPage(new WorksAssign.Pages.ParamManage(), 5);
                 AddPage(new WorksAssign.Pages.About(), 8);
 
                 //设置Header节点索引
@@ -44,6 +45,7 @@ namespace WorksAssign
                 Aside.CreateNode("增加工作", 61694, 24, 2);
                 Aside.CreateNode("浏览工作", 61442, 24, 3);
                 Aside.CreateNode("考勤与绩效", 62068, 24, 4);
+                Aside.CreateNode("参数设置", 62068, 24, 5);
                 Aside.CreateNode("关于", 61530, 24, 8);
 
                 //显示默认界面

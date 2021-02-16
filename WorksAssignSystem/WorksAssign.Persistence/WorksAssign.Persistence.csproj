@@ -52,6 +52,9 @@
     <Compile Include="ExWorkdays.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Formula.cs">
+      <DependentUpon>WorksAssignModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MaintenceRecord.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>

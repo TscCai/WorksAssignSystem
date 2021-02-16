@@ -149,6 +149,12 @@
     <Compile Include="Pages\NewWorks.Designer.cs">
       <DependentUpon>NewWorks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ParamManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\ParamManage.Designer.cs">
+      <DependentUpon>ParamManage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ViewWorks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\NewWorks.resx">
       <DependentUpon>NewWorks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ParamManage.resx">
+      <DependentUpon>ParamManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ViewWorks.resx">
       <DependentUpon>ViewWorks.cs</DependentUpon>

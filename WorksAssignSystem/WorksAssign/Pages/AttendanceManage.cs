@@ -70,7 +70,7 @@ namespace WorksAssign.Pages
             WorkPointBuilder builder = new WorkPointBuilder(date);
             List<WorkPointModel> wpm = builder.BuildData();
 
-            using (WorkPointExporter wp = new WorkPointExporter(date,wpm)) {
+            using (BaseWorkPointExporter wp = new BaseWorkPointExporter(date,wpm)) {
                 
                 wp.ExportExcel(filename);
 

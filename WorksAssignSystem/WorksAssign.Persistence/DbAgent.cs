@@ -284,6 +284,20 @@ namespace WorksAssign.Persistence
         }
         #endregion
 
+        #region Table Formula
+        public string GetFormula(string name) {
+            var result = dbCtx.Formula.FirstOrDefault(f=>f.Name == name);
+            if (result != null) {
+                return result.Expression;
+            }
+            else {
+                return null;
+            }
+        }
+
+
+        #endregion
+
         #region Transactions
         /// <summary>
         /// 增加一项工作安排，将使用数据库事务

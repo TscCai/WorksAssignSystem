@@ -25,6 +25,7 @@
         <AssociationConnector Association="WorksAssignModel.FK_WorkContent_1_0" />
         <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_2_0" />
         <EntityTypeShape EntityType="WorksAssignModel.V_AllPoints" Width="1.5" PointX="9.5" PointY="4.25" />
+        <EntityTypeShape EntityType="WorksAssignModel.Formula" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

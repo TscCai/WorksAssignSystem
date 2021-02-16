@@ -36,16 +36,20 @@ namespace WorksAssign.Util.Export.DataModel
 
         public bool IsCCP { get; set; }
 
+        public Formula.FormulaManager.FormulaManagerValidVariable ValidVarible { get; set; }
 
         /// <summary>
-        /// 每日工分
+        /// 每日工作
         /// </summary>
-        public List<V_AllPoints> MonthWorkPoints{get;set;}
+        public List<V_AllPoints> DailyWorks{get;set;}
+
+        public List<double> DailyPoints { get; set; }
+
 
         public double TotalPoints() {
             double result = 0;
-            foreach(var i in MonthWorkPoints) {
-                result += i.TypeWgt * i.RoleWgt;
+            foreach(var i in DailyPoints) {
+                result += i;
             }
             return result;
         }

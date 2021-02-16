@@ -17,7 +17,7 @@ using NPOI.SS.UserModel;
 
 namespace WorksAssign.Util.Export
 {
-    public abstract class GenericExpoter
+    public abstract class BaseExpoter
     {
         /// <summary>
         /// 内置Workbook对象

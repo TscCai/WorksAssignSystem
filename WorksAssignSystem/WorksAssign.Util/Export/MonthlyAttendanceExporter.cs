@@ -20,7 +20,7 @@ using WorksAssign.Util.Export.DataModel;
 
 namespace WorksAssign.Util.Export
 {
-    public class MonthlyAttendanceExporter : GenericExpoter, IDisposable
+    public class MonthlyAttendanceExporter : BaseExpoter, IDisposable
     {
         DateTime StaticsTime;
         List<MonthlyAttendanceModel> AttendanceList;
