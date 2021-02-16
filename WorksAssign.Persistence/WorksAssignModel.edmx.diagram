@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3c42db3ba4184fa88c6b180e97dba029" Name="Diagram1" ZoomLevel="107">
+        <EntityTypeShape EntityType="WorksAssignModel.AbstractInfo" Width="1.5" PointX="7.75" PointY="2.5" />
+        <EntityTypeShape EntityType="WorksAssignModel.DayOff" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="WorksAssignModel.Employee" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="WorksAssignModel.ExWorkdays" Width="1.5" PointX="5.75" PointY="10.5" />
+        <EntityTypeShape EntityType="WorksAssignModel.MaintenceRecord" Width="1.5" PointX="7.75" PointY="10.5" />
+        <EntityTypeShape EntityType="WorksAssignModel.Role" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="WorksAssignModel.Substations" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkBonus" Width="1.5" PointX="7.5" PointY="7" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkContent" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkInvolve" Width="1.5" PointX="5.25" PointY="6.5" />
+        <EntityTypeShape EntityType="WorksAssignModel.WorkType" Width="1.5" PointX="0.75" PointY="5.125" />
+        <AssociationConnector Association="WorksAssignModel.FK_DayOff_0_0" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_1_0" />
+        <AssociationConnector Association="WorksAssignModel.FK_Role_0_0" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_0_0" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkContent_0_0" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkBonus_0_0" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkContent_1_0" />
+        <AssociationConnector Association="WorksAssignModel.FK_WorkInvolve_2_0" />
+        <EntityTypeShape EntityType="WorksAssignModel.V_AllPoints" Width="1.5" PointX="9.5" PointY="4.25" />
+        <EntityTypeShape EntityType="WorksAssignModel.Formula" Width="1.5" PointX="10.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
