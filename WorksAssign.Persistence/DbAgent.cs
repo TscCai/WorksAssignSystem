@@ -120,7 +120,7 @@ namespace WorksAssign.Persistence
         }
 
         public IQueryable<WorkContent> GetWorkContent(DateTime start, DateTime end) {
-            return dbCtx.WorkContent.Where(w => w.WorkDate >= start && w.WorkDate <= end);
+            return dbCtx.WorkContent.Where(w => w.WorkDate >= start && w.WorkDate <= end).OrderBy(w=>w.WorkDate);
         }
 
         public void UpdateWorkContent(WorkContent wc) {

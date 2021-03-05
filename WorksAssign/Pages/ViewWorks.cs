@@ -40,8 +40,7 @@ namespace WorksAssign.Pages
 
             using (var db = new DbAgent()) {
                 var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
-
-                //IDataModelBuilder<DailyWorkModel> builder = new DailyWorkBuilder(works);
+                
                 DailyWorkBuilder builder = new DailyWorkBuilder(works);
                 WorkList = builder.BuildData();
 

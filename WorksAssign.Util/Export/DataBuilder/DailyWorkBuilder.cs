@@ -20,6 +20,7 @@ namespace WorksAssign.Util.Export.DataBuilder
 
         public override List<DailyWorkModel> BuildData() {
             var workList = new List<DailyWorkModel>();
+            //var data = Works.AsEnumerable().OrderBy(w => w.WorkDate);
             foreach (var i in Works) {
                 DateTime date = i.WorkDate;
                 string content = i.Content;
