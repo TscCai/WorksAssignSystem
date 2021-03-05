@@ -245,3 +245,4 @@ ModelManifest.xml
 /WorksAssignSystem/WorksAssign/Update/update-script-0.2.1.114.sql
 /packages
 /WorksAssign/README.md
+/WorksAssign/App_Data/*.db
