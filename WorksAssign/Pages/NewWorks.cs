@@ -273,9 +273,6 @@ namespace WorksAssign.Pages
             txt_WorkContent.Text = "";
             txt_Member.Text = "";
         }
-
-
-
     }
 
     public class NewWorkModel

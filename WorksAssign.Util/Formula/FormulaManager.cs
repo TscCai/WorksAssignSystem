@@ -43,7 +43,15 @@ namespace WorksAssign.Util.Formula
         }
         
         public static double DefaultSeniority(int currentYear, int joinYear, double weight, double constValue) {
-            return (currentYear - joinYear) * weight + constValue;
+            int serviceYears = currentYear - joinYear;
+            if (serviceYears <= 20) {
+                return 1;
+            }
+            else {
+                return 1.01 + 0.01 * (serviceYears-20);
+            }
+
+            
         }
 
         public double DailyPoint(string exp) {

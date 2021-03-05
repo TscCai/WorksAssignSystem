@@ -86,6 +86,8 @@ namespace WorksAssign.Util.Export.DataBuilder
             string exp1 = db.GetFormula("Seniority");
             string exp2 = db.GetFormula("DailyPoint");
             validFlag = fm.CreateValidVariableFlag(exp1) | fm.CreateValidVariableFlag(exp2);
+            // 若使用简单公式计算，可注销下一行，并在数据库中编写公式
+            exp1 = null;
             fm.SeniorityWgt = fm.Seniority(exp1);
 
             foreach (var w in works) {

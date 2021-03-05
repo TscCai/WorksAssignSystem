@@ -147,7 +147,7 @@
             this.cb_Substation.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Substation.Name = "cb_Substation";
             this.cb_Substation.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Substation.Size = new System.Drawing.Size(150, 30);
+            this.cb_Substation.Size = new System.Drawing.Size(150, 34);
             this.cb_Substation.TabIndex = 1;
             this.cb_Substation.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Substation.EditorLostFocus += new System.EventHandler(this.cb_Substation_EditorLostFocus);
@@ -161,7 +161,7 @@
             this.cb_Leader.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Leader.Name = "cb_Leader";
             this.cb_Leader.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Leader.Size = new System.Drawing.Size(150, 30);
+            this.cb_Leader.Size = new System.Drawing.Size(150, 34);
             this.cb_Leader.TabIndex = 4;
             this.cb_Leader.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Leader.EditorLostFocus += new System.EventHandler(this.cb_Leader_EditorLostFocus);
@@ -175,7 +175,7 @@
             this.cb_Manager.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_Manager.Name = "cb_Manager";
             this.cb_Manager.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_Manager.Size = new System.Drawing.Size(150, 30);
+            this.cb_Manager.Size = new System.Drawing.Size(150, 34);
             this.cb_Manager.TabIndex = 5;
             this.cb_Manager.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_Manager.EditorLostFocus += new System.EventHandler(this.cb_Manager_EditorLostFocus);
@@ -190,7 +190,7 @@
             this.dpk_WorkDate.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_WorkDate.Name = "dpk_WorkDate";
             this.dpk_WorkDate.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_WorkDate.Size = new System.Drawing.Size(150, 30);
+            this.dpk_WorkDate.Size = new System.Drawing.Size(150, 34);
             this.dpk_WorkDate.SymbolDropDown = 61555;
             this.dpk_WorkDate.SymbolNormal = 61555;
             this.dpk_WorkDate.TabIndex = 2;
@@ -253,7 +253,7 @@
             this.cb_WorkType.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_WorkType.Name = "cb_WorkType";
             this.cb_WorkType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_WorkType.Size = new System.Drawing.Size(689, 30);
+            this.cb_WorkType.Size = new System.Drawing.Size(689, 34);
             this.cb_WorkType.TabIndex = 1;
             this.cb_WorkType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -286,14 +286,14 @@
             this.cb_ShortType.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_ShortType.Name = "cb_ShortType";
             this.cb_ShortType.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_ShortType.Size = new System.Drawing.Size(150, 30);
+            this.cb_ShortType.Size = new System.Drawing.Size(150, 34);
             this.cb_ShortType.TabIndex = 1;
             this.cb_ShortType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_ShortType.EditorLostFocus += new System.EventHandler(this.cb_Substation_EditorLostFocus);
             // 
             // NewWorks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(837, 592);
