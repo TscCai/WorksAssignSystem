@@ -318,6 +318,7 @@
             this.Controls.Add(this.lbl_Station);
             this.Name = "NewWorks";
             this.Text = "NewWorks";
+            this.Initialize += new System.EventHandler(this.NewWorks_Initialize);
             this.ResumeLayout(false);
 
         }

@@ -18,7 +18,8 @@ using System.Linq;
 
 namespace WorksAssign.Persistence
 {
-    public class DbAgent : IDisposable {
+    public class DbAgent : IDisposable
+    {
         /// <summary>
         /// 数据库访问实体
         /// </summary>
@@ -79,6 +80,26 @@ namespace WorksAssign.Persistence
         public Employee GetEmployee(long id) {
             return dbCtx.Employee.SingleOrDefault(e => e.Id == id);
         }
+
+        public void AddEmployee(Employee e) {
+            dbCtx.Employee.Add(e);
+            dbCtx.SaveChanges();
+        }
+
+        public void DelEmployee(long id) {
+            using (var transcation = dbCtx.Database.BeginTransaction()) {
+                Employee e = GetEmployee(id);
+                DelWorkInvolve(e.Id, IdentifierType.EmployeeId);
+                dbCtx.Employee.Remove(e);
+                dbCtx.SaveChanges();
+                transcation.Commit();
+            }
+        }
+
+       public void UpdateEmployee() {
+            dbCtx.SaveChanges();
+        }
+
         #endregion
 
         #region Table Substation
@@ -120,13 +141,15 @@ namespace WorksAssign.Persistence
         }
 
         public IQueryable<WorkContent> GetWorkContent(DateTime start, DateTime end) {
-            return dbCtx.WorkContent.Where(w => w.WorkDate >= start && w.WorkDate <= end).OrderBy(w=>w.WorkDate);
+            return dbCtx.WorkContent.Where(w => w.WorkDate >= start && w.WorkDate <= end).OrderBy(w => w.WorkDate);
         }
 
         public void UpdateWorkContent(WorkContent wc) {
-            dbCtx.WorkContent.Add(wc);
+          //  dbCtx.WorkContent.Add(wc);
             dbCtx.SaveChanges();
         }
+
+        
 
         /// <summary>
         /// 将级联删除与之关联的全部Work Involve，且无需显式事务。id不存在时抛出异常
@@ -191,18 +214,44 @@ namespace WorksAssign.Persistence
         /// <param name="eid"></param>
         public void DelWorkInvolve(long wid, long eid) {
             var i = GetWorkInvolve(wid, eid);
-            dbCtx.WorkInvolve.Remove(i);
-            dbCtx.SaveChanges();
+            if (i != null) {
+                dbCtx.WorkInvolve.Remove(i);
+                dbCtx.SaveChanges();
+            }
         }
 
         /// <summary>
         /// Delelte workInvolves by workId
         /// </summary>
         /// <param name="wid">WorkContent Id</param>
-        public void DelWorkInvolve(long wid) {
+       private void DelWorkInvolveByWorkId(long wid) {
             var i = GetWorkInvolveByWorkId(wid);
-            dbCtx.WorkInvolve.RemoveRange(i);
-            dbCtx.SaveChanges();
+            if (i != null) {
+                dbCtx.WorkInvolve.RemoveRange(i);
+                dbCtx.SaveChanges();
+            }
+        }
+
+        public void DelWorkInvolve(long id, IdentifierType t) {
+            if (t == IdentifierType.WorkId) {
+                DelWorkInvolveByWorkId(id);
+            }
+            else if(t == IdentifierType.EmployeeId) {
+                var i = dbCtx.WorkInvolve.Where(w => w.EmployeeId == id);
+                if (i != null) {
+                    dbCtx.WorkInvolve.RemoveRange(i);
+                    dbCtx.SaveChanges();
+                }
+            }
+        }
+
+
+
+        public enum IdentifierType
+        {
+            WorkId,
+            WorkInvoveId,
+            EmployeeId
         }
 
         #endregion
@@ -269,8 +318,8 @@ namespace WorksAssign.Persistence
             return dbCtx.V_AllPoints.Where(p => p.EmpId == employeeId);
         }
 
-        public IQueryable<V_AllPoints> GetWorkPoint(long employeeId, DateTime start, DateTime end){
-            return dbCtx.V_AllPoints.Where(p => p.EmpId == employeeId && p.WorkDate >= start && p.WorkDate <= end).OrderBy(o=>o.WorkDate);
+        public IQueryable<V_AllPoints> GetWorkPoint(long employeeId, DateTime start, DateTime end) {
+            return dbCtx.V_AllPoints.Where(p => p.EmpId == employeeId && p.WorkDate >= start && p.WorkDate <= end).OrderBy(o => o.WorkDate);
         }
 
 
@@ -286,7 +335,7 @@ namespace WorksAssign.Persistence
 
         #region Table Formula
         public string GetFormula(string name) {
-            var result = dbCtx.Formula.FirstOrDefault(f=>f.Name == name);
+            var result = dbCtx.Formula.FirstOrDefault(f => f.Name == name);
             if (result != null) {
                 return result.Expression;
             }
@@ -331,7 +380,7 @@ namespace WorksAssign.Persistence
         public void UpdateWork(WorkContent wc, List<WorkInvolve> list, bool needUpdateList = false) {
             using (var transcation = dbCtx.Database.BeginTransaction()) {
                 if (needUpdateList) {
-                    DelWorkInvolve(wc.Id);
+                    DelWorkInvolveByWorkId(wc.Id);
                     foreach (var item in list) {
                         item.WorkId = wc.Id;
                         AddWorkInvolve(item);
@@ -352,7 +401,7 @@ namespace WorksAssign.Persistence
         }
     }
 
-    
+
 
 
 }

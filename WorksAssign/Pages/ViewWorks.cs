@@ -65,7 +65,7 @@ namespace WorksAssign.Pages
         private void btn_Del_Click(object sender, EventArgs e) {
             bool canDelete = UIMessageDialog.ShowAskDialog(this, "确认要删除工作吗？");
             if (canDelete) {
-                List<DailyWorkModel> chosenWorkId = GetChosenWork();
+                List<DailyWorkModel> chosenWorkId = GetChosenItems();
                 int cnt = 0;
                 string errMsg = "";
                 using (var db = new DbAgent()) {
@@ -90,7 +90,7 @@ namespace WorksAssign.Pages
 
         private void btn_Edit_Click(object sender, EventArgs e) {
             // Tips: Row count start at 0
-            List<DailyWorkModel> chosenWork = GetChosenWork();
+            List<DailyWorkModel> chosenWork = GetChosenItems();
             if (chosenWork.Count < 1) {
                 return;
             }
@@ -136,7 +136,7 @@ namespace WorksAssign.Pages
         /// 根据选中情况返回数据，未显式在DataGridView中显式的列也可获取。
         /// </summary>
         /// <returns></returns>
-        private List<DailyWorkModel> GetChosenWork() {
+        private List<DailyWorkModel> GetChosenItems() {
             DataGridViewRowCollection dt = dg_worksAssign.Rows;
             List<DailyWorkModel> chosenWork = new List<DailyWorkModel>();
             foreach (DataGridViewRow i in dt) {

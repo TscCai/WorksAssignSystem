@@ -16,6 +16,7 @@ namespace WorksAssign.Pages
         Dictionary<string, long> substations;
         Dictionary<string, long> employees;
         Dictionary<string, long> workType;
+        bool IsInited = false;
         //  Dictionary<string, bool> dictErr;
 
 
@@ -24,7 +25,6 @@ namespace WorksAssign.Pages
             // additional component init.
             dpk_WorkDate.Value = DateTime.Now.AddDays(1).Date;
             cb_ShortType.SelectedIndex = 1;
-            InitializeData();
 
         }
 
@@ -272,6 +272,13 @@ namespace WorksAssign.Pages
             dpk_WorkDate.Value = DateTime.Now.AddDays(1).Date;
             txt_WorkContent.Text = "";
             txt_Member.Text = "";
+        }
+
+        private void NewWorks_Initialize(object sender, EventArgs e) {
+            if (!IsInited) {
+                InitializeData();
+                IsInited = true;
+            }
         }
     }
 

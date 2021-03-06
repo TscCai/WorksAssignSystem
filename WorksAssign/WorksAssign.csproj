@@ -137,11 +137,29 @@
     <Compile Include="Pages\AttendanceManage.Designer.cs">
       <DependentUpon>AttendanceManage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\AddEmployee.Designer.cs">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EditEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\EditEmployee.Designer.cs">
+      <DependentUpon>EditEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\EditWorks.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pages\EditWorks.Designer.cs">
       <DependentUpon>EditWorks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EmployeeManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\EmployeeManage.Designer.cs">
+      <DependentUpon>EmployeeManage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\NewWorks.cs">
       <SubType>Form</SubType>
@@ -181,8 +199,17 @@
     <EmbeddedResource Include="Pages\AttendanceManage.resx">
       <DependentUpon>AttendanceManage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\AddEmployee.resx">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\EditEmployee.resx">
+      <DependentUpon>EditEmployee.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\EditWorks.resx">
       <DependentUpon>EditWorks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\EmployeeManage.resx">
+      <DependentUpon>EmployeeManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\NewWorks.resx">
       <DependentUpon>NewWorks.cs</DependentUpon>
