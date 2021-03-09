@@ -33,6 +33,7 @@
             this.Aside.LineColor = System.Drawing.Color.Black;
             this.Aside.Size = new System.Drawing.Size(180, 610);
             this.Aside.MenuItemClick += new Sunny.UI.UINavMenu.OnMenuItemClick(this.MainNav_OnMenuItemClick);
+            this.Aside.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.Aside_BeforeSelect);
             // 
             // Main
             // 

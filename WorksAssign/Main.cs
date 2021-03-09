@@ -12,10 +12,13 @@ namespace WorksAssign
 {
     public partial class Main : UIAsideMainFrame
     {
+        bool IsInited = false;
+        WorksAssign.Pages.ParamManage frm_ParamManage;
         public Main() {
             InitializeComponent();
             this.EscClose = false;
             this.IsForbidAltF4 = false;
+            
 
             //设置关联
             Aside.TabControl = MainTabControl;
@@ -36,7 +39,8 @@ namespace WorksAssign
                 AddPage(new WorksAssign.Pages.NewWorks(), 2);
                 AddPage(new WorksAssign.Pages.ViewWorks(), 3);
                 AddPage(new WorksAssign.Pages.AttendanceManage(), 4);
-                AddPage(new WorksAssign.Pages.ParamManage(), 5);
+                frm_ParamManage = new WorksAssign.Pages.ParamManage();
+                AddPage(frm_ParamManage, 5);
                 AddPage(new WorksAssign.Pages.EmployeeManage(), 6);
                 AddPage(new WorksAssign.Pages.About(), 8);
 
@@ -52,6 +56,7 @@ namespace WorksAssign
 
                 //显示默认界面
                 Aside.SelectFirst();
+                IsInited = true;
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message + "\n" + ex.InnerException.Message);
@@ -67,6 +72,19 @@ namespace WorksAssign
             else if (pageIndex == 2 || pageIndex == 1) {
 
             }
+        }
+
+        private void Aside_BeforeSelect(object sender, TreeViewCancelEventArgs e) {
+            if (IsInited) {
+                switch (Aside.SelectedNode.Text) {
+                    case "参数设置":
+                        frm_ParamManage.PageChanged();
+                        break;
+
+                }
+                
+            }
+
         }
     }
 }
