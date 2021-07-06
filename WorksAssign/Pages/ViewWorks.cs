@@ -38,7 +38,7 @@ namespace WorksAssign.Pages
         /// </summary>
         void InitializeData() {
 
-            using (var db = new DbAgent()) {
+            using (var db = new WasDbAgent()) {
                 var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
                 
                 DailyWorkBuilder builder = new DailyWorkBuilder(works);
@@ -68,7 +68,7 @@ namespace WorksAssign.Pages
                 List<DailyWorkModel> chosenWorkId = GetChosenItems();
                 int cnt = 0;
                 string errMsg = "";
-                using (var db = new DbAgent()) {
+                using (var db = new WasDbAgent()) {
                     foreach (var i in chosenWorkId) {
                         try {
                             db.DelWorkContent(i.Id);

@@ -21,7 +21,7 @@ namespace WorksAssign.Util.Export.DataBuilder
             DateTime endOfMonth = BeginOfMonth.AddMonths(1).AddDays(-1);
             List<WorkPointModel> result = new List<WorkPointModel>();
             hwd = new HolidayWorkdayDiscriminator(BeginOfMonth.Year);
-            using (db = new DbAgent()) {
+            using (db = new WasDbAgent()) {
                 var allEmployees = db.GetEmployee(false);
                 foreach (Employee emp in allEmployees) {
 

@@ -40,12 +40,45 @@
     <Compile Include="AbstractInfo.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Bay.cs">
+      <DependentUpon>DeviceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Device.cs">
+      <DependentUpon>DeviceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeviceModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeviceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeviceModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Extension\DbCtxEx.cs" />
     <Compile Include="DatabaseUpdater.cs" />
     <Compile Include="DayOff.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbAgent.cs" />
+    <Compile Include="MaintenanceRecord.cs">
+      <DependentUpon>DeviceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Substation.cs">
+      <DependentUpon>DeviceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vx_AllDevice.cs">
+      <DependentUpon>DeviceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vx_AllRecord.cs">
+      <DependentUpon>DeviceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WasDbAgent.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>WorksAssignModel.tt</DependentUpon>
     </Compile>
@@ -102,6 +135,13 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <EntityDeploy Include="DeviceModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DeviceModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DeviceModel.edmx.diagram">
+      <DependentUpon>DeviceModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="WorksAssignModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -143,6 +183,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DeviceModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DeviceModel.edmx</DependentUpon>
+      <LastGenOutput>DeviceModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DeviceModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DeviceModel.edmx</DependentUpon>
+      <LastGenOutput>DeviceModel.cs</LastGenOutput>
+    </Content>
     <Content Include="WorksAssignModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WorksAssignModel.edmx</DependentUpon>

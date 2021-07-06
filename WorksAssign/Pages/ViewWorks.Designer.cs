@@ -168,7 +168,7 @@
             this.dpk_Start.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_Start.Name = "dpk_Start";
             this.dpk_Start.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_Start.Size = new System.Drawing.Size(150, 34);
+            this.dpk_Start.Size = new System.Drawing.Size(150, 30);
             this.dpk_Start.SymbolDropDown = 61555;
             this.dpk_Start.SymbolNormal = 61555;
             this.dpk_Start.TabIndex = 1;
@@ -187,7 +187,7 @@
             this.dpk_End.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_End.Name = "dpk_End";
             this.dpk_End.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.dpk_End.Size = new System.Drawing.Size(150, 34);
+            this.dpk_End.Size = new System.Drawing.Size(150, 30);
             this.dpk_End.SymbolDropDown = 61555;
             this.dpk_End.SymbolNormal = 61555;
             this.dpk_End.TabIndex = 1;
@@ -300,6 +300,7 @@
             this.uiPanel2.RectSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.None;
             this.uiPanel2.Size = new System.Drawing.Size(882, 74);
             this.uiPanel2.TabIndex = 7;
+            this.uiPanel2.Text = null;
             // 
             // btn_Export
             // 
@@ -404,7 +405,7 @@
             // 
             // ViewWorks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 610);
             this.Controls.Add(this.uiPanel13);

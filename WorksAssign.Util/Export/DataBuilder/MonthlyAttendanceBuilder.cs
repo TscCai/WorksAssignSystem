@@ -23,7 +23,7 @@ namespace WorksAssign.Util.Export.DataBuilder
         public override List<MonthlyAttendanceModel> BuildData() {
             {
                 List<MonthlyAttendanceModel> result = new List<MonthlyAttendanceModel>();
-                using (db = new DbAgent()) {
+                using (db = new WasDbAgent()) {
                     var employees = db.GetEmployee(false);
                     hwd = new HolidayWorkdayDiscriminator(Date.Year);
                     foreach (var e in employees) {

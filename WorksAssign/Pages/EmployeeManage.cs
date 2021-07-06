@@ -14,7 +14,7 @@ namespace WorksAssign.Pages
 {
     public partial class EmployeeManage : UIPage
     {
-        DbAgent db;
+        WasDbAgent db;
         bool IsInited = false;
         public EmployeeManage() {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace WorksAssign.Pages
 
         void InitializeData() {
             dg_Employee.AutoGenerateColumns = false;
-            using (db = new DbAgent()) {
+            using (db = new WasDbAgent()) {
                 var data = db.GetEmployee(false).ToList();
                 pgr_Employee.DataSource = data;
                 pgr_Employee.TotalCount = data.Count;
@@ -78,7 +78,7 @@ namespace WorksAssign.Pages
         private void Btn_Del_Click(object sender, EventArgs e) {
             var items = GetChosenItems();
             if (items.Count > 0 && this.ShowAskDialog("删除操作将级联删除该成员所参与的所有工作，要继续吗？")) {
-                using (db = new DbAgent()) {
+                using (db = new WasDbAgent()) {
                     foreach (var i in items) {
                         db.DelEmployee(i.Id);
                     }

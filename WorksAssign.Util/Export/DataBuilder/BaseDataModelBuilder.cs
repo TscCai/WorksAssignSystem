@@ -9,7 +9,7 @@ namespace WorksAssign.Util.Export.DataBuilder
 {
     public abstract class BaseDataModelBuilder<T>:IDataModelBuilder<T>
     {
-        protected DbAgent db;
+        protected WasDbAgent db;
         protected HolidayWorkdayDiscriminator hwd;
 
         public virtual List<T> BuildData() {

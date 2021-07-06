@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SecondaryDeviceModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;D:\Documents\Git Projects\Remote\WorksAssignSystem\WorksAssign\App_Data\SecondaryDevice.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SubstationId" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Voltage" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="BayId" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ScreenName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Voltage" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Type" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Model" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Vendor" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Version" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="BuildDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="CRC" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ProducedDate" Type="datetime" />
+          <Property Name="Enable" Type="bit" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="PhotoPath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="MaintenanceRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Details" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Substation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Voltage" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SubstationName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="District" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="IsSmart" Type="bit" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“main.Vx_AllDevice”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Vx_AllDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="SubstationName" />
+            <PropertyRef Name="SubstationVoltage" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SubstationName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubstationVoltage" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="ScreenName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Voltage" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Type" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Model" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Vendor" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Version" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="BuildDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="CRC" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ProducedDate" Type="datetime" />
+          <Property Name="Enable" Type="bit" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="PhotoPath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“main.Vx_AllRecord”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Vx_AllRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Voltage" />
+            <PropertyRef Name="SubstationName" />
+            <PropertyRef Name="DeviceId" />
+            <PropertyRef Name="Details" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Voltage" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SubstationName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="DeviceId" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Details" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <Association Name="FK_Bay_0_0">
+          <End Role="Substation" Type="Self.Substation" Multiplicity="1" />
+          <End Role="Bay" Type="Self.Bay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Substation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bay">
+              <PropertyRef Name="SubstationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_0_0">
+          <End Role="Bay" Type="Self.Bay" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bay">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="BayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecord_0_0">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="MaintenanceRecord" Type="Self.MaintenanceRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaintenanceRecord">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SecondaryDeviceModelStoreContainer">
+          <EntitySet Name="Bay" EntityType="Self.Bay" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" store:Type="Tables" />
+          <EntitySet Name="MaintenanceRecord" EntityType="Self.MaintenanceRecord" store:Type="Tables" />
+          <EntitySet Name="Substation" EntityType="Self.Substation" store:Type="Tables" />
+          <EntitySet Name="Vx_AllDevice" EntityType="Self.Vx_AllDevice" store:Type="Views">
+            <DefiningQuery>SELECT 
+[Vx_AllDevice].[Id] AS [Id], 
+[Vx_AllDevice].[SubstationName] AS [SubstationName], 
+[Vx_AllDevice].[SubstationVoltage] AS [SubstationVoltage], 
+[Vx_AllDevice].[ScreenName] AS [ScreenName], 
+[Vx_AllDevice].[DeviceName] AS [DeviceName], 
+[Vx_AllDevice].[Voltage] AS [Voltage], 
+[Vx_AllDevice].[Type] AS [Type], 
+[Vx_AllDevice].[Model] AS [Model], 
+[Vx_AllDevice].[Vendor] AS [Vendor], 
+[Vx_AllDevice].[Version] AS [Version], 
+[Vx_AllDevice].[BuildDate] AS [BuildDate], 
+[Vx_AllDevice].[CRC] AS [CRC], 
+[Vx_AllDevice].[ProducedDate] AS [ProducedDate], 
+[Vx_AllDevice].[Enable] AS [Enable], 
+[Vx_AllDevice].[Comment] AS [Comment], 
+[Vx_AllDevice].[PhotoPath] AS [PhotoPath], 
+[Vx_AllDevice].[FilePath] AS [FilePath]
+FROM [Vx_AllDevice] AS [Vx_AllDevice]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vx_AllRecord" EntityType="Self.Vx_AllRecord" store:Type="Views">
+            <DefiningQuery>SELECT 
+[Vx_AllRecord].[Id] AS [Id], 
+[Vx_AllRecord].[Voltage] AS [Voltage], 
+[Vx_AllRecord].[SubstationName] AS [SubstationName], 
+[Vx_AllRecord].[DeviceName] AS [DeviceName], 
+[Vx_AllRecord].[DeviceId] AS [DeviceId], 
+[Vx_AllRecord].[Details] AS [Details], 
+[Vx_AllRecord].[Date] AS [Date], 
+[Vx_AllRecord].[Comment] AS [Comment]
+FROM [Vx_AllRecord] AS [Vx_AllRecord]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Bay_0_0" Association="Self.FK_Bay_0_0">
+            <End Role="Substation" EntitySet="Substation" />
+            <End Role="Bay" EntitySet="Bay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_0_0" Association="Self.FK_Device_0_0">
+            <End Role="Bay" EntitySet="Bay" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecord_0_0" Association="Self.FK_MaintenanceRecord_0_0">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="MaintenanceRecord" EntitySet="MaintenanceRecord" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SecondaryDeviceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DeviceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bay" EntityType="SecondaryDeviceModel.Bay" />
+          <EntitySet Name="Device" EntityType="SecondaryDeviceModel.Device" />
+          <EntitySet Name="MaintenanceRecord" EntityType="SecondaryDeviceModel.MaintenanceRecord" />
+          <EntitySet Name="Substation" EntityType="SecondaryDeviceModel.Substation" />
+          <EntitySet Name="Vx_AllDevice" EntityType="SecondaryDeviceModel.Vx_AllDevice" />
+          <EntitySet Name="Vx_AllRecord" EntityType="SecondaryDeviceModel.Vx_AllRecord" />
+          <AssociationSet Name="FK_Bay_0_0" Association="SecondaryDeviceModel.FK_Bay_0_0">
+            <End Role="Substation" EntitySet="Substation" />
+            <End Role="Bay" EntitySet="Bay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_0_0" Association="SecondaryDeviceModel.FK_Device_0_0">
+            <End Role="Bay" EntitySet="Bay" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecord_0_0" Association="SecondaryDeviceModel.FK_MaintenanceRecord_0_0">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="MaintenanceRecord" EntitySet="MaintenanceRecord" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SubstationId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Voltage" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Substation" Relationship="SecondaryDeviceModel.FK_Bay_0_0" FromRole="Bay" ToRole="Substation" />
+          <NavigationProperty Name="Device" Relationship="SecondaryDeviceModel.FK_Device_0_0" FromRole="Bay" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BayId" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ScreenName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Voltage" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Vendor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BuildDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CRC" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ProducedDate" Type="DateTime" />
+          <Property Name="Enable" Type="Boolean" />
+          <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="PhotoPath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bay" Relationship="SecondaryDeviceModel.FK_Device_0_0" FromRole="Device" ToRole="Bay" />
+          <NavigationProperty Name="MaintenanceRecord" Relationship="SecondaryDeviceModel.FK_MaintenanceRecord_0_0" FromRole="Device" ToRole="MaintenanceRecord" />
+        </EntityType>
+        <EntityType Name="MaintenanceRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="SecondaryDeviceModel.FK_MaintenanceRecord_0_0" FromRole="MaintenanceRecord" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Substation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Voltage" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SubstationName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="IsSmart" Type="Boolean" />
+          <NavigationProperty Name="Bay" Relationship="SecondaryDeviceModel.FK_Bay_0_0" FromRole="Substation" ToRole="Bay" />
+        </EntityType>
+        <EntityType Name="Vx_AllDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="SubstationName" />
+            <PropertyRef Name="SubstationVoltage" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SubstationName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubstationVoltage" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ScreenName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Voltage" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Vendor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BuildDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CRC" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ProducedDate" Type="DateTime" />
+          <Property Name="Enable" Type="Boolean" />
+          <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="PhotoPath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vx_AllRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Voltage" />
+            <PropertyRef Name="SubstationName" />
+            <PropertyRef Name="DeviceId" />
+            <PropertyRef Name="Details" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Voltage" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SubstationName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Bay_0_0">
+          <End Type="SecondaryDeviceModel.Substation" Role="Substation" Multiplicity="1" />
+          <End Type="SecondaryDeviceModel.Bay" Role="Bay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Substation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bay">
+              <PropertyRef Name="SubstationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_0_0">
+          <End Type="SecondaryDeviceModel.Bay" Role="Bay" Multiplicity="0..1" />
+          <End Type="SecondaryDeviceModel.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bay">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="BayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecord_0_0">
+          <End Type="SecondaryDeviceModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="SecondaryDeviceModel.MaintenanceRecord" Role="MaintenanceRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaintenanceRecord">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SecondaryDeviceModelStoreContainer" CdmEntityContainer="DeviceEntities">
+          <EntitySetMapping Name="Bay">
+            <EntityTypeMapping TypeName="SecondaryDeviceModel.Bay">
+              <MappingFragment StoreEntitySet="Bay">
+                <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SubstationId" ColumnName="SubstationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Device">
+            <EntityTypeMapping TypeName="SecondaryDeviceModel.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="ProducedDate" ColumnName="ProducedDate" />
+                <ScalarProperty Name="CRC" ColumnName="CRC" />
+                <ScalarProperty Name="BuildDate" ColumnName="BuildDate" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="BayId" ColumnName="BayId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaintenanceRecord">
+            <EntityTypeMapping TypeName="SecondaryDeviceModel.MaintenanceRecord">
+              <MappingFragment StoreEntitySet="MaintenanceRecord">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Substation">
+            <EntityTypeMapping TypeName="SecondaryDeviceModel.Substation">
+              <MappingFragment StoreEntitySet="Substation">
+                <ScalarProperty Name="IsSmart" ColumnName="IsSmart" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="SubstationName" ColumnName="SubstationName" />
+                <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vx_AllDevice">
+            <EntityTypeMapping TypeName="SecondaryDeviceModel.Vx_AllDevice">
+              <MappingFragment StoreEntitySet="Vx_AllDevice">
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="ProducedDate" ColumnName="ProducedDate" />
+                <ScalarProperty Name="CRC" ColumnName="CRC" />
+                <ScalarProperty Name="BuildDate" ColumnName="BuildDate" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="SubstationVoltage" ColumnName="SubstationVoltage" />
+                <ScalarProperty Name="SubstationName" ColumnName="SubstationName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vx_AllRecord">
+            <EntityTypeMapping TypeName="SecondaryDeviceModel.Vx_AllRecord">
+              <MappingFragment StoreEntitySet="Vx_AllRecord">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="SubstationName" ColumnName="SubstationName" />
+                <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

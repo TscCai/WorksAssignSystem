@@ -42,6 +42,7 @@ namespace WorksAssign
                 frm_ParamManage = new WorksAssign.Pages.ParamManage();
                 AddPage(frm_ParamManage, 5);
                 AddPage(new WorksAssign.Pages.EmployeeManage(), 6);
+                AddPage(new WorksAssign.Pages.Device.ViewDevice(), 7);
                 AddPage(new WorksAssign.Pages.About(), 8);
 
                 //设置Header节点索引
@@ -52,6 +53,7 @@ namespace WorksAssign
                 Aside.CreateNode("考勤与绩效", 62068, 24, 4);
                 Aside.CreateNode("参数设置", 62068, 24, 5);
                 Aside.CreateNode("班组成员管理", 62068, 24, 6);
+                Aside.CreateNode("二次台账查询", 62068, 24, 7);
                 Aside.CreateNode("关于", 61530, 24, 8);
 
                 //显示默认界面

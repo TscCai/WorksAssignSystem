@@ -29,7 +29,7 @@ namespace WorksAssign.Persistence
         }
 
         public HolidayWorkdayDiscriminator(int year) {
-            using (var db = new DbAgent()) {
+            using (var db = new WasDbAgent()) {
                 HolidaysWorkdays = db.GetHolidaysWorkdays(year).ToList();
             }
         }

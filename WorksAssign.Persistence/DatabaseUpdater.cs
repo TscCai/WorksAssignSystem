@@ -23,7 +23,7 @@ namespace WorksAssign.Persistence
     public class DatabaseUpdater
     {
         public static string GetDatabaseVersion() {
-            using (DbAgent db = new DbAgent()) {
+            using (WasDbAgent db = new WasDbAgent()) {
                 string dbVer = db.GetAbstractInfo("Version");
                 return dbVer;
                 

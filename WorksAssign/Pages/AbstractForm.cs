@@ -14,11 +14,11 @@ namespace WorksAssign.Pages {
 		
 		protected Dictionary<string, long> workType;
 		protected Dictionary<string, bool> dictErr;
-		protected DbAgent db;
+		protected WasDbAgent db;
 
 		protected virtual void InitializeData() {
             
-			using (db = new DbAgent()) {
+			using (db = new WasDbAgent()) {
 				substations = db.GetSubstation().ToDictionary(k => k.SubstationName, v => v.Id);
 				employees = db.GetEmployee().ToDictionary(k => k.Name, v => v.Id);
 				workType = db.GetWorkType().ToDictionary(k => k.Content, v => v.Id);

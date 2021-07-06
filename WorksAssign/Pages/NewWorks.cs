@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*************
+*
+* Note: [21.07.06]如需导入一周的工作而不暂不指定工作负责人和成员，可调用DbAgent.AddWorkContent()方法
+* 
+* 
+* 
+* 
+* 
+*/
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
@@ -12,7 +21,7 @@ namespace WorksAssign.Pages
     public partial class NewWorks : UIPage
     {
 
-        DbAgent db;
+        WasDbAgent db;
         Dictionary<string, long> substations;
         Dictionary<string, long> employees;
         Dictionary<string, long> workType;
@@ -29,7 +38,7 @@ namespace WorksAssign.Pages
         }
 
         private void InitializeData() {
-            using (db = new DbAgent()) {
+            using (db = new WasDbAgent()) {
                 substations = db.GetSubstation().ToDictionary(k => k.SubstationName, v => v.Id);
                 employees = db.GetEmployee().ToDictionary(k => k.Name, v => v.Id);
                 workType = db.GetWorkType().ToDictionary(k => k.Content, v => v.Id);
@@ -60,7 +69,7 @@ namespace WorksAssign.Pages
         }
 
         private void btn_OK_Click(object sender, EventArgs e) {
-            using (db = new DbAgent()) {
+            using (db = new WasDbAgent()) {
                 NewWorkModel model = CreateViewDataModel();
                 if (model.Error) {
                     this.ShowErrorDialog(model.ErrorMessage);
@@ -96,7 +105,7 @@ namespace WorksAssign.Pages
 
             // 获取简单字段的值
             DateTime workDate = dpk_WorkDate.Value.Date;
-            long substationId = DbAgent.NOT_SUBSTATION;
+            long substationId = WasDbAgent.NOT_SUBSTATION;
             if (cb_Substation.SelectedValue != null) {
                 substationId = (long)cb_Substation.SelectedValue;
             }
@@ -114,8 +123,8 @@ namespace WorksAssign.Pages
             string shortType = cb_ShortType.Text;
 
             // leader, manager下拉框的选择值为空则为外部人员
-            long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
-            long managerId = cb_Manager.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
+            long leaderId = cb_Leader.SelectedValue == null ? WasDbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
+            long managerId = cb_Manager.SelectedValue == null ? WasDbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
 
             // 将工作班成员文本框中的人员按符号分割，不在employees字典里的即为外部人员
             string[] memberName = txt_Member.Text.Split("、");
@@ -133,7 +142,7 @@ namespace WorksAssign.Pages
             List<WorkInvolve> involveList = new List<WorkInvolve>();
 
             // add leader
-            if (cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
+            if (cb_Leader.Text != "" && leaderId == WasDbAgent.OUTSIDER) {
                 // 非表中人员，且有姓名，应存入WorkContent的ExMember
                 outsider += "负责人：" + cb_Leader.Text + "|";
                 hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";
@@ -157,7 +166,7 @@ namespace WorksAssign.Pages
                 // errorMsg +="不存在管理人员\n";
 
             }
-            else if (cb_Manager.Text != "" && managerId == DbAgent.OUTSIDER) {
+            else if (cb_Manager.Text != "" && managerId == WasDbAgent.OUTSIDER) {
                 // outsider manager
                 // 非表中人员，且有姓名，应存入WorkContent的ExMember
                 outsider += "管理人员：" + cb_Manager.Text + "|";

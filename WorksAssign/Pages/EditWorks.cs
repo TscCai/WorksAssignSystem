@@ -80,7 +80,7 @@ namespace WorksAssign.Pages
             WorkContent chosenWorkContent;
             IEnumerable<WorkInvolve> originalMembers;
 
-            using (db = new DbAgent()) {
+            using (db = new WasDbAgent()) {
 
                 chosenWorkContent = db.GetWorkContent(workId);
                 roles = db.GetRole(chosenWorkContent.WorkType.Id).ToDictionary(k => k.RoleName, v => v.Id);
@@ -185,7 +185,7 @@ namespace WorksAssign.Pages
                 if (isContinue) {
                     // Remove orginal members involve, then add new ones.
 
-                    using (db = new DbAgent()) {
+                    using (db = new WasDbAgent()) {
                         WorkContent originalData = db.GetWorkContent(workId);
                         originalData.ExMember = model.Outsider;
                         originalData.WorkDate = model.WorkDate;
@@ -231,7 +231,7 @@ namespace WorksAssign.Pages
 
         private void cb_WorkType_SelectedIndexChanged(object sender, EventArgs e) {
             long typeId = (long)cb_WorkType.SelectedValue;
-            using (db = new DbAgent()) {
+            using (db = new WasDbAgent()) {
                 roles = db.GetRole(typeId).ToDictionary(k => k.RoleName, v => v.Id);
             }
         }
@@ -245,18 +245,18 @@ namespace WorksAssign.Pages
             List<string> exMemberName = new List<string>();  // 外部人员名单
 
             DateTime workDate = dpk_WorkDate.Value.Date;
-            long substationId = cb_Substation.SelectedValue == null ? DbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
+            long substationId = cb_Substation.SelectedValue == null ? WasDbAgent.NOT_SUBSTATION : (long)cb_Substation.SelectedValue;
             long workTypeId = (long)cb_WorkType.SelectedValue;
             string workContent = txt_WorkContent.Text;
 
-            long leaderId = cb_Leader.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
-            long managerId = cb_Manager.SelectedValue == null ? DbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
+            long leaderId = cb_Leader.SelectedValue == null ? WasDbAgent.OUTSIDER : (long)cb_Leader.SelectedValue;
+            long managerId = cb_Manager.SelectedValue == null ? WasDbAgent.OUTSIDER : (long)cb_Manager.SelectedValue;
 
 
             string outsider = null;
             string hintMsg = "";
             // add leader
-            if (cb_Leader.Text != "" && leaderId == DbAgent.OUTSIDER) {
+            if (cb_Leader.Text != "" && leaderId == WasDbAgent.OUTSIDER) {
                 // 非表中人员，且有姓名，应存入WorkContent的ExMember
                 outsider += RoleNameType.Leader.GetEnumStringValue() + "：" + cb_Leader.Text + "|";
                 hintMsg += "存在非本班组的负责人：" + cb_Leader.Text + "\n";
@@ -276,7 +276,7 @@ namespace WorksAssign.Pages
                 // NO manager
                 hintMsg += "不存在管理人员\n";
             }
-            else if (cb_Manager.Text != "" && managerId == DbAgent.OUTSIDER) {
+            else if (cb_Manager.Text != "" && managerId == WasDbAgent.OUTSIDER) {
                 // outsider manager
                 // 非表中人员，且有姓名，应存入WorkContent的ExMember
                 outsider += RoleNameType.Manager.GetEnumStringValue() + "：" + cb_Manager.Text + "|";

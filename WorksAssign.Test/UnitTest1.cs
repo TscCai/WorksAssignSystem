@@ -16,7 +16,7 @@ namespace WorksAssign.Test
     {
         [TestMethod]
         public void TestMethod1() {
-            DbAgent db = new DbAgent();
+            WasDbAgent db = new WasDbAgent();
             var e = db.GetSubstation().ToList();
             foreach (var i in e) {
                 Console.WriteLine(i.SubstationName);
@@ -32,7 +32,7 @@ namespace WorksAssign.Test
 
         [TestMethod]
         public void GenerateSampleData() {
-            using (DbAgent db = new DbAgent()) {
+            using (WasDbAgent db = new WasDbAgent()) {
                 long substationId, typeId;
                 string content, outsider, comment;
                 DateTime date = new DateTime(2020, 1, 1);
@@ -98,7 +98,7 @@ namespace WorksAssign.Test
             IWorkbook wb = WorkbookFactory.Create(filename);
             ISheet sheet = wb.GetSheetAt(wb.ActiveSheetIndex);
 
-            using (DbAgent db = new DbAgent()) {
+            using (WasDbAgent db = new WasDbAgent()) {
                 long substationId = 1;
                 for (int rowNum = 1; rowNum < sheet.LastRowNum; rowNum++) {
                     IRow row = sheet.GetRow(rowNum);
@@ -123,7 +123,7 @@ namespace WorksAssign.Test
 
         }
 
-        private List<WorkInvolve> CreateWorkInvoves(DbAgent db, long typeId, string leader, string members, string manager, DateTime workDate) {
+        private List<WorkInvolve> CreateWorkInvoves(WasDbAgent db, long typeId, string leader, string members, string manager, DateTime workDate) {
             List<WorkInvolve> result = new List<WorkInvolve>();
             WorkInvolve l = new WorkInvolve();
             var e_l = db.GetEmployee(leader);

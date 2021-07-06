@@ -14,7 +14,7 @@ namespace WorksAssign.Pages
 {
     public partial class ParamManage : UIPage
     {
-        DbAgent db;
+        WasDbAgent db;
         List<long> NewRowsId;
         List<long> UpdateRowsId;
         bool IsInited;
@@ -45,7 +45,7 @@ namespace WorksAssign.Pages
         }
 
         private void ParamManage_Initialize(object sender, EventArgs e) {
-            db = new DbAgent();
+            db = new WasDbAgent();
             InitializationData();
             NewRowsId = new List<long>();
             UpdateRowsId = new List<long>();

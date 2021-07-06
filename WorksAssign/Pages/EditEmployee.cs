@@ -31,7 +31,7 @@ namespace WorksAssign.Pages
 
   
         protected override void Btn_OK_Click(object sender, EventArgs e) {
-            using (var db = new DbAgent()) {
+            using (var db = new WasDbAgent()) {
                 Employee emp = db.GetEmployee(employee.Id);
                 emp.Name = txt_Name.Text;
                 emp.Sex = cb_Sex.SelectedItem.ToString();

@@ -6,8 +6,8 @@
  * GitHub: https://github.com/TscCai/WorksAssignSystem
  *
  ******************************************************************************
- * 文件名称: DbAgent.cs
- * 文件说明: 数据库访问器
+ * 文件名称: WasDbAgent.cs
+ * 文件说明: WorkAssign数据库访问器
  * 当前版本: 
  * 创建日期: 2020-11-28
  * 2020-01-23: 增加文件说明
@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace WorksAssign.Persistence
 {
-    public class DbAgent : IDisposable
+    public class WasDbAgent : IDisposable
     {
         /// <summary>
         /// 数据库访问实体
@@ -41,7 +41,7 @@ namespace WorksAssign.Persistence
         public const long NOT_SUBSTATION = 0;
 
 
-        public DbAgent() {
+        public WasDbAgent() {
             dbCtx = new WorksAssignEntities();
         }
 
