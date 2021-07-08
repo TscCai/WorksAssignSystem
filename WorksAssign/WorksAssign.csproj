@@ -167,12 +167,6 @@
     <Compile Include="Pages\Master\SimpleGridPage.Designer.cs">
       <DependentUpon>SimpleGridPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ViewEmployees.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pages\ViewEmployees.Designer.cs">
-      <DependentUpon>ViewEmployees.cs</DependentUpon>
-    </Compile>
     <Compile Include="Pages\NewWorks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +178,12 @@
     </Compile>
     <Compile Include="Pages\ParamManage.Designer.cs">
       <DependentUpon>ParamManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ViewEmployees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\ViewEmployees.Designer.cs">
+      <DependentUpon>ViewEmployees.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\ViewWorks.cs">
       <SubType>Form</SubType>
@@ -223,14 +223,14 @@
     <EmbeddedResource Include="Pages\Master\SimpleGridPage.resx">
       <DependentUpon>SimpleGridPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\ViewEmployees.resx">
-      <DependentUpon>ViewEmployees.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pages\NewWorks.resx">
       <DependentUpon>NewWorks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ParamManage.resx">
       <DependentUpon>ParamManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ViewEmployees.resx">
+      <DependentUpon>ViewEmployees.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ViewWorks.resx">
       <DependentUpon>ViewWorks.cs</DependentUpon>

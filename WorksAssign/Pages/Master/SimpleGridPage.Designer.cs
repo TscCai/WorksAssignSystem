@@ -1,4 +1,7 @@
-﻿namespace WorksAssign.Pages.Master
+﻿using System.Windows.Forms;
+using Sunny.UI;
+
+namespace WorksAssign.Pages.Master
 {
     partial class SimpleGridPage
     {
@@ -33,11 +36,11 @@
             this.pnl_Content = new Sunny.UI.UIFlowLayoutPanel();
             this.lbl_Header = new Sunny.UI.UILabel();
             this.pnl_footer = new Sunny.UI.UIFlowLayoutPanel();
-            this.pgr_Employee = new Sunny.UI.UIPagination();
-            this.uiDataGridView1 = new Sunny.UI.UIDataGridView();
+            this.pgr_Data = new Sunny.UI.UIPagination();
+            this.dg_Data = new Sunny.UI.UIDataGridView();
             this.pnl_Header.SuspendLayout();
             this.pnl_footer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.uiDataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_Data)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl_Header
@@ -84,7 +87,7 @@
             // 
             // pnl_footer
             // 
-            this.pnl_footer.Controls.Add(this.pgr_Employee);
+            this.pnl_footer.Controls.Add(this.pgr_Data);
             this.pnl_footer.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnl_footer.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.pnl_footer.Location = new System.Drawing.Point(0, 562);
@@ -96,28 +99,30 @@
             this.pnl_footer.TabIndex = 11;
             this.pnl_footer.Text = "uiFlowLayoutPanel1";
             // 
-            // pgr_Employee
+            // pgr_Data
             // 
-            this.pgr_Employee.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pgr_Employee.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.pgr_Employee.Location = new System.Drawing.Point(20, 10);
-            this.pgr_Employee.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pgr_Employee.MinimumSize = new System.Drawing.Size(1, 1);
-            this.pgr_Employee.Name = "pgr_Employee";
-            this.pgr_Employee.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.pgr_Employee.RectSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.None;
-            this.pgr_Employee.ShowJumpButton = false;
-            this.pgr_Employee.Size = new System.Drawing.Size(842, 36);
-            this.pgr_Employee.TabIndex = 7;
-            this.pgr_Employee.Text = "uiPagination1";
-            this.pgr_Employee.TotalCount = 0;
+            this.pgr_Data.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pgr_Data.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.pgr_Data.Location = new System.Drawing.Point(20, 10);
+            this.pgr_Data.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pgr_Data.MinimumSize = new System.Drawing.Size(1, 1);
+            this.pgr_Data.Name = "pgr_Data";
+            this.pgr_Data.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.pgr_Data.RectSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.None;
+            this.pgr_Data.ShowJumpButton = false;
+            this.pgr_Data.Size = new System.Drawing.Size(842, 36);
+            this.pgr_Data.TabIndex = 7;
+            this.pgr_Data.Text = "uiPagination1";
+            this.pgr_Data.TotalCount = 0;
             // 
-            // uiDataGridView1
+            // dg_Data
             // 
+            this.dg_Data.AllowUserToAddRows = false;
+            this.dg_Data.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.uiDataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.uiDataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dg_Data.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dg_Data.BackgroundColor = System.Drawing.Color.White;
+            this.dg_Data.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 12F);
@@ -125,8 +130,9 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.uiDataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.uiDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dg_Data.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dg_Data.ColumnHeadersHeight = 32;
+            this.dg_Data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 12F);
@@ -134,45 +140,53 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.uiDataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            this.uiDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uiDataGridView1.EnableHeadersVisualStyles = false;
-            this.uiDataGridView1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiDataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            this.uiDataGridView1.Location = new System.Drawing.Point(0, 60);
-            this.uiDataGridView1.Name = "uiDataGridView1";
+            this.dg_Data.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dg_Data.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dg_Data.EnableHeadersVisualStyles = false;
+            this.dg_Data.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.dg_Data.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.dg_Data.Location = new System.Drawing.Point(0, 60);
+            this.dg_Data.Name = "dg_Data";
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.uiDataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.uiDataGridView1.RowTemplate.Height = 29;
-            this.uiDataGridView1.SelectedIndex = -1;
-            this.uiDataGridView1.ShowGridLine = true;
-            this.uiDataGridView1.Size = new System.Drawing.Size(882, 502);
-            this.uiDataGridView1.TabIndex = 12;
+            this.dg_Data.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dg_Data.RowTemplate.Height = 29;
+            this.dg_Data.SelectedIndex = -1;
+            this.dg_Data.ShowGridLine = true;
+            this.dg_Data.Size = new System.Drawing.Size(882, 502);
+            this.dg_Data.TabIndex = 12;
             // 
             // SimpleGridPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 618);
-            this.Controls.Add(this.uiDataGridView1);
+            this.Controls.Add(this.dg_Data);
             this.Controls.Add(this.pnl_footer);
             this.Controls.Add(this.pnl_Header);
             this.Name = "SimpleGridPage";
             this.Text = "SimpleGridPage";
             this.pnl_Header.ResumeLayout(false);
             this.pnl_footer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.uiDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_Data)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Sunny.UI.UIFlowLayoutPanel pnl_Header;
-        private Sunny.UI.UIFlowLayoutPanel pnl_Content;
-        private Sunny.UI.UILabel lbl_Header;
-        private Sunny.UI.UIFlowLayoutPanel pnl_footer;
-        private Sunny.UI.UIPagination pgr_Employee;
-        private Sunny.UI.UIDataGridView uiDataGridView1;
+        protected Sunny.UI.UIFlowLayoutPanel pnl_Header;
+        protected Sunny.UI.UIFlowLayoutPanel pnl_Content;
+        protected Sunny.UI.UILabel lbl_Header;
+        protected Sunny.UI.UIFlowLayoutPanel pnl_footer;
+        protected Sunny.UI.UIPagination pgr_Data;
+        protected Sunny.UI.UIDataGridView dg_Data;
+        //private System.Windows.Forms.DataGridViewCheckBoxColumn col_IsCCP;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn col_JoinDate;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn col_Sex;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn col_Name;
+        //private System.Windows.Forms.DataGridViewCheckBoxColumn col_Chk;
+
+
+
     }
 }

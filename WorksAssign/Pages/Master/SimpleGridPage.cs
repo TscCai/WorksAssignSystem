@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
+using WorksAssign.Persistence;
 
 namespace WorksAssign.Pages.Master
 {
     public partial class SimpleGridPage : UIPage
     {
-        public bool IsInit { protected set; get; }
+        protected WasDbAgent db;
+        public bool IsInited { protected set; get; }
 
         public SimpleGridPage() {
             InitializeComponent();
@@ -22,6 +24,27 @@ namespace WorksAssign.Pages.Master
 
         protected virtual void InitControl() {
 
+         
         }
+        protected virtual void InitializeData() {
+            dg_Data.AutoGenerateColumns = false;
+           
+        }
+        private void pgr_Data_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
+            dg_Data.DataSource = pagingSource;
+        }
+
+        protected List<T> GetChosenItems<T>() {
+            List<T> result = new List<T>();
+            DataGridViewRowCollection dt = dg_Data.Rows;
+
+            foreach (DataGridViewRow i in dt) {
+                if (i.Cells[0].Value != null && (bool)i.Cells[0].Value) {
+                    result.Add(((T)i.DataBoundItem));
+                }
+            }
+            return result;
+        }
+
     }
 }
