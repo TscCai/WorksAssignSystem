@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Sunny.UI;
-using WorksAssign.Persistence;
-using WorksAssign.Util.Export;
-using WorksAssign.Util.Export.DataBuilder;
-using WorksAssign.Util.Export.DataModel;
 using WorksAssign.Pages.MasterPage;
+using Sunny.UI;
+using WorksAssign.Util.Export.DataModel;
+using WorksAssign.Persistence;
+using WorksAssign.Util.Export.DataBuilder;
+using WorksAssign.Util.Export;
 
 namespace WorksAssign.Pages.Works
 {
-    public partial class ViewWork : UIPage
+    public partial class ViewWorks : SimpleGridPage
     {
         List<DailyWorkModel> WorkList;
         EditWork frm_EditWorks;
 
-
-        public ViewWork() {
+        public ViewWorks() {
             InitializeComponent();
 
             dpk_Start.Value = DateTime.Now.Date;
@@ -30,27 +34,27 @@ namespace WorksAssign.Pages.Works
 
             frm_EditWorks = new EditWork();
             frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
-        }
 
+        }
 
 
         /// <summary>
         /// Need to be refactor
         /// </summary>
-        void InitializeData() {
-
+        protected override void InitializeData() {
+            base.InitializeData();
             using (var db = new WasDbAgent()) {
                 var works = db.GetWorkContent(dpk_Start.Value, dpk_End.Value);
-                
+
                 DailyWorkBuilder builder = new DailyWorkBuilder(works);
                 WorkList = builder.BuildData();
 
                 // Controls data binding
-                dg_worksAssign.AutoGenerateColumns = false;
+                dg_Data.AutoGenerateColumns = false;
 
-                pgr_workContent.DataSource = WorkList;
+                pgr_Data.DataSource = WorkList;
 
-                pgr_workContent.TotalCount = WorkList.Count;
+                pgr_Data.TotalCount = WorkList.Count;
 
 
             }
@@ -59,14 +63,15 @@ namespace WorksAssign.Pages.Works
 
         private void btn_Search_Click(object sender, EventArgs e) {
             InitializeData();
-            pgr_workContent.ActivePage = 1;
+            pgr_Data.ActivePage = 0;
+            pgr_Data.ActivePage = 1;
 
         }
 
         private void btn_Del_Click(object sender, EventArgs e) {
             bool canDelete = UIMessageDialog.ShowAskDialog(this, "确认要删除工作吗？");
             if (canDelete) {
-                List<DailyWorkModel> chosenWorkId = GetChosenItems();
+                List<DailyWorkModel> chosenWorkId = GetChosenItems<DailyWorkModel>();
                 int cnt = 0;
                 string errMsg = "";
                 using (var db = new WasDbAgent()) {
@@ -86,12 +91,12 @@ namespace WorksAssign.Pages.Works
             }
 
             InitializeData();
-            pgr_workContent.ActivePage = 1;
+            pgr_Data.ActivePage = 1;
         }
 
         private void btn_Edit_Click(object sender, EventArgs e) {
             // Tips: Row count start at 0
-            List<DailyWorkModel> chosenWork = GetChosenItems();
+            List<DailyWorkModel> chosenWork = GetChosenItems<DailyWorkModel>();
             if (chosenWork.Count < 1) {
                 return;
             }
@@ -124,30 +129,14 @@ namespace WorksAssign.Pages.Works
         private void Frm_EditWorks_FormClosed(object sender, FormClosedEventArgs e) {
             if (!frm_EditWorks.CancelEditFlag) {
                 InitializeData();
-                pgr_workContent.ActivePage = 0;
-                pgr_workContent.ActivePage = 1;
+                pgr_Data.ActivePage = 0;
+                pgr_Data.ActivePage = 1;
             }
         }
 
-        private void pgr_workContent_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
-            dg_worksAssign.DataSource = pagingSource;
-        }
-
-        /// <summary>
-        /// 根据选中情况返回数据，未显式在DataGridView中显式的列也可获取。
-        /// </summary>
-        /// <returns></returns>
-        private List<DailyWorkModel> GetChosenItems() {
-            DataGridViewRowCollection dt = dg_worksAssign.Rows;
-            List<DailyWorkModel> chosenWork = new List<DailyWorkModel>();
-            foreach (DataGridViewRow i in dt) {
-                if (i.Cells[0].Value != null && (bool)i.Cells[0].Value) {
-                    chosenWork.Add(((DailyWorkModel)i.DataBoundItem));
-                }
-            }
-            return chosenWork;
+        private void pgr_Data_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
+            dg_Data.DataSource = pagingSource;
         }
 
     }
-
 }

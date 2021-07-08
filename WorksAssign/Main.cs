@@ -38,7 +38,8 @@ namespace WorksAssign
                 //增加页面到Main
                 AddPage(new Pages.Outline(), 1);
                 AddPage(new Pages.Works.AddWork(), 2);
-                AddPage(new Pages.Works.ViewWork(), 3);
+                //AddPage(new Pages.Works.ViewWork(), 3);
+                AddPage(new Pages.Works.ViewWorks(), 3);
                 AddPage(new Pages.AttendanceManage(), 4);
                 frm_ParamManage = new Pages.ParamManage();
                 AddPage(frm_ParamManage, 5);

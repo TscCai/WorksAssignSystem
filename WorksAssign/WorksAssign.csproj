@@ -185,11 +185,11 @@
     <Compile Include="Pages\Employees\ViewEmployees.Designer.cs">
       <DependentUpon>ViewEmployees.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Works\ViewWork.cs">
+    <Compile Include="Pages\Works\ViewWorks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\Works\ViewWork.Designer.cs">
-      <DependentUpon>ViewWork.cs</DependentUpon>
+    <Compile Include="Pages\Works\ViewWorks.Designer.cs">
+      <DependentUpon>ViewWorks.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\Outline.cs">
       <SubType>Form</SubType>
@@ -232,8 +232,8 @@
     <EmbeddedResource Include="Pages\Employees\ViewEmployees.resx">
       <DependentUpon>ViewEmployees.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Works\ViewWork.resx">
-      <DependentUpon>ViewWork.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\Works\ViewWorks.resx">
+      <DependentUpon>ViewWorks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Outline.resx">
       <DependentUpon>Outline.cs</DependentUpon>
