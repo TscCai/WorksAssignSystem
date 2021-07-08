@@ -205,6 +205,9 @@
     <EmbeddedResource Include="Pages\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Devices\ViewDevice.resx">
+      <DependentUpon>ViewDevice.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\MasterPage\AbstractForm.resx">
       <DependentUpon>AbstractForm.cs</DependentUpon>
     </EmbeddedResource>

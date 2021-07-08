@@ -16,6 +16,15 @@ namespace WorksAssign.Pages.Devices
     {
         public ViewDevice() {
             InitializeComponent();
+
+
+
+            // 
+            // uiSymbolButton1
+            // 
+            pnl_Header.FlowDirection = FlowDirection.LeftToRight;
+       
+            this.pnl_Header.AddControl(this.uiSymbolButton1);
         }
     }
 }
