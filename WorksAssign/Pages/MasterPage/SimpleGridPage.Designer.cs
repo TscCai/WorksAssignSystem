@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using Sunny.UI;
 
-namespace WorksAssign.Pages.Master
+namespace WorksAssign.Pages.MasterPage
 {
     partial class SimpleGridPage
     {

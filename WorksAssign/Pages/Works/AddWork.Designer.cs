@@ -1,5 +1,6 @@
-﻿namespace WorksAssign.Pages {
-    partial class NewWorks {
+﻿namespace WorksAssign.Pages.Works
+{
+    partial class AddWork {
         /// <summary>
         /// Required designer variable.
         /// </summary>

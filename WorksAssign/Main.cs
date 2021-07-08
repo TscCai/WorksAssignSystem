@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Sunny.UI;
 
+
 namespace WorksAssign
 {
     public partial class Main : UIAsideMainFrame
@@ -35,15 +36,15 @@ namespace WorksAssign
 
 
                 //增加页面到Main
-                AddPage(new WorksAssign.Pages.Outline(), 1);
-                AddPage(new WorksAssign.Pages.NewWorks(), 2);
-                AddPage(new WorksAssign.Pages.ViewWorks(), 3);
-                AddPage(new WorksAssign.Pages.AttendanceManage(), 4);
-                frm_ParamManage = new WorksAssign.Pages.ParamManage();
+                AddPage(new Pages.Outline(), 1);
+                AddPage(new Pages.Works.AddWork(), 2);
+                AddPage(new Pages.Works.ViewWork(), 3);
+                AddPage(new Pages.AttendanceManage(), 4);
+                frm_ParamManage = new Pages.ParamManage();
                 AddPage(frm_ParamManage, 5);
-                AddPage(new WorksAssign.Pages.ViewEmployees(), 6);
-                AddPage(new WorksAssign.Pages.Device.ViewDevice(), 7);
-                AddPage(new WorksAssign.Pages.About(), 8);
+                AddPage(new Pages.ViewEmployees(), 6);
+                AddPage(new Pages.Devices.ViewDevice(), 7);
+                AddPage(new Pages.About(), 8);
 
                 //设置Header节点索引
 

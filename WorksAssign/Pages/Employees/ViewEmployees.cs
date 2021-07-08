@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
-using WorksAssign.Pages.Master;
+using WorksAssign.Pages.MasterPage;
 using WorksAssign.Persistence;
 
 namespace WorksAssign.Pages

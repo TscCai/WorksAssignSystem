@@ -16,9 +16,9 @@ using Sunny.UI;
 using WorksAssign.Persistence;
 
 
-namespace WorksAssign.Pages
+namespace WorksAssign.Pages.Works
 {
-    public partial class NewWorks : UIPage
+    public partial class AddWork : UIPage
     {
 
         WasDbAgent db;
@@ -29,7 +29,7 @@ namespace WorksAssign.Pages
         //  Dictionary<string, bool> dictErr;
 
 
-        public NewWorks() {
+        public AddWork() {
             InitializeComponent();
             // additional component init.
             dpk_WorkDate.Value = DateTime.Now.AddDays(1).Date;

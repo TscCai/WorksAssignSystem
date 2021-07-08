@@ -7,17 +7,17 @@ using WorksAssign.Persistence;
 using WorksAssign.Util.Export;
 using WorksAssign.Util.Export.DataBuilder;
 using WorksAssign.Util.Export.DataModel;
-using WorksAssign.Pages.Master;
+using WorksAssign.Pages.MasterPage;
 
-namespace WorksAssign.Pages
+namespace WorksAssign.Pages.Works
 {
-    public partial class ViewWorks : UIPage
+    public partial class ViewWork : UIPage
     {
         List<DailyWorkModel> WorkList;
-        EditWorks frm_EditWorks;
+        EditWork frm_EditWorks;
 
 
-        public ViewWorks() {
+        public ViewWork() {
             InitializeComponent();
 
             dpk_Start.Value = DateTime.Now.Date;
@@ -28,7 +28,7 @@ namespace WorksAssign.Pages
             col_Date.DefaultCellStyle.Format = "yyyy-MM-dd";
 
 
-            frm_EditWorks = new EditWorks();
+            frm_EditWorks = new EditWork();
             frm_EditWorks.FormClosed += Frm_EditWorks_FormClosed;
         }
 

@@ -1,4 +1,4 @@
-﻿namespace WorksAssign.Pages.Device
+﻿namespace WorksAssign.Pages.Devices
 {
     partial class ViewDevice
     {

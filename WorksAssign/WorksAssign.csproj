@@ -128,7 +128,7 @@
     <Compile Include="Pages\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Master\AbstractForm.cs">
+    <Compile Include="Pages\MasterPage\AbstractForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pages\AttendanceManage.cs">
@@ -137,41 +137,41 @@
     <Compile Include="Pages\AttendanceManage.Designer.cs">
       <DependentUpon>AttendanceManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddEmployee.cs">
+    <Compile Include="Pages\Employees\AddEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\AddEmployee.Designer.cs">
+    <Compile Include="Pages\Employees\AddEmployee.Designer.cs">
       <DependentUpon>AddEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Device\ViewDevice.cs">
+    <Compile Include="Pages\Devices\ViewDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\Device\ViewDevice.Designer.cs">
+    <Compile Include="Pages\Devices\ViewDevice.Designer.cs">
       <DependentUpon>ViewDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditEmployee.cs">
+    <Compile Include="Pages\Employees\EditEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\EditEmployee.Designer.cs">
+    <Compile Include="Pages\Employees\EditEmployee.Designer.cs">
       <DependentUpon>EditEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditWorks.cs">
+    <Compile Include="Pages\Works\EditWork.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\EditWorks.Designer.cs">
-      <DependentUpon>EditWorks.cs</DependentUpon>
+    <Compile Include="Pages\Works\EditWork.Designer.cs">
+      <DependentUpon>EditWork.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Master\SimpleGridPage.cs">
+    <Compile Include="Pages\MasterPage\SimpleGridPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\Master\SimpleGridPage.Designer.cs">
+    <Compile Include="Pages\MasterPage\SimpleGridPage.Designer.cs">
       <DependentUpon>SimpleGridPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\NewWorks.cs">
+    <Compile Include="Pages\Works\AddWork.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\NewWorks.Designer.cs">
-      <DependentUpon>NewWorks.cs</DependentUpon>
+    <Compile Include="Pages\Works\AddWork.Designer.cs">
+      <DependentUpon>AddWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\ParamManage.cs">
       <SubType>Form</SubType>
@@ -179,17 +179,17 @@
     <Compile Include="Pages\ParamManage.Designer.cs">
       <DependentUpon>ParamManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ViewEmployees.cs">
+    <Compile Include="Pages\Employees\ViewEmployees.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\ViewEmployees.Designer.cs">
+    <Compile Include="Pages\Employees\ViewEmployees.Designer.cs">
       <DependentUpon>ViewEmployees.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ViewWorks.cs">
+    <Compile Include="Pages\Works\ViewWork.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\ViewWorks.Designer.cs">
-      <DependentUpon>ViewWorks.cs</DependentUpon>
+    <Compile Include="Pages\Works\ViewWork.Designer.cs">
+      <DependentUpon>ViewWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\Outline.cs">
       <SubType>Form</SubType>
@@ -205,35 +205,35 @@
     <EmbeddedResource Include="Pages\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Master\AbstractForm.resx">
+    <EmbeddedResource Include="Pages\MasterPage\AbstractForm.resx">
       <DependentUpon>AbstractForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\AttendanceManage.resx">
       <DependentUpon>AttendanceManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\AddEmployee.resx">
+    <EmbeddedResource Include="Pages\Employees\AddEmployee.resx">
       <DependentUpon>AddEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\EditEmployee.resx">
+    <EmbeddedResource Include="Pages\Employees\EditEmployee.resx">
       <DependentUpon>EditEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\EditWorks.resx">
-      <DependentUpon>EditWorks.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\Works\EditWork.resx">
+      <DependentUpon>EditWork.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Master\SimpleGridPage.resx">
+    <EmbeddedResource Include="Pages\MasterPage\SimpleGridPage.resx">
       <DependentUpon>SimpleGridPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\NewWorks.resx">
-      <DependentUpon>NewWorks.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\Works\AddWork.resx">
+      <DependentUpon>AddWork.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ParamManage.resx">
       <DependentUpon>ParamManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\ViewEmployees.resx">
+    <EmbeddedResource Include="Pages\Employees\ViewEmployees.resx">
       <DependentUpon>ViewEmployees.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\ViewWorks.resx">
-      <DependentUpon>ViewWorks.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\Works\ViewWork.resx">
+      <DependentUpon>ViewWork.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Outline.resx">
       <DependentUpon>Outline.cs</DependentUpon>
@@ -265,6 +265,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="README.md" />
     <None Include="Template\daily_assign_template.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

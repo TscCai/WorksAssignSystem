@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
 
-namespace WorksAssign.Pages.Master
+namespace WorksAssign.Pages.MasterPage
 {
     public partial class SimpleGridPage : UIPage
     {

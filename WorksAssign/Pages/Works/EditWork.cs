@@ -10,11 +10,11 @@ using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
 using WorksAssign.Util.Export.DataModel;
-using WorksAssign.Pages.Master;
+using WorksAssign.Pages.MasterPage;
 
-namespace WorksAssign.Pages
+namespace WorksAssign.Pages.Works
 {
-    public partial class EditWorks : AbstractForm
+    public partial class EditWork : AbstractForm
     {
         long workId;
 
@@ -30,7 +30,7 @@ namespace WorksAssign.Pages
         /// </summary>
 
 
-        public EditWorks() {
+        public EditWork() {
             InitializeComponent();
             CancelEditFlag = false;
 
@@ -115,7 +115,7 @@ namespace WorksAssign.Pages
 
         }
 
-        public EditWorks(DailyWorkModel data)
+        public EditWork(DailyWorkModel data)
             : this() {
             this.chosenData = data;
             dpk_WorkDate.Value = this.chosenData.Date;

@@ -1,6 +1,6 @@
-﻿namespace WorksAssign.Pages
+﻿namespace WorksAssign.Pages.Works
 {
-    partial class EditWorks
+    partial class EditWork
     {
         /// <summary>
         /// Required designer variable.

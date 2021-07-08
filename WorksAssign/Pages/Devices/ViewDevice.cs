@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
+using WorksAssign.Pages.MasterPage;
 
-namespace WorksAssign.Pages.Device
+namespace WorksAssign.Pages.Devices
 {
-    public partial class ViewDevice : UIPage
+    public partial class ViewDevice : SimpleGridPage
     {
         public ViewDevice() {
             InitializeComponent();
