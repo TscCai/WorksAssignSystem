@@ -63,8 +63,7 @@ namespace WorksAssign.Pages.Works
 
         private void btn_Search_Click(object sender, EventArgs e) {
             InitializeData();
-            pgr_Data.ActivePage = 0;
-            pgr_Data.ActivePage = 1;
+        
 
         }
 
@@ -91,7 +90,7 @@ namespace WorksAssign.Pages.Works
             }
 
             InitializeData();
-            pgr_Data.ActivePage = 1;
+          //  pgr_Data.ActivePage = 0;
         }
 
         private void btn_Edit_Click(object sender, EventArgs e) {
@@ -130,7 +129,7 @@ namespace WorksAssign.Pages.Works
             if (!frm_EditWorks.CancelEditFlag) {
                 InitializeData();
                 pgr_Data.ActivePage = 0;
-                pgr_Data.ActivePage = 1;
+                //pgr_Data.ActivePage = 1;
             }
         }
 
