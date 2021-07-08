@@ -133,9 +133,6 @@ namespace WorksAssign.Pages.Works
             }
         }
 
-        private void pgr_Data_PageChanged(object sender, object pagingSource, int pageIndex, int count) {
-            dg_Data.DataSource = pagingSource;
-        }
 
     }
 }
