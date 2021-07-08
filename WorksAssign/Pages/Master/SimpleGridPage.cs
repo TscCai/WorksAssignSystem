@@ -19,10 +19,10 @@ namespace WorksAssign.Pages.Master
 
         public SimpleGridPage() {
             InitializeComponent();
-            InitControl();
+            AppendControl();
         }
 
-        protected virtual void InitControl() {
+        protected virtual void AppendControl() {
 
          
         }

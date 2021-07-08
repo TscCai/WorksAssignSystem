@@ -19,8 +19,9 @@ namespace WorksAssign.Pages
             InitializeComponent();
         }
 
-        protected override void InitControl() {
+        protected override void AppendControl() {
 
+         //   this.pnl_Header.FlowDirection = FlowDirection.LeftToRight;
             this.col_IsCCP = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_JoinDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();

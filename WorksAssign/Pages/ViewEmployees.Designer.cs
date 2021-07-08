@@ -29,8 +29,7 @@
             // 
             // lbl_Header
             // 
-            this.lbl_Header.Text = "班组成员";
-            this.pnl_footer.Controls.SetChildIndex(this.pgr_Data, 0);
+            this.pnl_Footer.Controls.SetChildIndex(this.pgr_Data, 0);
             // 
             // ViewEmployees
             // 
