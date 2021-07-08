@@ -12,11 +12,11 @@ using WorksAssign.Persistence;
 
 namespace WorksAssign.Pages
 {
-    public partial class EmployeeManage : UIPage
+    public partial class ViewEmployees : UIPage
     {
         WasDbAgent db;
         bool IsInited = false;
-        public EmployeeManage() {
+        public ViewEmployees() {
             InitializeComponent();
             AddButtons();
 

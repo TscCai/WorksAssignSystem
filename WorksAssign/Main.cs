@@ -41,7 +41,7 @@ namespace WorksAssign
                 AddPage(new WorksAssign.Pages.AttendanceManage(), 4);
                 frm_ParamManage = new WorksAssign.Pages.ParamManage();
                 AddPage(frm_ParamManage, 5);
-                AddPage(new WorksAssign.Pages.EmployeeManage(), 6);
+                AddPage(new WorksAssign.Pages.ViewEmployees(), 6);
                 AddPage(new WorksAssign.Pages.Device.ViewDevice(), 7);
                 AddPage(new WorksAssign.Pages.About(), 8);
 

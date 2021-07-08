@@ -128,7 +128,7 @@
     <Compile Include="Pages\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AbstractForm.cs">
+    <Compile Include="Pages\Master\AbstractForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pages\AttendanceManage.cs">
@@ -161,11 +161,17 @@
     <Compile Include="Pages\EditWorks.Designer.cs">
       <DependentUpon>EditWorks.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EmployeeManage.cs">
+    <Compile Include="Pages\Master\SimpleGridPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pages\EmployeeManage.Designer.cs">
-      <DependentUpon>EmployeeManage.cs</DependentUpon>
+    <Compile Include="Pages\Master\SimpleGridPage.Designer.cs">
+      <DependentUpon>SimpleGridPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ViewEmployees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\ViewEmployees.Designer.cs">
+      <DependentUpon>ViewEmployees.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\NewWorks.cs">
       <SubType>Form</SubType>
@@ -199,7 +205,7 @@
     <EmbeddedResource Include="Pages\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\AbstractForm.resx">
+    <EmbeddedResource Include="Pages\Master\AbstractForm.resx">
       <DependentUpon>AbstractForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\AttendanceManage.resx">
@@ -214,8 +220,11 @@
     <EmbeddedResource Include="Pages\EditWorks.resx">
       <DependentUpon>EditWorks.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\EmployeeManage.resx">
-      <DependentUpon>EmployeeManage.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\Master\SimpleGridPage.resx">
+      <DependentUpon>SimpleGridPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ViewEmployees.resx">
+      <DependentUpon>ViewEmployees.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\NewWorks.resx">
       <DependentUpon>NewWorks.cs</DependentUpon>

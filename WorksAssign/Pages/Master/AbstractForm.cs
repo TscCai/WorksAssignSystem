@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Persistence;
 
-namespace WorksAssign.Pages {
+namespace WorksAssign.Pages.Master {
 	public class AbstractForm:UIForm {
 		protected Dictionary<string, long> substations;
 		protected Dictionary<string, long> employees;
