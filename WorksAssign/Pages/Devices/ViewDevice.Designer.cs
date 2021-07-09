@@ -25,28 +25,43 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.uiSymbolButton1 = new Sunny.UI.UISymbolButton();
+            this.btn_Search = new Sunny.UI.UISymbolButton();
             this.pnl_Footer.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // pnl_Header
+            // 
+            this.pnl_Header.Size = new System.Drawing.Size(735, 55);
+            // 
+            // pnl_Footer
+            // 
+            this.pnl_Footer.Location = new System.Drawing.Point(0, 470);
+            this.pnl_Footer.Size = new System.Drawing.Size(735, 56);
             this.pnl_Footer.Controls.SetChildIndex(this.pgr_Data, 0);
             // 
-            // uiSymbolButton1
+            // pgr_Data
             // 
-            this.uiSymbolButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiSymbolButton1.Location = new System.Drawing.Point(0, 0);
-            this.uiSymbolButton1.Margin = new System.Windows.Forms.Padding(10, 10, 10, 5);
-            this.uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton1.Name = "uiSymbolButton1";
-            this.uiSymbolButton1.Size = new System.Drawing.Size(100, 35);
-            this.uiSymbolButton1.TabIndex = 0;
-            this.uiSymbolButton1.Text = "Test";
+            this.pgr_Data.Size = new System.Drawing.Size(695, 36);
+            // 
+            // btn_Search
+            // 
+            this.btn_Search.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Search.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.btn_Search.Location = new System.Drawing.Point(0, 0);
+            this.btn_Search.Margin = new System.Windows.Forms.Padding(10, 10, 10, 5);
+            this.btn_Search.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btn_Search.Name = "btn_Search";
+            this.btn_Search.Size = new System.Drawing.Size(100, 35);
+            this.btn_Search.TabIndex = 0;
+            this.btn_Search.Text = "Test";
+            this.btn_Search.Click += new System.EventHandler(this.btn_Search_Click);
             // 
             // ViewDevice
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 618);
+            this.ClientSize = new System.Drawing.Size(735, 526);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ViewDevice";
             this.Text = "ViewDevice";
             this.pnl_Footer.ResumeLayout(false);
@@ -56,6 +71,6 @@
 
         #endregion
 
-        private Sunny.UI.UISymbolButton uiSymbolButton1;
+        private Sunny.UI.UISymbolButton btn_Search;
     }
 }

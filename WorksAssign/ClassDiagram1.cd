@@ -1,146 +1,146 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="WorksAssign.AssemblyGetter" Collapsed="true">
-    <Position X="7.75" Y="0.5" Width="1.5" />
+    <Position X="11.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EIAAAAgAAAAACAEAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>AssemblyGetter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WorksAssign.Main" Collapsed="true">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="7.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAACAAAAAAAICAQAACAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Main.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WorksAssign.Program" Collapsed="true">
-    <Position X="6" Y="2.5" Width="1.5" />
+    <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WorksAssign.Pages.About" Collapsed="true">
-    <Position X="6" Y="0.5" Width="1.5" />
+    <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>Pages\About.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WorksAssign.Pages.AddEmployee" Collapsed="true">
-    <Position X="3.5" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAGAAkAADAAAASAAICAAAACAAAAAAABAAAAAADAAAA=</HashCode>
-      <FileName>Pages\AddEmployee.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="WorksAssign.Pages.AttendanceManage" Collapsed="true">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACRAAAAAEACAAAACAAAAAAABAAAAAABCACA=</HashCode>
       <FileName>Pages\AttendanceManage.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="WorksAssign.Pages.AddEmployee" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAkAADAAAASAAICAAAACAAAAAAABAAAAAADAAAA=</HashCode>
+      <FileName>Pages\Employees\AddEmployee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="WorksAssign.Pages.EditEmployee" Collapsed="true">
-    <Position X="3.5" Y="5" Width="1.5" />
+    <Position X="0.5" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAADAAAAAAAACIAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\EditEmployee.cs</FileName>
+      <FileName>Pages\Employees\EditEmployee.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WorksAssign.Pages.EditWorks" Collapsed="true">
-    <Position X="3.5" Y="2" Width="1.5" />
+  <Class Name="WorksAssign.Pages.ViewEmployees" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIiFAAAoCIIAQQABIWCAACCACJAAAERQQgQiIBBAeA=</HashCode>
-      <FileName>Pages\EditWorks.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WorksAssign.Pages.MemberDataRow" Collapsed="true">
-    <Position X="6" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAIAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAACAAA=</HashCode>
-      <FileName>Pages\EditWorks.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WorksAssign.Pages.EditWorkModel" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\EditWorks.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WorksAssign.Pages.NewWorks" Collapsed="true">
-    <Position X="7.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAmFAAIqCIYAAQABAmJAACCAAoAAAEBUAgQiAhAAcA=</HashCode>
-      <FileName>Pages\NewWorks.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WorksAssign.Pages.NewWorkModel" Collapsed="true">
-    <Position X="0.5" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQABAAAUAAAAAQAAACAAAAAAAAAAAAAQAQAAAEAgQAA=</HashCode>
-      <FileName>Pages\NewWorks.cs</FileName>
+      <HashCode>gAAAAAABAiAEAAAAAACQAAACAEACAAgFAAgAAMAAAAA=</HashCode>
+      <FileName>Pages\Employees\ViewEmployees.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WorksAssign.Pages.Outline" Collapsed="true">
-    <Position X="9.5" Y="1.5" Width="1.5" />
+    <Position X="11.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAACAgBACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pages\Outline.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WorksAssign.Pages.ParamManage" Collapsed="true">
-    <Position X="11.25" Y="1.5" Width="1.5" />
+    <Position X="13" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAUAAAQKCgQABAhSAGAAAACQAACECAAAIAAQkAAAAA=</HashCode>
       <FileName>Pages\ParamManage.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WorksAssign.Pages.ViewEmployees" Collapsed="true">
-    <Position X="0.5" Y="2" Width="1.5" />
+  <Class Name="WorksAssign.Pages.Devices.ViewDevice" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAABAiAEAAAAAACQAAACAEACAAgFAAgAAMAAAAA=</HashCode>
-      <FileName>Pages\ViewEmployees.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Devices\ViewDevice.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WorksAssign.Pages.ViewWorks" Collapsed="true">
-    <Position X="6" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>SAABIACAADACgCgAAhCAIBAWABACAQgFAAgRAAYBQJA=</HashCode>
-      <FileName>Pages\ViewWorks.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WorksAssign.Pages.Device.ViewDevice" Collapsed="true">
-    <Position X="11.25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pages\Device\ViewDevice.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WorksAssign.Pages.Master.AbstractForm" Collapsed="true">
-    <Position X="3.5" Y="0.5" Width="1.5" />
+  <Class Name="WorksAssign.Pages.MasterPage.AbstractForm" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAICAAQAAAAAAAJAAACAAAAAAAAAAgQAAAAAAA=</HashCode>
-      <FileName>Pages\Master\AbstractForm.cs</FileName>
+      <FileName>Pages\MasterPage\AbstractForm.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WorksAssign.Pages.Master.SimpleGridPage" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="WorksAssign.Pages.MasterPage.SimpleGridPage" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAEAAAAACAQAAAAABCEAAACAAQAAAABAigAAAABAAA=</HashCode>
-      <FileName>Pages\Master\SimpleGridPage.cs</FileName>
+      <HashCode>EAAEAAAAACAQAAAAABCAAAACAAQAAAABAigAAAABAAA=</HashCode>
+      <FileName>Pages\MasterPage\SimpleGridPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorksAssign.Pages.Works.AddWork" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAmFAAIqCIYAAQABAmJAACCAAoAAAEBUAgQiAhAAcA=</HashCode>
+      <FileName>Pages\Works\AddWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorksAssign.Pages.Works.NewWorkModel" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAUAAAAAQAAACAAAAAAAAAAAAAQAQAAAEAgQAA=</HashCode>
+      <FileName>Pages\Works\AddWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorksAssign.Pages.Works.EditWork" Collapsed="true">
+    <Position X="3.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIiFAAAoCIIAQQABIWCAACCACJAAAERQQgQiIBBAeA=</HashCode>
+      <FileName>Pages\Works\EditWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorksAssign.Pages.Works.MemberDataRow" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAACAAA=</HashCode>
+      <FileName>Pages\Works\EditWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorksAssign.Pages.Works.EditWorkModel" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Works\EditWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorksAssign.Pages.Works.ViewWorks" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAIACAADACgAgAAhCAIAAWABACAAABAAgQAAQAQJA=</HashCode>
+      <FileName>Pages\Works\ViewWorks.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WorksAssign.Properties.Resources" Collapsed="true">
-    <Position X="7.75" Y="2.5" Width="1.5" />
+    <Position X="9.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="WorksAssign.Properties.Settings" Collapsed="true">
-    <Position X="9.5" Y="2.5" Width="1.5" />
+    <Position X="11.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>

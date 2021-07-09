@@ -254,6 +254,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="App_Data\SecondaryDevice.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App_Data\WorksAssign.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

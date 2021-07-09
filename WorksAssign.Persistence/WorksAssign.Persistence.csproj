@@ -46,6 +46,7 @@
     <Compile Include="Device.cs">
       <DependentUpon>DeviceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeviceDbAgent.cs" />
     <Compile Include="DeviceModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

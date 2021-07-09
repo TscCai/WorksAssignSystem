@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
 using WorksAssign.Pages.MasterPage;
+using WorksAssign.Persistence;
 
 namespace WorksAssign.Pages.Devices
 {
@@ -24,7 +25,16 @@ namespace WorksAssign.Pages.Devices
             // 
             pnl_Header.FlowDirection = FlowDirection.LeftToRight;
        
-            this.pnl_Header.AddControl(this.uiSymbolButton1);
+            this.pnl_Header.AddControl(this.btn_Search);
+        }
+
+        private void btn_Search_Click(object sender, EventArgs e) {
+            using (var db = new DeviceDbAgent()) {
+                var data = db.GetAllDeviceView().ToList();
+                pgr_Data.DataSource = data;
+                pgr_Data.TotalCount = data.Count();
+                pgr_Data.ActivePage = 1;
+            }
         }
     }
 }
