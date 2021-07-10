@@ -17,16 +17,10 @@ namespace WorksAssign.Pages.Devices
     {
         public ViewDevice() {
             InitializeComponent();
-
-
-
-            // 
-            // uiSymbolButton1
-            // 
-            pnl_Header.FlowDirection = FlowDirection.LeftToRight;
-       
-            this.pnl_Header.AddControl(this.btn_Search);
+           
         }
+
+       
 
         private void btn_Search_Click(object sender, EventArgs e) {
             using (var db = new DeviceDbAgent()) {

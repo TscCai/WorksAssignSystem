@@ -11,7 +11,7 @@ namespace WorksAssign.Persistence
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Vx_AllDevice
     {
         public string Id { get; set; }
@@ -21,11 +21,32 @@ namespace WorksAssign.Persistence
         public string DeviceName { get; set; }
         public string Voltage { get; set; }
         public string Type { get; set; }
-        public string Model { get; set; }
+        string _model;
+        public string Model {
+            get { return _model != null ? _model.Replace(";", Environment.NewLine) : null; }
+            set { _model = value; }
+        }
         public string Vendor { get; set; }
-        public string Version { get; set; }
-        public string BuildDate { get; set; }
-        public string CRC { get; set; }
+
+        string _version;
+        public string Version {
+            get { return _version != null ? _version.Replace(";", Environment.NewLine) : null; }
+            set { _version = value; }
+        }
+
+        //   public string Version { get; set; }
+
+        string _buildDate;
+        public string BuildDate {
+            get { return _buildDate != null ? _buildDate.Replace(";", Environment.NewLine) : null; }
+            set { _buildDate = value; }
+        }
+
+        string _crc;
+        public string CRC {
+            get { return _crc != null ? _crc.Replace(";", Environment.NewLine) : null; }
+            set { _crc = value; }
+        }
         public Nullable<System.DateTime> ProducedDate { get; set; }
         public Nullable<bool> Enable { get; set; }
         public string Comment { get; set; }
