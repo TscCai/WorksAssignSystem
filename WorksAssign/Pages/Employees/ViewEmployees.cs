@@ -79,19 +79,21 @@ namespace WorksAssign.Pages
 
         private void Btn_Edit_Click(object sender, EventArgs e) {
             var items = GetChosenItems<Employee>();
-            if (items.Count > 0) {
-                if (items.Count > 1) {
-                    this.ShowErrorDialog("仅能对选中的第一条记录进行编辑");
-                }
-                var i = items.First();
-                EditEmployee frm_EditEmployee = new EditEmployee(i);
-                frm_EditEmployee.ShowDialog();
-
-                InitializeData();
-
-                pgr_Data.ActivePage = 0;
-                pgr_Data.ActivePage = 1;
+            if (items.Count < 1) {
+                return;
             }
+            if (items.Count > 1) {
+                this.ShowErrorDialog("仅能对选中的第一条记录进行编辑");
+            }
+            var i = items.First();
+            EditEmployee frm_EditEmployee = new EditEmployee(i);
+            frm_EditEmployee.ShowDialog();
+
+            InitializeData();
+
+            pgr_Data.ActivePage = 0;
+            pgr_Data.ActivePage = 1;
+
 
         }
 

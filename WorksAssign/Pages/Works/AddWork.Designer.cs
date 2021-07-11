@@ -292,7 +292,7 @@
             this.cb_ShortType.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cb_ShortType.EditorLostFocus += new System.EventHandler(this.cb_Substation_EditorLostFocus);
             // 
-            // NewWorks
+            // AddWork
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -317,7 +317,7 @@
             this.Controls.Add(this.lbl_WorkDate);
             this.Controls.Add(this.uiLabel1);
             this.Controls.Add(this.lbl_Station);
-            this.Name = "NewWorks";
+            this.Name = "AddWork";
             this.Text = "NewWorks";
             this.Initialize += new System.EventHandler(this.NewWorks_Initialize);
             this.ResumeLayout(false);

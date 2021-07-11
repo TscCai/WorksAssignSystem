@@ -75,7 +75,7 @@ namespace WorksAssign.Pages.Works
             this.btn_Export.Symbol = 61920;
             this.btn_Export.TabIndex = 19;
             this.btn_Export.Text = "导出所有";
-            btn_Export.Margin = new System.Windows.Forms.Padding(5, 5,5, 5);
+            btn_Export.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
             // 
             // btn_Del
             // 
@@ -87,7 +87,7 @@ namespace WorksAssign.Pages.Works
             this.btn_Del.Symbol = 61544;
             this.btn_Del.TabIndex = 17;
             this.btn_Del.Text = "删除";
-            btn_Del.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            btn_Del.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
             // 
             // btn_Edit
             // 
@@ -99,7 +99,7 @@ namespace WorksAssign.Pages.Works
             this.btn_Edit.Symbol = 61508;
             this.btn_Edit.TabIndex = 18;
             this.btn_Edit.Text = "编辑";
-            btn_Edit.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            btn_Edit.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
             // 
             // btn_Search
             // 
@@ -112,14 +112,14 @@ namespace WorksAssign.Pages.Works
             this.btn_Search.Symbol = 61442;
             this.btn_Search.TabIndex = 14;
             this.btn_Search.Text = "查询";
-            btn_Search.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            btn_Search.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
             // 
             // dpk_Start
             // 
             this.dpk_Start.Dock = System.Windows.Forms.DockStyle.Left;
             this.dpk_Start.FillColor = System.Drawing.Color.White;
             this.dpk_Start.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.dpk_Start.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dpk_Start.Margin = new System.Windows.Forms.Padding(4, 10, 4, 5);
             this.dpk_Start.MaxLength = 10;
             this.dpk_Start.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_Start.Name = "dpk_Start";
@@ -136,7 +136,7 @@ namespace WorksAssign.Pages.Works
             this.dpk_End.Dock = System.Windows.Forms.DockStyle.Left;
             this.dpk_End.FillColor = System.Drawing.Color.White;
             this.dpk_End.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.dpk_End.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dpk_End.Margin = new System.Windows.Forms.Padding(4, 10, 4, 5);
             this.dpk_End.MaxLength = 10;
             this.dpk_End.MinimumSize = new System.Drawing.Size(63, 0);
             this.dpk_End.Name = "dpk_End";

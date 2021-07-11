@@ -34,6 +34,11 @@ namespace WorksAssign.Pages.MasterPage
             dg_Data.DataSource = pagingSource;
         }
 
+        /// <summary>
+        /// return the chosen item list. won't return null anytime.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         protected List<T> GetChosenItems<T>() {
             List<T> result = new List<T>();
             DataGridViewRowCollection dt = dg_Data.Rows;

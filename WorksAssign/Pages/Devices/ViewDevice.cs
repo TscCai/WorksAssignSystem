@@ -30,5 +30,23 @@ namespace WorksAssign.Pages.Devices
                 pgr_Data.ActivePage = 1;
             }
         }
+
+
+        private void btn_Add_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btn_Edit_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btn_Del_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btn_Export_Click(object sender, EventArgs e) {
+
+        }
+
     }
 }
